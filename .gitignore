@@ -1,0 +1,27 @@
+# Maven
+/target/
+
+# IntelliJ
+.idea/
+*.iml
+
+# Logs
+*.log
+logs/
+
+# Screenshots
+screenshots/**
+!screenshots/passed/
+!screenshots/passed/**
+screenshots/failed/
+
+# Allure
+allure-results/
+allure-report/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+/tmp/

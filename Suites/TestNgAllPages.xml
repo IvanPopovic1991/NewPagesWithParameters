@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Landing pages with parameters">
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+        <listener class-name="core.listeners.RetryTransformer"/>
+        <listener class-name="core.listeners.ScreenshotListener"/>
+        <listener class-name="core.listeners.TestListener"/>
+    </listeners>
+    <suite-files>
+        <suite-file path="TestNgFortradePages.xml"/>
+    </suite-files>
+</suite>

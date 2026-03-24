@@ -1,0 +1,62 @@
+package core.base;
+
+import core.driver.DriverManager;
+import core.utils.ScreenshotUtil;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+
+public class BaseTest {
+
+    @BeforeMethod(alwaysRun = true)
+    @Parameters({"env", "browser"})
+    public void setUp(String env, String browser) {
+
+        System.setProperty("env", env);
+        System.setProperty("browser", browser);
+
+        DriverManager.initDriver();
+
+        DriverManager.getDriver().manage().window().maximize();
+
+        System.out.println("Driver started");
+    }
+
+    protected void openUrl(String url) {
+        DriverManager.getDriver().get(url);
+    }
+
+    @AfterMethod
+    public void tearDown(ITestResult result) {
+
+        String status;
+
+        switch (result.getStatus()) {
+
+            case ITestResult.FAILURE:
+                status = "FAILED";
+                break;
+
+                case ITestResult.SUCCESS:
+                status = "PASSED";
+                break;
+
+            case ITestResult.SKIP:
+                status = "SKIPPED";
+                break;
+
+            default:
+                status = "UNKNOWN";
+        }
+
+        String path = ScreenshotUtil.captureScreenshot(
+                result.getName() + "_" + status,
+                status
+        );
+
+        result.setAttribute("screenshotPath", path);
+
+        DriverManager.quitDriver();
+    }
+}
