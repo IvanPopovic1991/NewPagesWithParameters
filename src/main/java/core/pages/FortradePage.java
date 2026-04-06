@@ -3,8 +3,10 @@ package core.pages;
 import core.actions.ElementActions;
 import core.base.BasePage;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 public class FortradePage extends BasePage {
 
@@ -28,6 +30,16 @@ public class FortradePage extends BasePage {
 
     @FindBy(xpath = "//button[@id='main-submit-btn']")
     public WebElement submitBtn;
+
+    @FindBy(xpath = "//span[@class='errorMessage' and contains(text(),'Email or phone already exists')]")
+    public WebElement msgAlrRegEmail;
+
+    @FindBy(xpath = "//span[@class='errorMessage' and text()='Email or phone already exists. Please use a different email address or phone number.']")
+    public WebElement alrRegPhoneMsg;
+
+    public String msgAlrRegEmailAdd = "Email or phone already exists. Please use a different email address or phone number.";
+
+    public String msgAlrRegPhone = "Email or phone already exists. Please use a different email address or phone number.";
 
     @Step("Insert first name: {firstNameData}")
     public void insertFirstName(String firstNameData) {
@@ -61,4 +73,27 @@ public class FortradePage extends BasePage {
         clickGetStartedBtn();
     }
 
+    public void assertAlrRegEmailErrorMsg() {
+        Assert.assertEquals(
+                ElementActions.getText(
+                        msgAlrRegEmail,
+                        "Already registered email address error message"),
+                        msgAlrRegEmailAdd);
+    }
+
+    public void assertErrMsgForAlreadyRegisteredAccount() {
+        Assert.assertEquals(ElementActions.getText(alrRegPhoneMsg,"Already registered phone number error message"),msgAlrRegPhone);
+    }
+
+    String[] errorMessages = {"Please enter all your given first name(s).",
+            "Please enter your last name.",
+            "Must be a valid email address.",
+            //"Phone number is required"
+            "Phone number must be exactly 10 digits and cannot start with 0"};
+
+    public void assertErrorMessages() {
+        for (int i = 1; i <= 4; i++) {
+            Assert.assertEquals(ElementActions.getText(By.xpath("(//span[@class='errorMessage'])[position()=number]".replace("number", String.valueOf(i))), "error message " + errorMessages[i - 1]), errorMessages[i - 1]);
+        }
+    }
 }

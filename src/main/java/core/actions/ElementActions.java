@@ -114,6 +114,33 @@ public class ElementActions {
         return text;
     }
 
+    /*
+        public String getTextBy(By by, String log) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, waitTime);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+
+            System.out.println("Got text from " + log + " element.");
+            return driver.findElement(by).getText();
+        } catch (StaleElementReferenceException e) {
+            System.out.println("Got text from " + log + " element.");
+            return driver.findElement(by).getText();
+        }
+    }
+     */
+
+    @Step("Get text from {elementName}")
+    public static String getText(By by, String elementName){
+
+        String text = driver().findElement(by).getText();
+
+        log.info("Retrieved text from {} : {}", elementName, text);
+
+        Allure.step("Get text from " + elementName);
+
+        return driver().findElement(by).getText();
+    }
+
     /* ================= DROPDOWN ================= */
 
     @Step("Select '{text}' from dropdown {elementName}")

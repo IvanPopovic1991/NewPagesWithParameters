@@ -14,7 +14,7 @@
         <classes>
             <class name="tests.TestsFortrade.PremiumForexCA">
                 <methods>
-                    <include name="demoAccountRegistration"/>
+                    <include name="alreadyRegisteredPhoneNumber"/>
                 </methods>
             </class>
         </classes>

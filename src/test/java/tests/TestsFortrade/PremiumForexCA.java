@@ -29,13 +29,10 @@ public class PremiumForexCA extends BaseTest {
         openUrl(ConfigReader.getBaseUrl("base.url"));
     }
 
-    @Story("Successfully demo account registration")
-    @Test
+    @Test(description = "TC 2.1. Verify the demo account is registered successfully with valid data")
     @Parameters({"regulation"})
-    @Description("Verify the demo account is registered successfully with valid data")
     public void demoAccountRegistration(String regulation) throws IOException, AWTException {
         ScreenshotUtil.setCustomName("Demo account is successfully registered - " + regulation);
-        openUrl(ConfigReader.getBaseUrl("base.url"));
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,TestData.generateEmail(),TestData.canadaPhoneNumber());
         readyFortrade.assertURL("https://ready.fortrade.com/");
         readyFortrade.clickUsePassBtn();
@@ -43,14 +40,72 @@ public class PremiumForexCA extends BaseTest {
         readyFortrade.checkRegulation(regulation);
     }
 
-    //@Story("Verify that the Last Name cannot be the same as First name")
-    @Test(description = "Verify that the Last Name cannot be the same as First name")
+    @Test(description = "TC 3.1. Verify that the account cannot be registered with already registered email address")
+    @Parameters({"regulation"})
+    public void alreadyRegisteredEmailAddress(String regulation){
+        ScreenshotUtil.setCustomName("Already registered email address " + regulation);
+        Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
+        String email = TestData.generateEmail();
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,TestData.canadaPhoneNumber());
+        readyFortrade.assertURL(TestData.appUrl);
+        openUrl(ConfigReader.getBaseUrl("base.url"));
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,TestData.canadaPhoneNumber());
+        fortradePage.assertAlrRegEmailErrorMsg();
+    }
+
+    @Test(description="TC 3.2 Verify the demo account is not registered successfully with invalid data")
+    @Parameters({"regulation"})
+    public void nonValidData(String regulation){
+        ScreenshotUtil.setCustomName("Non valid data " + regulation);
+        Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
+        fortradePage.registerDemoAccount("123","574","abcd134324","0198798");
+        fortradePage.assertErrorMessages();
+    }
+
+    @Test(description = "TC 3.3. Verify that the account cannot be registered with already registered phone number")
+    @Parameters({"regulation"})
+    public void alreadyRegisteredPhoneNumber(String regulation){
+        ScreenshotUtil.setCustomName("Already registered phone number " + regulation);
+        Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
+        String phoneNumber = TestData.canadaPhoneNumber();
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,TestData.generateEmail(),phoneNumber);
+        readyFortrade.assertURL(TestData.appUrl);
+        openUrl(ConfigReader.getBaseUrl("base.url"));
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,TestData.generateEmail(),phoneNumber);
+        fortradePage.assertErrMsgForAlreadyRegisteredAccount();
+    }
+
+    @Test(description = "TC 3.4. Verify that the account cannot be registered with already registered email address and phone number")
+    @Parameters({"regulation"})
+    public void alreadyRegisteredEmailAndPhone(String regulation){
+    ScreenshotUtil.setCustomName("Already registered email address and phone number " + regulation);
+    Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
+    String email = TestData.generateEmail();
+    String phone = TestData.canadaPhoneNumber();
+    fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,phone);
+    readyFortrade.assertURL(TestData.appUrl);
+    openUrl(ConfigReader.getBaseUrl("base.url"));
+    fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,phone);
+    fortradePage.assertAlrRegEmailErrorMsg();
+    }
+
+    @Test(description = "TC 3.5. Verify the demo account is not registered successfully with empty fields")
+    @Parameters({"regulation"})
+    public void emptyDataRegistration(String regulation){
+        ScreenshotUtil.setCustomName("Unsuccessfully account registration with empty data " + regulation);
+        Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
+        fortradePage.clickGetStartedBtn();
+        //missing assertation
+    }
+
+    @Test(description = "TC 4.6. Verify that the Last Name cannot be the same as First name")
     @Parameters({"regulation"})
     public void sameFNameAndLName(String regulation) {
         ScreenshotUtil.setCustomName("Your first name must be different from your last name - " + regulation);
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
-        fortradePage.insertFirstName("Test");
-        fortradePage.insertLastName("Test");
+        fortradePage.insertFirstName(TestData.sameNameAndSurname);
+        fortradePage.insertLastName(TestData.sameNameAndSurname);
         ElementActions.click(fortradePage.email, "email address");
     }
+
 }
