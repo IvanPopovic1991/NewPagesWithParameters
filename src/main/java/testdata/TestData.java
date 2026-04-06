@@ -39,4 +39,6 @@ public class TestData {
 
     public static String sameNameAndSurname = "Test";
 
+    public static String appUrl = "https://ready.fortrade.com/";
+
 }
