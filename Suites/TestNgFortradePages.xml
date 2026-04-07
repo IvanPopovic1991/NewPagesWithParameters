@@ -11,11 +11,14 @@
     <parameter name="browser" value="chrome"/>
     <test name="Test cases - Premium Forex CA landing page">
         <parameter name="regulation" value="iiroc"/>
+        <parameter name="countryCode" value="1"/>
         <classes>
             <class name="tests.TestsFortrade.PremiumForexCA">
-                <methods>
-                    <include name="alreadyRegisteredPhoneNumber"/>
-                </methods>
+                    <methods>
+                        <include name="checkAccountRegulation"/>
+                        <include name="checkAccountDetailsInCrm"/>
+                        <include name="checkTagsInCrm"/>
+                    </methods>
             </class>
         </classes>
     </test>

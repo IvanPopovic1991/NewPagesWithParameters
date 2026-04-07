@@ -10,6 +10,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
+
+
 public class ElementActions {
 
     private static final Logger log =
@@ -114,23 +116,8 @@ public class ElementActions {
         return text;
     }
 
-    /*
-        public String getTextBy(By by, String log) {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, waitTime);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-
-            System.out.println("Got text from " + log + " element.");
-            return driver.findElement(by).getText();
-        } catch (StaleElementReferenceException e) {
-            System.out.println("Got text from " + log + " element.");
-            return driver.findElement(by).getText();
-        }
-    }
-     */
-
     @Step("Get text from {elementName}")
-    public static String getText(By by, String elementName){
+    public static String getText(By by, String elementName) {
 
         String text = driver().findElement(by).getText();
 
@@ -245,5 +232,37 @@ public class ElementActions {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    /* ================= READ ATTRIBUTE ================= */
+
+    public static String readAttribute(WebElement element, String attribute,String text) {
+
+        System.out.println("Get attribute from " + attribute+ " element");
+
+        WaitUtil.waitForVisible(element);
+
+        String value = element.getAttribute(attribute);
+
+        log.info("Retrieved text from {} : {}", attribute, log);
+
+        Allure.step("Get " + attribute + " from " + attribute);
+
+        return value;
+
+    }
+
+    @Step("Get attribute '{attribute}' from element")
+    public static String readAttribute(By elementBy, String attribute, String text) {
+
+        WaitUtil.waitForPresence(elementBy);
+
+        String value = driver().findElement(elementBy).getAttribute(attribute);
+
+        log.info("Retrieved attribute '{}' with value '{}'", attribute, value);
+
+        Allure.step("Get attribute " + attribute + " = " + value);
+
+        return value;
     }
 }
