@@ -168,9 +168,11 @@ public class ElementActions {
 
         WaitUtil.waitForClickable(element);
 
-        actions()
-                .contextClick(element)
-                .perform();
+        scrollTo(element, elementName);
+
+        String href = getAttributeValue(element, "href");
+
+        ((JavascriptExecutor) driver()).executeScript("window.open(arguments[0], '_blank');", href);
 
         log.info("Right clicked element {}", elementName);
 
@@ -213,11 +215,13 @@ public class ElementActions {
     public static void scrollTo(WebElement element,
                                 String elementName) {
 
-        ((JavascriptExecutor) driver())
-                .executeScript(
-                        "arguments[0].scrollIntoView(true);",
-                        element
-                );
+        JavascriptExecutor js = (JavascriptExecutor) driver();
+
+// 1. scroll element na view
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+
+// 2. pomeri malo dole (offset)
+        js.executeScript("window.scrollBy(0, 300);");
 
         log.info("Scrolled to element {}", elementName);
 
@@ -253,7 +257,7 @@ public class ElementActions {
     }
 
     @Step("Get attribute '{attribute}' from element")
-    public static String readAttribute(By elementBy, String attribute, String text) {
+    public static String readAttribute(By elementBy, String attribute) {
 
         WaitUtil.waitForPresence(elementBy);
 
@@ -262,6 +266,35 @@ public class ElementActions {
         log.info("Retrieved attribute '{}' with value '{}'", attribute, value);
 
         Allure.step("Get attribute " + attribute + " = " + value);
+
+        return value;
+        }
+    @Step("Get css value from {elementName}")
+    public static String getCssValue(WebElement element,
+                                 String propertyName) {
+
+        WaitUtil.waitForVisible(element);
+
+        String text = element.getCssValue(propertyName);
+
+        log.info("Retrieved css value from {} : {}", propertyName, text);
+
+        Allure.step("Get " + text + " from " + propertyName);
+
+        return text;
+    }
+
+    @Step("Get attribute value from {elementName}")
+    public static String getAttributeValue(WebElement element,
+                                           String attributeName) {
+
+        WaitUtil.waitForVisible(element);
+
+        String value = element.getAttribute(attributeName);
+
+        log.info("Retrieved attribute {} : {}", attributeName, value);
+
+        Allure.step("Get " + value + " from " + attributeName);
 
         return value;
     }

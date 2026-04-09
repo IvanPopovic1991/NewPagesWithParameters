@@ -2,11 +2,20 @@ package core.pages;
 
 import core.actions.ElementActions;
 import core.base.BasePage;
+import core.driver.DriverManager;
+import core.waitsManagement.WaitUtil;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FortradePage extends BasePage {
 
@@ -61,6 +70,62 @@ public class FortradePage extends BasePage {
 
     @FindBy(xpath = "//button[@id='main-submit-btn']")
     public WebElement continueBtn;
+
+    @FindBy(xpath = "//div[@class='flex-shrink-0']")
+    public WebElement iirocLogo;
+
+    @FindBy(xpath = "//form/p")
+    public WebElement textUnderFormIiroc;
+
+    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='FirstName']")
+    public WebElement borderColorForFirstName;
+
+    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='LastName']")
+    public WebElement borderColorForLastName;
+
+    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='EmailAddress']")
+    public WebElement borderColorForEmail;
+
+    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='TelephoneMask']")
+    public WebElement borderColorForPhone;
+
+    @FindBy(xpath = "//p/a[text()='Privacy Policy']")
+    public WebElement headerPrivacyPolicyLink;
+
+    @FindBy(xpath = "//p/a[text()='Terms and Conditions']")
+    public WebElement headerTermsAndConditionsLink;
+    @FindBy(xpath = "//p/a[text()='Already have an account?']")
+    public WebElement alreadyHaveAnAccountLink;
+
+    @FindBy(xpath = "//div/a[text()='Contact Us']")
+    public WebElement contactUsLink;
+
+    @FindBy(xpath = "//b/a[text()='support@fortrade.com']")
+    public WebElement supportLink;
+
+    @FindBy(xpath = "//div/a[contains(text(), 'Risk warning')]")
+    public WebElement footerRiskWarningLink;
+
+    @FindBy(xpath = "//div/a[contains(text(), 'Privacy policy')]")
+    public WebElement footerPrivacyPolicyLink;
+
+    @FindBy(xpath = "//div/a[text()='FRN: 609970']")
+    public WebElement footerFCALink;
+
+    @FindBy(xpath = "//div/a[text()='CRN: BC1148613']")
+    public WebElement footerIIROCLink;
+
+    @FindBy(xpath = "//div/a[text()='ABN: 33 614 683 831 | AFSL: 493520']")
+    public WebElement footerASICLink;
+
+    @FindBy(xpath = "//div/a[text()='CIF license number 385/20']")
+    public WebElement footerCYSECLink;
+
+    @FindBy(xpath = "//div/a[text()=' GB21026472']")
+    public WebElement footerFSCLink;
+
+    @FindBy(xpath = "//div/a[text()=' No. F009856']")
+    public WebElement footerDFSALink;
 
     @Step("Insert first name: {firstNameData}")
     public void insertFirstName(String firstNameData) {
@@ -226,5 +291,75 @@ public class FortradePage extends BasePage {
         for (int i = 1; i <= 4; i++) {
             Assert.assertEquals(ElementActions.getText(By.xpath("(//span[@class='errorMessage'])[position()=number]".replace("number", String.valueOf(i))), "error message " + errorMessages[i - 1]), errorMessages[i - 1]);
         }
+    }
+    public void checkLogoClickability(){
+        ElementActions.click(iirocLogo, "fortrade iiroc logo");
+    }
+
+    public void assertURL(String url) {
+        WaitUtil.waitForUrlContains(url);
+        Assert.assertTrue(driver.getCurrentUrl().contains(url));
+    }
+
+    public void assertText(WebElement element, String text){
+        WaitUtil.waitForVisible(element);
+        Assert.assertEquals(ElementActions.getText(element, "text under form for iiroc"), text);
+    }
+
+    public void assertBorderColor(WebElement element, String propertyName, String expectedValue) {
+        String borderColor =  ElementActions.getCssValue(element, propertyName);
+        Assert.assertEquals(borderColor, expectedValue);
+    }
+
+    public void assertFirstStepErrorMessage (String errorMessage){
+        WebElement webElement = driver.findElement(By.xpath("//span[@class='errorMessage'][text()='{text}']".replace("{text}", errorMessage)));
+        Assert.assertEquals(ElementActions.getText(webElement, "error message"), errorMessage);
+    }
+
+    public void checkLinksWithLeftClick(WebElement element, String elementName, String expectedUrl){
+        WebDriver driver = DriverManager.getDriver();
+        Capabilities caps = ((RemoteWebDriver) driver).getCapabilities();
+        String browserName = caps.getBrowserName().toLowerCase();
+
+        ElementActions.click(element, elementName);
+        List<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        if (tabs.size() > 1){
+            if (browserName.equalsIgnoreCase("chrome")){
+                driver.switchTo().window(tabs.get(2));
+            } else {
+                driver.switchTo().window(tabs.get(1));
+            }
+        }
+        WaitUtil.waitForPageLoad();
+        assertURL(expectedUrl);
+        try {
+            Thread.sleep(2000);
+        } catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+    public void checkLinksWithRightClick(WebElement element, String elementName, String expectedUrl){
+        WebDriver driver = DriverManager.getDriver();
+        Capabilities caps = ((RemoteWebDriver) driver).getCapabilities();
+        String browserName = caps.getBrowserName().toLowerCase();
+
+        ElementActions.rightClick(element, elementName);
+        List<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        if (tabs.size() > 1){
+            if (browserName.equalsIgnoreCase("chrome")){
+                driver.switchTo().window(tabs.get(2));
+            } else {
+                driver.switchTo().window(tabs.get(1));
+            }
+        }
+        WaitUtil.waitForPageLoad();
+        assertURL(expectedUrl);
+    }
+
+    public void checkMailLinks (WebElement element, String elementAttribute, String expectedUrl){
+        String attribute = ElementActions.getAttributeValue(element, elementAttribute);
+        String decodedAttribute = URLDecoder.decode(attribute, StandardCharsets.UTF_8);
+        Assert.assertEquals(decodedAttribute, expectedUrl);
     }
 }

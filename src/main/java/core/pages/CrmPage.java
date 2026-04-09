@@ -102,7 +102,7 @@ public class CrmPage extends BasePage {
     }
 
     public void tagsInTheCrm(String tag, String value) {
-        String valueOfTag = ElementActions.readAttribute(By.xpath("//div[@id='{Tag}']".replace("{Tag}", tag)), "title","tag");
+        String valueOfTag = ElementActions.readAttribute(By.xpath("//div[@id='{Tag}']".replace("{Tag}", tag)), "title");
         System.out.println("This is the value of the " + tag + ": " + value);
         Assert.assertEquals(valueOfTag, value);
     }

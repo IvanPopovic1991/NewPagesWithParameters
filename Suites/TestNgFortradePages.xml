@@ -14,11 +14,32 @@
         <parameter name="countryCode" value="1"/>
         <classes>
             <class name="tests.TestsFortrade.PremiumForexCA">
-                    <methods>
-                        <include name="checkAccountRegulation"/>
-                        <include name="checkAccountDetailsInCrm"/>
-                        <include name="checkTagsInCrm"/>
-                    </methods>
+                <methods>
+                    <include name="checkHeaderPrivacyPolicyLinkWithLeftClick"/>
+                    <include name="checkHeaderPrivacyPolicyLinkWithRightClick"/>
+                    <include name="checkHeaderTermsAndConditionsLinkWithLeftClick"/>
+                    <include name="checkHeaderTermsAndConditionsLinkWithRightClick"/>
+                    <include name="checkAlreadyHaveAnAccountLinkWithLeftClick"/>
+                    <include name="checkAlreadyHaveAnAccountLinkWithRightClick"/>
+                    <include name="checkContactUsLink"/>
+                    <include name="checkSupportLink"/>
+                    <include name="checkRiskWarningLinkWithLeftClick"/>
+                    <include name="checkRiskWarningLinkWithRightClick"/>
+                    <include name="checkFooterPrivacyPolicyLinkWithLeftClick"/>
+                    <include name="checkFooterPrivacyPolicyLinkWithRightClick"/>
+                    <include name="checkFcaLinkWithLeftClick"/>
+                    <include name="checkFcaLinkWithRightClick"/>
+                    <include name="checkIirocLinkWithLeftClick"/>
+                    <include name="checkIirocLinkWithRightClick"/>
+                    <include name="checkAsicLinkWithLeftClick"/>
+                    <include name="checkAsicLinkWithRightClick"/>
+                    <include name="checkCysecLinkWithLeftClick"/>
+                    <include name="checkCysecLinkWithRightClick"/>
+                    <include name="checkFscLinkWithLeftClick"/>
+                    <include name="checkFscLinkWithRightClick"/>
+                    <include name="checkDfsaLinkWithLeftClick"/>
+                    <include name="checkDfsaLinkWithRightClick"/>
+                </methods>
             </class>
         </classes>
     </test>
