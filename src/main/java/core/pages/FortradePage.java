@@ -12,6 +12,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+import testdata.TestData;
+
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -126,6 +128,30 @@ public class FortradePage extends BasePage {
 
     @FindBy(xpath = "//div/a[text()=' No. F009856']")
     public WebElement footerDFSALink;
+
+    @FindBy(xpath = "//input[@id='Resend-Token-Btn']")
+    public WebElement iDidntReceiveTheCodeLink;
+
+    @FindBy(xpath = "//label[text()='We sent you the code again']")
+    public WebElement weSentYouTheCodeAgainText;
+
+    @FindBy(xpath = "//div/input[@name='Token0']")
+    public WebElement firstSmsTokenField;
+
+    @FindBy(xpath = "//div/input[@name='Token1']")
+    public WebElement secondSmsTokenField;
+
+    @FindBy(xpath = "//div/input[@name='Token2']")
+    public WebElement thirdSmsTokenField;
+
+    @FindBy(xpath = "//div/input[@name='Token3']")
+    public WebElement fourthSmsTokenField;
+
+    @FindBy(xpath = "//div/span[text()='Incorrect Code. Please check and try again.']")
+    public WebElement smsFieldsErrorMessage;
+
+    @FindBy(xpath = "//div/input[@id='Details-Edit-Btn']")
+    public WebElement editPencilButton;
 
     @Step("Insert first name: {firstNameData}")
     public void insertFirstName(String firstNameData) {
@@ -251,6 +277,15 @@ public class FortradePage extends BasePage {
         clickGetStartedBtn();
     }
 
+    public void goToSecondStep(String firstNameData, String lastNameData, String emailAddress, String countryCodeData, String phoneNumberData) {
+        insertFirstName(firstNameData);
+        insertLastName(lastNameData);
+        insertEmailAddress(emailAddress);
+        handleCountryCode(countryCodeData);
+        insertPhoneNumber(phoneNumberData);
+        clickSubmitBtnParams();
+    }
+
     public void registerDemoAccountWithParameters(String firstNameData, String lastNameData, String emailAddress,
                                                   String countryCodeData, String phoneNumberData, String ageData,
                                                   String annualData, String savingData, String knowledgeData,
@@ -267,6 +302,32 @@ public class FortradePage extends BasePage {
         selectKnowledge(knowledgeData);
         selectLanguage(languageData);
         clickSubmitBtn2nd();
+    }
+
+    public void fillTheFormOnTheSecondStepWithWrongSmsCode(String firstNameData, String lastNameData, String emailAddress,
+                                                  String countryCodeData, String phoneNumberData, String ageData,
+                                                  String annualData, String savingData, String knowledgeData,
+                                                  String languageData, String token0, String token1, String token2, String token3) {
+        insertFirstName(firstNameData);
+        insertLastName(lastNameData);
+        insertEmailAddress(emailAddress);
+        handleCountryCode(countryCodeData);
+        insertPhoneNumber(phoneNumberData);
+        clickSubmitBtnParams();
+        selectAge(ageData);
+        selectAnnualIncome(annualData);
+        selectSaving(savingData);
+        selectKnowledge(knowledgeData);
+        selectLanguage(languageData);
+        enterTheSmsToken(token0, token1, token2, token3);
+        clickSubmitBtn2nd();
+    }
+
+    public void enterTheSmsToken(String token0, String token1, String token2, String token3) {
+        ElementActions.type(firstSmsTokenField, token0, "first sms token field");
+        ElementActions.type(secondSmsTokenField, token1, "second sms token field");
+        ElementActions.type(thirdSmsTokenField, token2, "third sms token field");
+        ElementActions.type(fourthSmsTokenField, token3, "fourth sms token field");
     }
 
     public void assertAlrRegEmailErrorMsg() {
@@ -361,5 +422,23 @@ public class FortradePage extends BasePage {
         String attribute = ElementActions.getAttributeValue(element, elementAttribute);
         String decodedAttribute = URLDecoder.decode(attribute, StandardCharsets.UTF_8);
         Assert.assertEquals(decodedAttribute, expectedUrl);
+    }
+
+    public void checkIDidntReceiveTheCodeLink(){
+        ElementActions.click(iDidntReceiveTheCodeLink, "I didn't receive the code");
+        Assert.assertEquals(ElementActions.getText(weSentYouTheCodeAgainText, "weSentYouTheCodeAgainMessage"), "We sent you the code again");
+    }
+
+    public void assertErrorMessageForWrongSmsCode(){
+        Assert.assertEquals(ElementActions.getText(smsFieldsErrorMessage, "smsFieldErrorMessage"), "Incorrect Code. Please check and try again.");
+        assertBorderColor(firstSmsTokenField, "border-color", TestData.redBorderColor);
+        assertBorderColor(secondSmsTokenField, "border-color", TestData.redBorderColor);
+        assertBorderColor(thirdSmsTokenField, "border-color", TestData.redBorderColor);
+        assertBorderColor(fourthSmsTokenField, "border-color", TestData.redBorderColor);
+    }
+
+    public void checkEditPencilButton(){
+        ElementActions.click(editPencilButton, "edit pencil button");
+        Assert.assertTrue(firstName.isDisplayed());
     }
 }

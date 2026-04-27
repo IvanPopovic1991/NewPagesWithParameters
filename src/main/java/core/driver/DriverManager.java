@@ -18,7 +18,7 @@ public class DriverManager {
 
         log.info("Initializing WebDriver...");
 
-        killChromeProcesses();
+        //killChromeProcesses();
 
         WebDriver webDriver = DriverFactory.createDriver();
 

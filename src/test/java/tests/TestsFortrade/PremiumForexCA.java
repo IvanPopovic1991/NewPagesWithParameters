@@ -391,5 +391,46 @@ public class PremiumForexCA extends BaseTest {
         crmPage.checkCrmData(email,"Testq Testa",regulation);
         crmPage.checkCrmTags();
     }
+
+    @Test(description = "12.5. Verify that message 'We sent you the code again' is received")
+    @Parameters({"regulation","countryCode"})
+    public void iDidntReceiveTheCodeTest(String regulation,String countryCode){
+        ScreenshotUtil.setCustomName("I didn't received the code link " + regulation);
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the page url");
+        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=sms-age-annual-saving-knowledge-plang:all&tg=ivanA" +
+                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
+                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        fortradePage.goToSecondStep(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.checkIDidntReceiveTheCodeLink();
+    }
+
+    @Test(description = "12.6. Verify that wrong code cannot be submitted (negative test case)")
+    @Parameters({"regulation","countryCode"})
+    public void wrongCodeCannotBeSubmittedTest(String regulation,String countryCode){
+        ScreenshotUtil.setCustomName("Wrong code cannot be submitted " + regulation);
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the page url");
+        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=sms-age-annual-saving-knowledge-plang:all&tg=ivanA" +
+                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
+                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        fortradePage.fillTheFormOnTheSecondStepWithWrongSmsCode(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(),
+                "25-34", "$15,000-$50,000", "$50,000-$100,000", "All the above","English",
+                "1", "1", "1", "1");
+        fortradePage.assertErrorMessageForWrongSmsCode();
+    }
+
+    @Test(description = "12.9. Verify if user clicks pencil icon the same is returned to the 1st widget")
+    @Parameters({"regulation","countryCode"})
+    public void editPencilButtonTest(String regulation,String countryCode){
+        ScreenshotUtil.setCustomName("Edit pencil button redirects to the first step " + regulation);
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the page url");
+        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=sms-age-annual-saving-knowledge-plang:all&tg=ivanA" +
+                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
+                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        fortradePage.goToSecondStep(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.checkEditPencilButton();
+    }
 }
 
