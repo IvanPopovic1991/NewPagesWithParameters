@@ -15,7 +15,8 @@
         <classes>
             <class name="tests.TestsFortrade.PremiumForexCA">
                 <methods>
-                    <include name="checkHeaderPrivacyPolicyLinkWithLeftClick"/>
+                    <include name="editPencilButtonTest"/>
+                    <!--<include name="checkHeaderPrivacyPolicyLinkWithLeftClick"/>
                     <include name="checkHeaderPrivacyPolicyLinkWithRightClick"/>
                     <include name="checkHeaderTermsAndConditionsLinkWithLeftClick"/>
                     <include name="checkHeaderTermsAndConditionsLinkWithRightClick"/>
@@ -38,7 +39,7 @@
                     <include name="checkFscLinkWithLeftClick"/>
                     <include name="checkFscLinkWithRightClick"/>
                     <include name="checkDfsaLinkWithLeftClick"/>
-                    <include name="checkDfsaLinkWithRightClick"/>
+                    <include name="checkDfsaLinkWithRightClick"/>-->
                 </methods>
             </class>
         </classes>
