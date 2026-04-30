@@ -68,7 +68,7 @@ public class FortradePage extends BasePage {
     public WebElement knowledge;
 
     @FindBy(xpath = "//div[@class='LcWidgetTopWrapper ClField-PreferredLanguage lcFieldWrapper']//select")
-    public WebElement languageField;
+    public WebElement language;
 
     @FindBy(xpath = "//button[@id='main-submit-btn']")
     public WebElement continueBtn;
@@ -260,7 +260,7 @@ public class FortradePage extends BasePage {
 
     @Step("Select language : {languageData}")
     public void selectLanguage(String languageData) {
-        ElementActions.selectByText(languageField, languageData, "Preferred language");
+        ElementActions.selectByText(language, languageData, "Preferred language");
     }
 
     @Step("Click submit button on 2nd step")
@@ -301,6 +301,98 @@ public class FortradePage extends BasePage {
         selectSaving(savingData);
         selectKnowledge(knowledgeData);
         selectLanguage(languageData);
+        clickSubmitBtn2nd();
+    }
+
+    /*public void registerDemoAccountWithAgeParameter(String firstNameData, String lastNameData, String emailAddress,
+                                                  String countryCodeData, String phoneNumberData, String ageData) {
+        insertFirstName(firstNameData);
+        insertLastName(lastNameData);
+        insertEmailAddress(emailAddress);
+        handleCountryCode(countryCodeData);
+        insertPhoneNumber(phoneNumberData);
+        clickSubmitBtnParams();
+        selectAge(ageData);
+        clickSubmitBtn2nd();
+    }
+
+    public void checkErrorMessageForAgeParameter(String firstNameData, String lastNameData, String emailAddress,
+                                                    String countryCodeData, String phoneNumberData, String ageData, String wrongAgeData) {
+        insertFirstName(firstNameData);
+        insertLastName(lastNameData);
+        insertEmailAddress(emailAddress);
+        handleCountryCode(countryCodeData);
+        insertPhoneNumber(phoneNumberData);
+        clickSubmitBtnParams();
+        clickSubmitBtn2nd();
+        selectAge(ageData);
+        selectAge(wrongAgeData);
+        clickSubmitBtn2nd();
+    }*/
+
+    public void registerDemoAccountWithParameter(String firstNameData, String lastNameData, String emailAddress,
+                                                    String countryCodeData, String phoneNumberData, String parameterData, String parameter) {
+        insertFirstName(firstNameData);
+        insertLastName(lastNameData);
+        insertEmailAddress(emailAddress);
+        handleCountryCode(countryCodeData);
+        insertPhoneNumber(phoneNumberData);
+        clickSubmitBtnParams();
+        switch (parameter){
+            case "age":
+                selectAge(parameterData);
+                break;
+            case "annual":
+                selectAnnualIncome(parameterData);
+                break;
+            case "saving":
+                selectSaving(parameterData);
+                break;
+            case "knowledge":
+                selectKnowledge(parameterData);
+                break;
+            case "language":
+                selectLanguage(parameterData);
+                break;
+            default:
+                System.out.println("Wrong parameter!");
+        }
+        clickSubmitBtn2nd();
+    }
+
+    public void checkErrorMessageForParameter(String firstNameData, String lastNameData, String emailAddress,
+                                                 String countryCodeData, String phoneNumberData, String parameterData, String wrongParameterData, String parameter) {
+        insertFirstName(firstNameData);
+        insertLastName(lastNameData);
+        insertEmailAddress(emailAddress);
+        handleCountryCode(countryCodeData);
+        insertPhoneNumber(phoneNumberData);
+        clickSubmitBtnParams();
+        clickSubmitBtn2nd();
+        switch (parameter){
+            case "age":
+                selectAge(parameterData);
+                selectAge(wrongParameterData);
+                break;
+            case "annual":
+                selectAnnualIncome(parameterData);
+                selectAnnualIncome(wrongParameterData);
+                break;
+            case "saving":
+                selectSaving(parameterData);
+                selectSaving(wrongParameterData);
+                break;
+            case "knowledge":
+                selectKnowledge(parameterData);
+                selectKnowledge(wrongParameterData);
+                break;
+            case "language":
+                selectLanguage(parameterData);
+                selectLanguage(wrongParameterData);
+                break;
+            default:
+                System.out.println("Wrong parameter!");
+        }
         clickSubmitBtn2nd();
     }
 
@@ -353,6 +445,30 @@ public class FortradePage extends BasePage {
             Assert.assertEquals(ElementActions.getText(By.xpath("(//span[@class='errorMessage'])[position()=number]".replace("number", String.valueOf(i))), "error message " + errorMessages[i - 1]), errorMessages[i - 1]);
         }
     }
+
+    public void assertSecondStepErrorMessage(String parameter){
+        Assert.assertEquals(ElementActions.getText(By.xpath("(//span[@class='selectErrorMessage'])[position()=1]"), "error message"), TestData.secondStepErrorMessage);
+        switch (parameter){
+            case "age":
+                assertBorderColor(age, "border-color", TestData.redBorderColor);
+                break;
+            case "annual":
+                assertBorderColor(annual, "border-color", TestData.redBorderColor);
+                break;
+            case "saving":
+                assertBorderColor(saving, "border-color", TestData.redBorderColor);
+                break;
+            case "knowledge":
+                assertBorderColor(knowledge, "border-color", TestData.redBorderColor);
+                break;
+            case "plang":
+                assertBorderColor(language, "border-color", TestData.redBorderColor);
+                break;
+            default:
+                System.out.println("Wrong parameter!");
+        }
+    }
+
     public void checkLogoClickability(){
         ElementActions.click(iirocLogo, "fortrade iiroc logo");
     }
@@ -386,7 +502,8 @@ public class FortradePage extends BasePage {
         List<String> tabs = new ArrayList<>(driver.getWindowHandles());
         if (tabs.size() > 1){
             if (browserName.equalsIgnoreCase("chrome")){
-                driver.switchTo().window(tabs.get(2));
+                //driver.switchTo().window(tabs.get(2));
+                driver.switchTo().window(tabs.get(1));
             } else {
                 driver.switchTo().window(tabs.get(1));
             }
@@ -409,7 +526,8 @@ public class FortradePage extends BasePage {
         List<String> tabs = new ArrayList<>(driver.getWindowHandles());
         if (tabs.size() > 1){
             if (browserName.equalsIgnoreCase("chrome")){
-                driver.switchTo().window(tabs.get(2));
+                //driver.switchTo().window(tabs.get(2));
+                driver.switchTo().window(tabs.get(1));
             } else {
                 driver.switchTo().window(tabs.get(1));
             }
@@ -439,6 +557,7 @@ public class FortradePage extends BasePage {
 
     public void checkEditPencilButton(){
         ElementActions.click(editPencilButton, "edit pencil button");
+        WaitUtil.waitForVisible(firstName);
         Assert.assertTrue(firstName.isDisplayed());
     }
 }

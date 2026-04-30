@@ -15,31 +15,30 @@
         <classes>
             <class name="tests.TestsFortrade.PremiumForexCA">
                 <methods>
-                    <include name="editPencilButtonTest"/>
-                    <!--<include name="checkHeaderPrivacyPolicyLinkWithLeftClick"/>
-                    <include name="checkHeaderPrivacyPolicyLinkWithRightClick"/>
-                    <include name="checkHeaderTermsAndConditionsLinkWithLeftClick"/>
-                    <include name="checkHeaderTermsAndConditionsLinkWithRightClick"/>
-                    <include name="checkAlreadyHaveAnAccountLinkWithLeftClick"/>
-                    <include name="checkAlreadyHaveAnAccountLinkWithRightClick"/>
-                    <include name="checkContactUsLink"/>
-                    <include name="checkSupportLink"/>
-                    <include name="checkRiskWarningLinkWithLeftClick"/>
-                    <include name="checkRiskWarningLinkWithRightClick"/>
-                    <include name="checkFooterPrivacyPolicyLinkWithLeftClick"/>
-                    <include name="checkFooterPrivacyPolicyLinkWithRightClick"/>
-                    <include name="checkFcaLinkWithLeftClick"/>
-                    <include name="checkFcaLinkWithRightClick"/>
-                    <include name="checkIirocLinkWithLeftClick"/>
-                    <include name="checkIirocLinkWithRightClick"/>
-                    <include name="checkAsicLinkWithLeftClick"/>
-                    <include name="checkAsicLinkWithRightClick"/>
-                    <include name="checkCysecLinkWithLeftClick"/>
-                    <include name="checkCysecLinkWithRightClick"/>
-                    <include name="checkFscLinkWithLeftClick"/>
-                    <include name="checkFscLinkWithRightClick"/>
-                    <include name="checkDfsaLinkWithLeftClick"/>
-                    <include name="checkDfsaLinkWithRightClick"/>-->
+                    <include name="checkHeaderPrivacyPolicyLinkWithLeftClickTest"/>
+                    <include name="checkHeaderPrivacyPolicyLinkWithRightClickTest"/>
+                    <include name="checkHeaderTermsAndConditionsLinkWithLeftClickTest"/>
+                    <include name="checkHeaderTermsAndConditionsLinkWithRightClickTest"/>
+                    <include name="checkAlreadyHaveAnAccountLinkWithLeftClickTest"/>
+                    <include name="checkAlreadyHaveAnAccountLinkWithRightClickTest"/>
+                    <include name="checkContactUsLinkTest"/>
+                    <include name="checkSupportLinkTest"/>
+                    <include name="checkRiskWarningLinkWithLeftClickTest"/>
+                    <include name="checkRiskWarningLinkWithRightClickTest"/>
+                    <include name="checkFooterPrivacyPolicyLinkWithLeftClickTest"/>
+                    <include name="checkFooterPrivacyPolicyLinkWithRightClickTest"/>
+                    <include name="checkFcaLinkWithLeftClickTest"/>
+                    <include name="checkFcaLinkWithRightClickTest"/>
+                    <include name="checkIirocLinkWithLeftClickTest"/>
+                    <include name="checkIirocLinkWithRightClickTest"/>
+                    <include name="checkAsicLinkWithLeftClickTest"/>
+                    <include name="checkAsicLinkWithRightClickTest"/>
+                    <include name="checkCysecLinkWithLeftClickTest"/>
+                    <include name="checkCysecLinkWithRightClickTest"/>
+                    <include name="checkFscLinkWithLeftClickTest"/>
+                    <include name="checkFscLinkWithRightClickTest"/>
+                    <include name="checkDfsaLinkWithLeftClickTest"/>
+                    <include name="checkDfsaLinkWithRightClickTest"/>
                 </methods>
             </class>
         </classes>

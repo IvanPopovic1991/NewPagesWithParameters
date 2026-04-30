@@ -83,10 +83,36 @@ public class CrmPage extends BasePage {
     @FindBy(xpath = "//div[@id='lv_language']")
     public WebElement language;
 
-    public void logInCrm(String username, String password) {
+    public void logInCrm(String username, String password, String email) {
+        driver.get(System.getenv("URLForCrm"));
         ElementActions.type(usernameCrm, username, "username for CRM");
         ElementActions.type(passwordCrm, password, "password for CRM");
         ElementActions.click(signInCrm, "sign in to CRM button");
+        try {
+            driver.switchTo().frame(frameForMailPending);
+            try {
+                ElementActions.click(closeMailPending, "close Pending Email window");
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            driver.switchTo().defaultContent();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        driver.switchTo().frame(iFrameMicrosoftCrm);
+        try {
+            ElementActions.click(closeMicrosoftCrm, "close Microsoft window");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        driver.switchTo().defaultContent();
+        driver.switchTo().frame(iFrameSearch);
+        ElementActions.type(searchInCrm, email, "search bar for email in CRM");
+        ElementActions.click(searchBtnCrm, "search button in CRM");
+        ElementActions.doubleClick(accountCrm, "account row");
+        driver.switchTo().defaultContent();
+        driver.switchTo().frame(iFrameAccDetails);
     }
 
     public void loopForTagsCrm() {
@@ -116,43 +142,27 @@ public class CrmPage extends BasePage {
     }
 
     public void checkCrmData(String email, String fullName, String regulation) {
-        driver.get(System.getenv("URLForCrm"));
-        logInCrm(System.getenv("UsernameForCrm"), System.getenv("PasswordForCrm"));
-        try {
-            driver.switchTo().frame(frameForMailPending);
-            try {
-                ElementActions.click(closeMailPending, "close Pending Email window");
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-            driver.switchTo().defaultContent();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        driver.switchTo().frame(iFrameMicrosoftCrm);
-        try {
-            ElementActions.click(closeMicrosoftCrm, "close Microsoft window");
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        driver.switchTo().defaultContent();
-        driver.switchTo().frame(iFrameSearch);
-        ElementActions.type(searchInCrm, email, "search bar for email in CRM");
-        ElementActions.click(searchBtnCrm, "search button in CRM");
-        ElementActions.doubleClick(accountCrm, "account row");
-        driver.switchTo().defaultContent();
-        driver.switchTo().frame(iFrameAccDetails);
+        logInCrm(System.getenv("UsernameForCrm"), System.getenv("PasswordForCrm"), email);
         assertBorderColorInCRM(regulation);
         Assert.assertEquals(readAttribute(accFullNameCrm, "title", "full name"), fullName);
         Assert.assertEquals(getText(accDemoField, "demo account field"), "Demo Registered");
         loopForAccDetailsCrm(email);
     }
 
+    public void checkParameterLinkIdInTheCRM(String email, String expectedValue){
+        logInCrm(System.getenv("UsernameForCrm"), System.getenv("PasswordForCrm"), email);
+        checkLinkIdValue(expectedValue);
+    }
+
     public void checkCrmTags() {
         ElementActions.click(menuBtn, "menu button");
         ElementActions.click(envAndMarSec, "environment and marketing section button");
         loopForTagsCrm();
+    }
+
+    public void checkSMSValueParameter(String email, String expectedValue){
+        logInCrm(System.getenv("UsernameForCrm"), System.getenv("PasswordForCrm"), email);
+        checkSMSVerification(expectedValue);
     }
 
     public void checkLanguageInCrm(String expectedText){
