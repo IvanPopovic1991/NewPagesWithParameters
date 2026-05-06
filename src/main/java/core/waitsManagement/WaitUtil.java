@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
+import java.util.function.Function;
 
 public class WaitUtil {
 
@@ -45,5 +46,26 @@ public class WaitUtil {
                 ((JavascriptExecutor) webDriver)
                         .executeScript("return document.readyState")
                         .equals("complete"));
+    }
+
+    public static boolean waitForCondition(Function<WebDriver, Boolean> condition,
+                                           int timeoutSeconds,
+                                           int pollingSeconds,
+                                           String failureMessage) {
+
+        WebDriverWait wait = new WebDriverWait(
+                DriverManager.getDriver(),
+                Duration.ofSeconds(timeoutSeconds)
+        );
+
+        wait.pollingEvery(Duration.ofSeconds(pollingSeconds));
+        wait.ignoring(NoSuchElementException.class);
+        wait.ignoring(StaleElementReferenceException.class);
+
+        try {
+            return wait.until(driver -> condition.apply(driver));
+        } catch (TimeoutException e) {
+            throw new AssertionError(failureMessage);
+        }
     }
 }

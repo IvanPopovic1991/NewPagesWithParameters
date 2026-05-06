@@ -37,7 +37,10 @@ public class TestData {
 
     public static String lastName = "Testa";
 
+    public static String fullName = "Testq Testa";
+
     public static String sameNameAndSurname = "Test";
+
     public static String appUrl = "https://ready.fortrade.com/";
 
     //public static String textForIiroc = "By proceeding, I agree to the Privacy Policy and the Terms and Conditions By providing my contact details to Fortrade Canada, I agree to receive telephone calls from Customer Service Representatives regarding Fortrade Canada, its products, services, promotions, and offers. I can opt out of phone contact anytime by informing a Customer Service Representative or unsubscribing via notification settings.";
@@ -87,4 +90,7 @@ public class TestData {
     public static String contactUsUrl = "mailto:support@fortrade.com?subject=Client information request";
 
     public static String supportUrl = "mailto:support@fortrade.com";
+
+    public static String yopmailUrl ="https://yopmail.com/";
+
 }
