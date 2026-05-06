@@ -16,16 +16,7 @@
         <classes>
             <class name="tests.TestsFortrade.PremiumForexCA">
                 <methods>
-                    <include name="dummyLeadRegistration"/>
-                    <include name="dummy_Lead_Registration"/>
-                    <include name="invalidLeadRegistration"/>
-                    <include name="invalid_Lead_Registration"/>
-                    <include name="emptyLeadRegistration"/>
-                    <include name="empty_Lead_Registration"/>
-                    <include name="deviceIsSameAsParameter"/>
-                    <include name="nonValidParameterSyntax"/>
-                    <include name="deviceIsNotSameAsParameter"/>
-                    <include name="deviceParameterContainsNonValidValue"/>
+                    <include name="emailIsReceived"/>
                 </methods>
             </class>
         </classes>

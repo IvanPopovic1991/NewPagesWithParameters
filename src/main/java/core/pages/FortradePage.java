@@ -469,6 +469,41 @@ public class FortradePage extends BasePage {
         }
     }
 
+    public void assertSecondStepErrorMessageAllParameters(){
+        for (int i = 1; i < 6; i++){
+            Assert.assertEquals(ElementActions.getText(By.xpath("(//span[@class='selectErrorMessage'])[position()={index}]".replace("{index}", String.valueOf(i))), "second step error message"), TestData.secondStepErrorMessage);
+        }
+                assertBorderColor(age, "border-color", TestData.redBorderColor);
+                assertBorderColor(annual, "border-color", TestData.redBorderColor);
+                assertBorderColor(saving, "border-color", TestData.redBorderColor);
+                assertBorderColor(knowledge, "border-color", TestData.redBorderColor);
+                assertBorderColor(language, "border-color", TestData.redBorderColor);
+    }
+
+    public void fillTheFormOnTheSecondStepWithWrongData(String firstNameData, String lastNameData, String emailAddress,
+                                                           String countryCodeData, String phoneNumberData, String ageData,
+                                                           String annualData, String savingData, String knowledgeData,
+                                                           String languageData) {
+        insertFirstName(firstNameData);
+        insertLastName(lastNameData);
+        insertEmailAddress(emailAddress);
+        handleCountryCode(countryCodeData);
+        insertPhoneNumber(phoneNumberData);
+        clickSubmitBtnParams();
+        clickSubmitBtn2nd();
+        selectAge(ageData);
+        selectAge("-- Select --");
+        selectAnnualIncome(annualData);
+        selectAnnualIncome("-- Select --");
+        selectSaving(savingData);
+        selectSaving("-- Select --");
+        selectKnowledge(knowledgeData);
+        selectKnowledge("-- Select --");
+        selectLanguage(languageData);
+        selectLanguage("-- Select --");
+        clickSubmitBtn2nd();
+    }
+
     public void checkLogoClickability(){
         ElementActions.click(iirocLogo, "fortrade iiroc logo");
     }
