@@ -12,33 +12,20 @@
     <test name="Test cases - Premium Forex CA landing page">
         <parameter name="regulation" value="iiroc"/>
         <parameter name="countryCode" value="1"/>
+        <parameter name="tag" value="regulation=iiroc&amp;regtest=true"/>
         <classes>
             <class name="tests.TestsFortrade.PremiumForexCA">
                 <methods>
-                    <include name="checkHeaderPrivacyPolicyLinkWithLeftClickTest"/>
-                    <include name="checkHeaderPrivacyPolicyLinkWithRightClickTest"/>
-                    <include name="checkHeaderTermsAndConditionsLinkWithLeftClickTest"/>
-                    <include name="checkHeaderTermsAndConditionsLinkWithRightClickTest"/>
-                    <include name="checkAlreadyHaveAnAccountLinkWithLeftClickTest"/>
-                    <include name="checkAlreadyHaveAnAccountLinkWithRightClickTest"/>
-                    <include name="checkContactUsLinkTest"/>
-                    <include name="checkSupportLinkTest"/>
-                    <include name="checkRiskWarningLinkWithLeftClickTest"/>
-                    <include name="checkRiskWarningLinkWithRightClickTest"/>
-                    <include name="checkFooterPrivacyPolicyLinkWithLeftClickTest"/>
-                    <include name="checkFooterPrivacyPolicyLinkWithRightClickTest"/>
-                    <include name="checkFcaLinkWithLeftClickTest"/>
-                    <include name="checkFcaLinkWithRightClickTest"/>
-                    <include name="checkIirocLinkWithLeftClickTest"/>
-                    <include name="checkIirocLinkWithRightClickTest"/>
-                    <include name="checkAsicLinkWithLeftClickTest"/>
-                    <include name="checkAsicLinkWithRightClickTest"/>
-                    <include name="checkCysecLinkWithLeftClickTest"/>
-                    <include name="checkCysecLinkWithRightClickTest"/>
-                    <include name="checkFscLinkWithLeftClickTest"/>
-                    <include name="checkFscLinkWithRightClickTest"/>
-                    <include name="checkDfsaLinkWithLeftClickTest"/>
-                    <include name="checkDfsaLinkWithRightClickTest"/>
+                    <include name="dummyLeadRegistration"/>
+                    <include name="dummy_Lead_Registration"/>
+                    <include name="invalidLeadRegistration"/>
+                    <include name="invalid_Lead_Registration"/>
+                    <include name="emptyLeadRegistration"/>
+                    <include name="empty_Lead_Registration"/>
+                    <include name="deviceIsSameAsParameter"/>
+                    <include name="nonValidParameterSyntax"/>
+                    <include name="deviceIsNotSameAsParameter"/>
+                    <include name="deviceParameterContainsNonValidValue"/>
                 </methods>
             </class>
         </classes>

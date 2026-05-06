@@ -199,6 +199,7 @@ public class CrmPage extends BasePage {
     }
 
     public void assertBorderColorInCRM(String regulation) {
+        WaitUtil.waitForPageLoad();
         String borderColor = "rgb(255, 192, 203)";
         switch (regulation.toLowerCase()) {
             case "fca":
@@ -214,7 +215,6 @@ public class CrmPage extends BasePage {
                 borderColor = "";
                 break;
         }
-        WaitUtil.waitForPageLoad();
         cssValueToBe(borderTopColorForRegulation, "border-color", borderColor);
         System.out.println("This is the border color: " + borderTopColorForRegulation.getCssValue("border-color"));
         Assert.assertEquals(borderTopColorForRegulation.getCssValue("border-color"), borderColor);
