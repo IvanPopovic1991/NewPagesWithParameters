@@ -17,6 +17,13 @@
             <class name="tests.TestsFortrade.PremiumForexCA">
                 <methods>
                     <include name="emailIsReceived"/>
+                    <include name="emailIsReceived"/>
+                    <include name="checkingTheCustomTag"/>
+                    <include name="dummypParameter"/>
+                    <include name="dummyParameter"/>
+                    <include name="parameterDummy"/>
+                    <include name="customTagContainsDummy"/>
+                    <include name="customTagContainsDummyValue"/>
                 </methods>
             </class>
         </classes>

@@ -162,7 +162,6 @@ public class PremiumForexCA extends BaseTest {
         fortradePage.assertFirstStepErrorMessage(TestData.wrongPhoneErrorMessage);
     }
 
-    //@Story("Verify that the Last Name cannot be the same as First name")
     @Test(description = "TC 4.6 - Verify that the Last Name cannot be the same as First name.")
     @Parameters({"regulation"})
     public void sameFNameAndLNameTest(String regulation) {
@@ -175,7 +174,6 @@ public class PremiumForexCA extends BaseTest {
         fortradePage.assertFirstStepErrorMessage(TestData.sameLastNameErrorMessage);
     }
 
-    //@Story("Verify that the First Name cannot be the same as Last name")
     @Test(description = "TC 4.6 - Verify that the First Name cannot be the same as Last name.")
     @Parameters({"regulation"})
     public void sameLNameAndFNameTest(String regulation) {
@@ -970,5 +968,87 @@ public class PremiumForexCA extends BaseTest {
         crmPage.checkLinkIdValue("PC_windows");
         crmPage.checkCustomTag("Invalid");
     }
+
+    @Test(description = "TC 20.3. Verify that the Custom Tag in the CRM is empty")
+    @Parameters({"regulation","tag","countryCode"})
+    public void checkingTheCustomTag(String regulation, String tag,String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 20-3-Custom Tag is empty " + regulation + " regulation");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=age-annual-saving-knowledge-plang:all&"+tag);
+        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=age-annual-saving-knowledge-plang:all&"+tag);
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkCustomTag("");
+    }
+
+    @Test(description = "TC 23.1. Verify that the Custom Tag field in the CRM contains the DummyP value")
+    @Parameters({"regulation","tag","countryCode"})
+    public void dummypParameter(String regulation, String tag, String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 23-1-Custom tag-DummyP value " + regulation + " regulation");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en" +
+                "?ftsquery=device-equals(1)&dummyP=1&"+tag);
+        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?ftsquery=device-equals(1)&dummyP=1&"+tag);
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkCustomTag("DummyP");
+    }
+
+    @Test(description = "TC 23.2. Verify that the Custom Tag field in the CRM contains the Dummy value")
+    @Parameters({"regulation","tag","countryCode"})
+    public void dummyParameter(String regulation, String tag, String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 23-2-Custom tag - Dummy value " + regulation + " regulation");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en" +
+                "?ftsquery=device-equals(1)&dummyP=0&"+tag);
+        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?ftsquery=device-equals(1)&dummyP=0&"+tag);
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkCustomTag("Dummy");
+    }
+
+    @Test(description = "TC 23.3. Verify that the dummyP parameter is ignored when it's not correctly typed in the URL")
+    @Parameters({"regulation","tag","countryCode"})
+    public void parameterDummy(String regulation, String tag, String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 23-3-Custom tag - Dummy value " + regulation + " regulation");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en" +
+                "?ftsquery=device-equals(1)&dummyp=1&"+tag);
+        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?ftsquery=device-equals(1)&dummyp=1&"+tag);
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkCustomTag("Dummy");
+    }
+
+    @Test(description = "TC 24.1. Verify that the custom tag field in the CRM contains Dummy parameter ")
+    @Parameters({"regulation","tag","countryCode"})
+    public void customTagContainsDummy(String regulation, String tag, String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-1-Custom tag field - dummy " + regulation + " regulation");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?Dummy=true&"+tag);
+        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?Dummy=true&"+tag);
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkCustomTag("Dummy");
+    }
+
+    @Test(description = "TC 24.2. Verify that the custom tag field in the CRM contains Dummy parameter ")
+    @Parameters({"regulation","tag","countryCode"})
+    public void customTagContainsDummyValue(String regulation, String tag, String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-2-Custom tag field - dummy " + regulation + " regulation");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?Dummy=1&"+tag);
+        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?Dummy=1&"+tag);
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkCustomTag("Dummy");
+    }
+
 }
 
