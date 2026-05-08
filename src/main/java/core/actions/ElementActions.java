@@ -240,20 +240,27 @@ public class ElementActions {
 
     /* ================= READ ATTRIBUTE ================= */
 
-    public static String readAttribute(WebElement element, String attribute,String text) {
+    public static String readAttribute(WebElement element,
+                                       String attribute,
+                                       String elementName) {
 
-        System.out.println("Get attribute from " + attribute+ " element");
+        System.out.println("Reading attribute '" + attribute +
+                "' from element: " + elementName);
 
         WaitUtil.waitForVisible(element);
 
         String value = element.getAttribute(attribute);
 
-        log.info("Retrieved text from {} : {}", attribute, log);
+        log.info("Retrieved attribute '{}' value '{}' from element '{}'",
+                attribute,
+                value,
+                elementName);
 
-        Allure.step("Get " + attribute + " from " + attribute);
+        Allure.step("Read attribute '" + attribute +
+                "' from element '" + elementName +
+                "' | Value: " + value);
 
         return value;
-
     }
 
     @Step("Get attribute '{attribute}' from element")
