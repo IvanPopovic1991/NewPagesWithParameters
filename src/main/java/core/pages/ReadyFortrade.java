@@ -3,6 +3,7 @@ package core.pages;
 import core.actions.ElementActions;
 import core.base.BasePage;
 import core.waitsManagement.WaitUtil;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
@@ -20,6 +21,12 @@ public class ReadyFortrade extends BasePage {
 
     @FindBy(xpath = "//div[@data-cmd='menu']")
     protected WebElement btnMenu;
+
+    @FindBy(xpath = "//div[@id='supportMenuItem']")
+    protected WebElement settingBtn;
+
+    @FindBy(xpath = "//div[@id='languagesMenuItem']")
+    protected WebElement languageBtn;
 
     public void clickUsePassBtn(){
         ElementActions.click(btnUsePass,"Use password button");
@@ -64,5 +71,14 @@ public class ReadyFortrade extends BasePage {
     public void assertURL(String url) {
         WaitUtil.waitForUrlContains(url);
         Assert.assertTrue(driver.getCurrentUrl().contains(url));
+    }
+
+    public void assertDisplayedLanguage(String language){
+        ElementActions.click(btnMenu, "menu btn");
+        ElementActions.click(settingBtn, "settings btn");
+        ElementActions.click(languageBtn, "language btn");
+        WebElement displayedLanguage = driver.findElement(By.xpath("//div[@id='settingsLanguage{language}']//*[name()='svg' and contains(@class,'tickSvg')]".replace("{language}", language)));
+        WaitUtil.waitForVisible(displayedLanguage);
+        Assert.assertTrue(displayedLanguage.isDisplayed());
     }
 }

@@ -982,6 +982,34 @@ public class PremiumForexCA extends BaseTest {
         crmPage.checkCustomTag("");
     }
 
+    @Test(description = "TC 22.1. Verify that the Language field in the CRM contains expected value (in this case FR)")
+    @Parameters({"regulation","tag", "countryCode"})
+    public void checkLanguageFieldContainsExpectedValue(String regulation, String tag,String countryCode) throws IOException, AWTException {
+        ScreenshotUtil.setCustomName("Language field in the CRM contains expected (FR) value " + regulation);
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
+        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?userLang=FR&"+tag);
+        fortradePage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.canadaPhoneNumber());
+        readyFortrade.assertURL(TestData.appUrl);
+        readyFortrade.assertDisplayedLanguage("EN");
+        crmPage.checkCrmData(email, TestData.fullName, regulation);
+        crmPage.checkLanguageField(email, "fr");
+    }
+
+    @Test(description = "TC 22.2. Verify that the Language field in the CRM contains the default value (the language of the base page URL) when we enter the wrong language in the userLang parameter")
+    @Parameters({"regulation","tag", "countryCode"})
+    public void checkLanguageFieldContainsDefaultValue(String regulation, String tag,String countryCode) throws IOException, AWTException {
+        ScreenshotUtil.setCustomName("Language field in the CRM contains default (EN) value " + regulation);
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
+        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?userLang=FRA&"+tag);
+        fortradePage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.canadaPhoneNumber());
+        readyFortrade.assertURL(TestData.appUrl);
+        readyFortrade.assertDisplayedLanguage("EN");
+        crmPage.checkCrmData(email, TestData.fullName, regulation);
+        crmPage.checkLanguageField(email, "en");
+    }
+
     @Test(description = "TC 23.1. Verify that the Custom Tag field in the CRM contains the DummyP value")
     @Parameters({"regulation","tag","countryCode"})
     public void dummypParameter(String regulation, String tag, String countryCode) throws InterruptedException {
@@ -1049,6 +1077,5 @@ public class PremiumForexCA extends BaseTest {
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("Dummy");
     }
-
 }
 

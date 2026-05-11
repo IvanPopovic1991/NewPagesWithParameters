@@ -200,8 +200,13 @@ public class CrmPage extends BasePage {
 
     public void assertBorderColorInCRM(String regulation) {
         WaitUtil.waitForPageLoad();
-        String borderColor = "rgb(255, 192, 203)";
+
+        String borderColor;
+
         switch (regulation.toLowerCase()) {
+            case "fsc":
+                borderColor = "rgb(255, 192, 203)";
+                break;
             case "fca":
                 borderColor = "rgb(128, 0, 128)";
                 break;
@@ -212,12 +217,28 @@ public class CrmPage extends BasePage {
                 borderColor = "rgb(0, 128, 0)";
                 break;
             case "cysec":
-                borderColor = "";
+                borderColor = "rgb(255, 192, 203)";
                 break;
+            default:
+                throw new IllegalArgumentException("Unknown regulation: " + regulation);
         }
-        cssValueToBe(borderTopColorForRegulation, "border-color", borderColor);
-        System.out.println("This is the border color: " + borderTopColorForRegulation.getCssValue("border-color"));
-        Assert.assertEquals(borderTopColorForRegulation.getCssValue("border-color"), borderColor);
+
+        WaitUtil.waitForCondition(
+                driver -> borderTopColorForRegulation
+                        .getCssValue("border-color")
+                        .equals(borderColor),
+                10,
+                1,
+                "Border color was not changed!"
+        );
+
+        String actualBorderColor =
+                borderTopColorForRegulation.getCssValue("border-color");
+
+        System.out.println("Expected border color: " + borderColor);
+        System.out.println("Actual border color: " + actualBorderColor);
+
+        Assert.assertEquals(actualBorderColor, borderColor);
     }
 
     public ExpectedCondition<Boolean> cssValueToBe(final WebElement locator, final String cssProperty, final String expectedValue) {
@@ -254,6 +275,10 @@ public class CrmPage extends BasePage {
         String actualValue = readAttribute(utmContent, "title", "The value of Utm content field");
         System.out.println(actualValue);
         Assert.assertEquals(actualValue, expectedValue);
+    }
+
+    public void checkLanguageField (String email, String expectedValue){
+        checkLanguageInCrm(expectedValue);
     }
 
 }
