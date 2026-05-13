@@ -28,6 +28,9 @@ public class ReadyFortrade extends BasePage {
     @FindBy(xpath = "//div[@id='languagesMenuItem']")
     protected WebElement languageBtn;
 
+    @FindBy(xpath = "//div[@class='exitButton']")
+    protected WebElement iAmNotSerbianRes;
+
     public void clickUsePassBtn(){
         ElementActions.click(btnUsePass,"Use password button");
     }
@@ -80,5 +83,9 @@ public class ReadyFortrade extends BasePage {
         WebElement displayedLanguage = driver.findElement(By.xpath("//div[@id='settingsLanguage{language}']//*[name()='svg' and contains(@class,'tickSvg')]".replace("{language}", language)));
         WaitUtil.waitForVisible(displayedLanguage);
         Assert.assertTrue(displayedLanguage.isDisplayed());
+    }
+
+    public void clickNotSerbResBtn(){
+        ElementActions.click(iAmNotSerbianRes,"I am not Serbian resident button");
     }
 }

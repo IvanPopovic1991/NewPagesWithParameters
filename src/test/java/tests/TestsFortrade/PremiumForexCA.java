@@ -376,7 +376,6 @@ public class PremiumForexCA extends BaseTest {
         crmPage.checkCrmData(email,"Testq Testa",regulation);
     }
 
-
     @Test(description = "9.3. Verify the tags are displayed correctly in CRM")
     @Parameters({"regulation","countryCode"})
     public void checkTagsInCrmTest(String regulation,String countryCode){
@@ -722,7 +721,6 @@ public class PremiumForexCA extends BaseTest {
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkSMSValueParameter(email, "--");
     }
-
 
     @Test(description = "TC 17.1. Verify the user is redirected to the 2nd step - language verification window")
     @Parameters({"regulation", "countryCode"})

@@ -43,9 +43,7 @@ public class TestData {
 
     public static String appUrl = "https://ready.fortrade.com/";
 
-    //public static String textForIiroc = "By proceeding, I agree to the Privacy Policy and the Terms and Conditions By providing my contact details to Fortrade Canada, I agree to receive telephone calls from Customer Service Representatives regarding Fortrade Canada, its products, services, promotions, and offers. I can opt out of phone contact anytime by informing a Customer Service Representative or unsubscribing via notification settings.";
-
-    public static String textForIiroc = "By proceeding, I agree to the Privacy Policy and the Terms and Conditions . By providing my contact details to Fortrade Canada, I agree to receive telephone calls from Customer Service Representatives regarding Fortrade Canada, its products, services, promotions, and offers. I can opt out of phone contact anytime by informing a Customer Service Representative or unsubscribing via notification settings.";
+     public static String textForIiroc = "By proceeding, I agree to the Privacy Policy and the Terms and Conditions . By providing my contact details to Fortrade Canada, I agree to receive telephone calls from Customer Service Representatives regarding Fortrade Canada, its products, services, promotions, and offers. I can opt out of phone contact anytime by informing a Customer Service Representative or unsubscribing via notification settings.";
 
     public static String blueBorderColor = "";
 
@@ -62,6 +60,8 @@ public class TestData {
     public static String emailErrorMessage = "Must be a valid email address.";
 
     public static String wrongPhoneErrorMessage = "Phone number must be exactly 10 digits and cannot start with 0";
+
+    public static String wrongPhoneErrorMsgFortradeR = "Must be a valid international phone number";
 
     public static String emptyPhoneErrorMessage = "Phone number is required";
 
@@ -93,4 +93,9 @@ public class TestData {
 
     public static String yopmailUrl ="https://yopmail.com/";
 
+    public static String fortraderprivacyPolicy = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Privacy_Policy.pdf";
+
+    public static String fortraderTermsAndCondUrl = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_Mauritius_Client_Agreement.pdf";
+
+    public static String fortraderClickHereURL = "https://www.fortrade.com/wp-content/uploads/legal/How_to_guides/How_to_unsubscribe.pdf";
 }
