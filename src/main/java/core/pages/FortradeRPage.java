@@ -14,48 +14,69 @@ import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import testdata.TestData;
 
+import javax.swing.text.Element;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FortradePage extends BasePage {
+public class FortradeRPage extends BasePage {
 
-    @FindBy(xpath = "//input[@name='FirstName']")
+    @FindBy(id = "FirstName")
     public WebElement firstName;
 
-    @FindBy(xpath = "//input[@name='LastName']")
+    @FindBy(id = "LastName")
     public WebElement lastName;
 
     @FindBy(xpath = "//input[@id='EmailAddress']")
     public WebElement email;
 
-    @FindBy(xpath = "//input[@name='Prephone']")
+    @FindBy(xpath = "//input[@id='Prephone']")
     public WebElement countryCode;
 
-    @FindBy(xpath = "//span[@class='cps-label']")
+    @FindBy(xpath = "//button[@class='cps-trigger']")
     public WebElement countryCodeDropdown;
 
-    @FindBy(xpath = "//input[@id='TelephoneMask']")
+    @FindBy(xpath = "//input[@id='Telephone']")
     public WebElement phoneNumber;
 
-    @FindBy(xpath = "//button[@id='main-submit-btn']")
-    public WebElement submitBtn;
+    @FindBy(xpath ="//button[@id='next-stage-btn']")
+    public WebElement submitButton;
 
-    @FindBy(xpath = "//span[@class='errorMessage' and contains(text(),'Email or phone already exists')]")
-    public WebElement msgAlrRegEmail;
+    @FindBy(xpath = "//button[@id='main-submit-btn']//span[contains(text(),'GET STARTED')]")
+    public WebElement btnSubmit1stStep;
+
+    @FindBy(xpath = "//div[@class='userExistsLabelInner']")
+    public WebElement alrdRegEmailPopUp;
+
+    @FindBy(xpath="//span[@class='errorMessage' and contains(text(),'Email or phone already exists. Please use a different email address or phone number.')]")
+    WebElement alrRegisteredEmail;
 
     @FindBy(xpath = "//span[@class='errorMessage' and text()='Email or phone already exists. Please use a different email address or phone number.']")
     public WebElement alrRegPhoneMsg;
 
-    @FindBy(xpath = "//button[@id='next-stage-btn']")
-    public WebElement submitParamsBtn;
+    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='FirstName']")
+    public WebElement borderColorForFirstName;
 
-    public String msgAlrRegEmailAdd = "Email or phone already exists. Please use a different email address or phone number.";
+    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='LastName']")
+    public WebElement borderColorForLastName;
 
-    public String msgAlrRegPhone = "Email or phone already exists. Please use a different email address or phone number.";
+    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='EmailAddress']")
+    public WebElement borderColorForEmail;
 
-    @FindBy(xpath = "//div[@class='LcWidgetTopWrapper ClField-Age lcFieldWrapper']//select")
+    @FindBy(xpath = "//span[text()='Must be a valid international phone number']")
+    public WebElement countryCodeErrorMessage;
+
+    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='Telephone']")
+    public WebElement borderColorForPhone;
+
+    @FindBy(xpath = "//div[@class='logo']")
+    public WebElement fortradeLogo;
+
+    @FindBy(xpath = "//a[contains(text(),'Already have an account?')]")
+    public WebElement loginToFortrade;
+
+    @FindBy(xpath = "//select[@name='AgeSelect']")
     public WebElement age;
 
     @FindBy(xpath = "//div[@class='LcWidgetTopWrapper ClField-EstimatedAnnualIncome lcFieldWrapper']//select")
@@ -73,23 +94,59 @@ public class FortradePage extends BasePage {
     @FindBy(xpath = "//button[@id='main-submit-btn']")
     public WebElement continueBtn;
 
-    @FindBy(xpath = "//div[@class='flex-shrink-0']")
-    public WebElement iirocLogo;
+    @FindBy(xpath = "//div[@class='exitButton']")
+    WebElement btnNotSerbianRes;
 
-    @FindBy(xpath = "//form/p")
-    public WebElement textUnderFormIiroc;
+    @FindBy(xpath = "//div[@data-cmd='menu']")
+    public WebElement menuBtn;
 
-    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='FirstName']")
-    public WebElement borderColorForFirstName;
+    @FindBy(xpath = "//div[@id='platformRegulation']")
+    public WebElement regulationMsg;
 
-    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='LastName']")
-    public WebElement borderColorForLastName;
+    @FindBy(xpath = "//input[@name='Token0']")
+    public WebElement tokenField0;
 
-    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='EmailAddress']")
-    public WebElement borderColorForEmail;
+    @FindBy(xpath = "//input[@name='Token1']")
+    public WebElement tokenField1;
 
-    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='TelephoneMask']")
-    public WebElement borderColorForPhone;
+    @FindBy(xpath = "//input[@name='Token2']")
+    public WebElement tokenField2;
+
+    @FindBy(xpath = "//input[@name='Token3']")
+    public WebElement tokenField3;
+
+    @FindBy(xpath="//input[@class='TokenBack-Button']")
+    public WebElement didNotGetToken;
+
+    @FindBy(xpath = "//label[@name='SentAgainLabel']")
+    public WebElement codeIsSent;
+
+    @FindBy(xpath = "//span[@class='smsErrorMessage']")
+    public WebElement incorrectTokenMsg;
+
+    @FindBy(xpath="//input[@id='Details-Edit-Btn']")
+    public WebElement editTokenBtn;
+
+    @FindBy(xpath = "//button[@id='main-submit-btn']")
+    public WebElement getStartedBtn;
+
+    @FindBy(xpath = "//div[@class='LcWidgetTopWrapper ClField-PreferredLanguage lcFieldWrapper']//select")
+    public WebElement languageField;
+
+    @FindBy(xpath = "//div[@class='nav-button']")
+    public WebElement registerHereBtn;
+
+    @FindBy(xpath = "//button[@id='CybotCookiebotDialogBodyButtonDecline']")
+    public WebElement denyBtn;
+
+    @FindBy(xpath = "//div[@class='exitButton']")
+    public WebElement iAmNotSerbianRes;
+
+    @FindBy(xpath = "//div[@id='startTradingButton' and text()='Use Password']")
+    protected WebElement usePasswordBtn;
+
+    @FindBy(xpath = "//a[contains(text(), 'Already have an account?')]")
+    public WebElement alreadyHaveAnAccountLink;
 
     @FindBy(xpath = "//p/a[text()='Privacy Policy']")
     public WebElement headerPrivacyPolicyLink;
@@ -97,62 +154,75 @@ public class FortradePage extends BasePage {
     @FindBy(xpath = "//p/a[text()='Terms and Conditions']")
     public WebElement headerTermsAndConditionsLink;
 
-    @FindBy(xpath = "//p/a[text()='Already have an account?']")
-    public WebElement alreadyHaveAnAccountLink;
-
     @FindBy(xpath = "//div/a[text()='Contact Us']")
     public WebElement contactUsLink;
 
     @FindBy(xpath = "//b/a[text()='support@fortrade.com']")
     public WebElement supportLink;
 
-    @FindBy(xpath = "//div/a[contains(text(), 'Risk warning')]")
-    public WebElement footerRiskWarningLink;
-
-    @FindBy(xpath = "//div/a[contains(text(), 'Privacy policy')]")
-    public WebElement footerPrivacyPolicyLink;
-
-    @FindBy(xpath = "//div/a[text()='FRN: 609970']")
-    public WebElement footerFCALink;
-
-    @FindBy(xpath = "//div/a[text()='CRN: BC1148613']")
-    public WebElement footerIIROCLink;
-
-    @FindBy(xpath = "//div/a[text()='ABN: 33 614 683 831 | AFSL: 493520']")
-    public WebElement footerASICLink;
-
-    @FindBy(xpath = "//div/a[text()='CIF license number 385/20']")
-    public WebElement footerCYSECLink;
-
-    @FindBy(xpath = "//div/a[text()=' GB21026472']")
+    @FindBy(xpath = "//a[text()=' GB21026472']")
     public WebElement footerFSCLink;
 
-    @FindBy(xpath = "//div/a[text()=' No. F009856']")
-    public WebElement footerDFSALink;
+    @FindBy(xpath="//a[text()='click here']")
+    public WebElement clickHere;
 
-    @FindBy(xpath = "//input[@id='Resend-Token-Btn']")
-    public WebElement iDidntReceiveTheCodeLink;
+    public By privacyPolicyLinkBy = By.xpath("//a[contains(text(), 'Privacy Policy')]");
 
-    @FindBy(xpath = "//label[text()='We sent you the code again']")
-    public WebElement weSentYouTheCodeAgainText;
+    public By termsAndConditionsLinkBy = By.xpath("//a[contains(text(), 'Terms and Conditions')]");
 
-    @FindBy(xpath = "//div/input[@name='Token0']")
-    public WebElement firstSmsTokenField;
+    public By clickHereLinkBy = By.xpath("//a[text()='click here']");
 
-    @FindBy(xpath = "//div/input[@name='Token1']")
-    public WebElement secondSmsTokenField;
+    public By contactUsLinkBy = By.xpath("//div[@class='need-help']/a[contains(text(), 'Contact Us')]");
 
-    @FindBy(xpath = "//div/input[@name='Token2']")
-    public WebElement thirdSmsTokenField;
+    public By facebookLinkBy = By.xpath("//a[@href='https://www.facebook.com/Fortrade.International']");
 
-    @FindBy(xpath = "//div/input[@name='Token3']")
-    public WebElement fourthSmsTokenField;
+    public By instagramLinkBy = By.xpath("//a[@href='https://www.instagram.com/fortrade_online_trading/?hl=en']");
 
-    @FindBy(xpath = "//div/span[text()='Incorrect Code. Please check and try again.']")
-    public WebElement smsFieldsErrorMessage;
+    public By youtubeLinkBy = By.xpath("//a[@href='https://www.youtube.com/channel/UCNCrGhrDTEN1Hx_20-kFxwg']");
 
-    @FindBy(xpath = "//div/input[@id='Details-Edit-Btn']")
-    public WebElement editPencilButton;
+    public By infoLinkBy = By.xpath("//div[@class='col-md-12 text-center']//a[text()='info@fortrade.com']");
+
+    public By supportLinkBy = By.xpath("//a[text()='support@fortrade.com']");
+
+    public By footerPrivacyPolicyLinkBy = By.xpath("//div[@class='fscClass']//a[contains(text(),'Privacy policy')]");
+
+    public By fscRegulationLinkBy = By.xpath("//a[text()=' GB21026472']");
+
+    String[] errorMessages = {"Please enter all your given first name(s).",
+            "Please enter your last name.",
+            "Must be a valid email address.",
+            "Must be a valid international phone number"};
+
+    String[] sameNamesErrorMessages = {"First Name and Last Name cannot be equal.",
+            "First Name and Last Name cannot be equal."};
+
+    public String msgAlrRegEmailAdd = "Email or phone already exists. Please use a different email address or phone number.";
+
+    public String msgAlrRegPhone = "Email or phone already exists. Please use a different email address or phone number.";
+
+    // Privacy Policy document link
+    public String privacyPolicyFSC = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Privacy_Policy.pdf";
+
+    // Terms and conditions document link
+    public String termsAndConditionsFSC = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_Mauritius_Client_Agreement.pdf";
+
+    //How to unsubscribe document link
+    public String howToUnsubscribeURL = "https://www.fortrade.com/wp-content/uploads/legal/How_to_guides/How_to_unsubscribe.pdf";
+
+    // Already have an account link
+    public String alrHaveAccount = "https://authfe.fortrade.com/oauth/account/login?appId=41fedbf7-2f03-4aac-8d1d-e11cdbb22bf8";
+
+    // Privacy policy document Footer link
+    public String privacyPolicyFSCFooter = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Privacy_Policy.pdf";
+
+    // Financial Services Commission, Mauritius (FSC) link
+    public String fscLink = "https://opr.fscmauritius.org/ords/opr/r/fsc-opr/fsc-online-public-register-opr";
+
+    public String fbURL = "https://www.facebook.com/Fortrade.International";
+
+    public String insURL = "https://www.instagram.com/fortrade_online_trading/?hl=en";
+
+    public String ytURL = "https://www.youtube.com/channel/UCNCrGhrDTEN1Hx_20-kFxwg";
 
     @Step("Insert first name: {firstNameData}")
     public void insertFirstName(String firstNameData) {
@@ -174,6 +244,11 @@ public class FortradePage extends BasePage {
         ElementActions.type(countryCode, countryCodeData, "country code");
     }
 
+    @Step("Click here link")
+    public void clickHereLink(){
+        ElementActions.click(clickHere,"click here link");
+    }
+
     /**
      * country code type field detection
      */
@@ -184,17 +259,17 @@ public class FortradePage extends BasePage {
         DROPDOWN
     }
 
-    private FieldType detectCountryCodeType() {
+    private FortradePage.FieldType detectCountryCodeType() {
         if (driver.findElements(By.xpath("//label/div[@class='phone-prefix-wrapper']")).size() > 0) {
-            return FieldType.HIDDEN;
+            return FortradePage.FieldType.HIDDEN;
         }
         if (countryCode.getAttribute("type").equalsIgnoreCase("text")) {
-            return FieldType.TEXT;
+            return FortradePage.FieldType.TEXT;
         }
         if (driver.findElements(By.xpath("//div[@class='country-phone-select']")).size() > 0) {
-            return FieldType.DROPDOWN;
+            return FortradePage.FieldType.DROPDOWN;
         }
-        return FieldType.UNKNOWN;
+        return FortradePage.FieldType.UNKNOWN;
     }
 
     private void validateHiddenCountryCode(String expectedValue) {
@@ -210,7 +285,7 @@ public class FortradePage extends BasePage {
      * Country code method detection
      */
     public void handleCountryCode(String countryCodeData) {
-        FieldType fieldType = detectCountryCodeType();
+        FortradePage.FieldType fieldType = detectCountryCodeType();
         switch (fieldType) {
             case HIDDEN:
                 validateHiddenCountryCode(countryCodeData);
@@ -232,11 +307,11 @@ public class FortradePage extends BasePage {
     }
 
     public void clickGetStartedBtn() {
-        ElementActions.click(submitBtn, "submit button");
+        ElementActions.click(continueBtn, "submit button");
     }
 
     public void clickSubmitBtnParams(){
-        ElementActions.click(submitParamsBtn,"Start trading button");
+        ElementActions.click(submitButton,"Start trading button");
     }
 
     @Step("Select age : {ageData}")
@@ -305,34 +380,8 @@ public class FortradePage extends BasePage {
         clickSubmitBtn2nd();
     }
 
-    /*public void registerDemoAccountWithAgeParameter(String firstNameData, String lastNameData, String emailAddress,
-                                                  String countryCodeData, String phoneNumberData, String ageData) {
-        insertFirstName(firstNameData);
-        insertLastName(lastNameData);
-        insertEmailAddress(emailAddress);
-        handleCountryCode(countryCodeData);
-        insertPhoneNumber(phoneNumberData);
-        clickSubmitBtnParams();
-        selectAge(ageData);
-        clickSubmitBtn2nd();
-    }
-
-    public void checkErrorMessageForAgeParameter(String firstNameData, String lastNameData, String emailAddress,
-                                                    String countryCodeData, String phoneNumberData, String ageData, String wrongAgeData) {
-        insertFirstName(firstNameData);
-        insertLastName(lastNameData);
-        insertEmailAddress(emailAddress);
-        handleCountryCode(countryCodeData);
-        insertPhoneNumber(phoneNumberData);
-        clickSubmitBtnParams();
-        clickSubmitBtn2nd();
-        selectAge(ageData);
-        selectAge(wrongAgeData);
-        clickSubmitBtn2nd();
-    }*/
-
     public void registerDemoAccountWithParameter(String firstNameData, String lastNameData, String emailAddress,
-                                                    String countryCodeData, String phoneNumberData, String parameterData, String parameter) {
+                                                 String countryCodeData, String phoneNumberData, String parameterData, String parameter) {
         insertFirstName(firstNameData);
         insertLastName(lastNameData);
         insertEmailAddress(emailAddress);
@@ -362,7 +411,7 @@ public class FortradePage extends BasePage {
     }
 
     public void checkErrorMessageForParameter(String firstNameData, String lastNameData, String emailAddress,
-                                                 String countryCodeData, String phoneNumberData, String parameterData, String wrongParameterData, String parameter) {
+                                              String countryCodeData, String phoneNumberData, String parameterData, String wrongParameterData, String parameter) {
         insertFirstName(firstNameData);
         insertLastName(lastNameData);
         insertEmailAddress(emailAddress);
@@ -398,9 +447,9 @@ public class FortradePage extends BasePage {
     }
 
     public void fillTheFormOnTheSecondStepWithWrongSmsCode(String firstNameData, String lastNameData, String emailAddress,
-                                                  String countryCodeData, String phoneNumberData, String ageData,
-                                                  String annualData, String savingData, String knowledgeData,
-                                                  String languageData, String token0, String token1, String token2, String token3) {
+                                                           String countryCodeData, String phoneNumberData, String ageData,
+                                                           String annualData, String savingData, String knowledgeData,
+                                                           String languageData, String token0, String token1, String token2, String token3) {
         insertFirstName(firstNameData);
         insertLastName(lastNameData);
         insertEmailAddress(emailAddress);
@@ -417,16 +466,16 @@ public class FortradePage extends BasePage {
     }
 
     public void enterTheSmsToken(String token0, String token1, String token2, String token3) {
-        ElementActions.type(firstSmsTokenField, token0, "first sms token field");
-        ElementActions.type(secondSmsTokenField, token1, "second sms token field");
-        ElementActions.type(thirdSmsTokenField, token2, "third sms token field");
-        ElementActions.type(fourthSmsTokenField, token3, "fourth sms token field");
+        ElementActions.type(tokenField0, token0, "first sms token field");
+        ElementActions.type(tokenField1, token1, "second sms token field");
+        ElementActions.type(tokenField2, token2, "third sms token field");
+        ElementActions.type(tokenField3, token3, "fourth sms token field");
     }
 
     public void assertAlrRegEmailErrorMsg() {
         Assert.assertEquals(
                 ElementActions.getText(
-                        msgAlrRegEmail,
+                        alrRegisteredEmail,
                         "Already registered email address error message"),
                 msgAlrRegEmailAdd);
     }
@@ -434,12 +483,6 @@ public class FortradePage extends BasePage {
     public void assertErrMsgForAlreadyRegisteredAccount() {
         Assert.assertEquals(ElementActions.getText(alrRegPhoneMsg, "Already registered phone number error message"), msgAlrRegPhone);
     }
-
-    String[] errorMessages = {"Please enter all your given first name(s).",
-            "Please enter your last name.",
-            "Must be a valid email address.",
-            //"Phone number is required"
-            "Phone number must be exactly 10 digits and cannot start with 0"};
 
     public void assertErrorMessages() {
         for (int i = 1; i <= 4; i++) {
@@ -474,17 +517,17 @@ public class FortradePage extends BasePage {
         for (int i = 1; i < 6; i++){
             Assert.assertEquals(ElementActions.getText(By.xpath("(//span[@class='selectErrorMessage'])[position()={index}]".replace("{index}", String.valueOf(i))), "second step error message"), TestData.secondStepErrorMessage);
         }
-                assertBorderColor(age, "border-color", TestData.redBorderColor);
-                assertBorderColor(annual, "border-color", TestData.redBorderColor);
-                assertBorderColor(saving, "border-color", TestData.redBorderColor);
-                assertBorderColor(knowledge, "border-color", TestData.redBorderColor);
-                assertBorderColor(language, "border-color", TestData.redBorderColor);
+        assertBorderColor(age, "border-color", TestData.redBorderColor);
+        assertBorderColor(annual, "border-color", TestData.redBorderColor);
+        assertBorderColor(saving, "border-color", TestData.redBorderColor);
+        assertBorderColor(knowledge, "border-color", TestData.redBorderColor);
+        assertBorderColor(language, "border-color", TestData.redBorderColor);
     }
 
     public void fillTheFormOnTheSecondStepWithWrongData(String firstNameData, String lastNameData, String emailAddress,
-                                                           String countryCodeData, String phoneNumberData, String ageData,
-                                                           String annualData, String savingData, String knowledgeData,
-                                                           String languageData) {
+                                                        String countryCodeData, String phoneNumberData, String ageData,
+                                                        String annualData, String savingData, String knowledgeData,
+                                                        String languageData) {
         insertFirstName(firstNameData);
         insertLastName(lastNameData);
         insertEmailAddress(emailAddress);
@@ -506,7 +549,7 @@ public class FortradePage extends BasePage {
     }
 
     public void checkLogoClickability(){
-        ElementActions.click(iirocLogo, "fortrade iiroc logo");
+        ElementActions.click(fortradeLogo, "fortrade iiroc logo");
     }
 
     public void assertURL(String url) {
@@ -538,7 +581,6 @@ public class FortradePage extends BasePage {
         List<String> tabs = new ArrayList<>(driver.getWindowHandles());
         if (tabs.size() > 1){
             if (browserName.equalsIgnoreCase("chrome")){
-                //driver.switchTo().window(tabs.get(2));
                 driver.switchTo().window(tabs.get(1));
             } else {
                 driver.switchTo().window(tabs.get(1));
@@ -562,7 +604,6 @@ public class FortradePage extends BasePage {
         List<String> tabs = new ArrayList<>(driver.getWindowHandles());
         if (tabs.size() > 1){
             if (browserName.equalsIgnoreCase("chrome")){
-                //driver.switchTo().window(tabs.get(2));
                 driver.switchTo().window(tabs.get(1));
             } else {
                 driver.switchTo().window(tabs.get(1));
@@ -579,20 +620,20 @@ public class FortradePage extends BasePage {
     }
 
     public void checkIDidntReceiveTheCodeLink(){
-        ElementActions.click(iDidntReceiveTheCodeLink, "I didn't receive the code");
-        Assert.assertEquals(ElementActions.getText(weSentYouTheCodeAgainText, "weSentYouTheCodeAgainMessage"), "We sent you the code again");
+        ElementActions.click(didNotGetToken, "I didn't receive the code");
+        Assert.assertEquals(ElementActions.getText(codeIsSent, "weSentYouTheCodeAgainMessage"), "We sent you the code again");
     }
 
     public void assertErrorMessageForWrongSmsCode(){
-        Assert.assertEquals(ElementActions.getText(smsFieldsErrorMessage, "smsFieldErrorMessage"), "Incorrect Code. Please check and try again.");
-        assertBorderColor(firstSmsTokenField, "border-color", TestData.redBorderColor);
-        assertBorderColor(secondSmsTokenField, "border-color", TestData.redBorderColor);
-        assertBorderColor(thirdSmsTokenField, "border-color", TestData.redBorderColor);
-        assertBorderColor(fourthSmsTokenField, "border-color", TestData.redBorderColor);
+        Assert.assertEquals(ElementActions.getText(incorrectTokenMsg, "smsFieldErrorMessage"), "Incorrect Code. Please check and try again.");
+        assertBorderColor(tokenField0, "border-color", TestData.redBorderColor);
+        assertBorderColor(tokenField1, "border-color", TestData.redBorderColor);
+        assertBorderColor(tokenField2, "border-color", TestData.redBorderColor);
+        assertBorderColor(tokenField3, "border-color", TestData.redBorderColor);
     }
 
     public void checkEditPencilButton(){
-        ElementActions.click(editPencilButton, "edit pencil button");
+        ElementActions.click(editTokenBtn, "edit pencil button");
         WaitUtil.waitForVisible(firstName);
         Assert.assertTrue(firstName.isDisplayed());
     }
