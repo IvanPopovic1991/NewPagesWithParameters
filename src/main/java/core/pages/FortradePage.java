@@ -305,32 +305,6 @@ public class FortradePage extends BasePage {
         clickSubmitBtn2nd();
     }
 
-    /*public void registerDemoAccountWithAgeParameter(String firstNameData, String lastNameData, String emailAddress,
-                                                  String countryCodeData, String phoneNumberData, String ageData) {
-        insertFirstName(firstNameData);
-        insertLastName(lastNameData);
-        insertEmailAddress(emailAddress);
-        handleCountryCode(countryCodeData);
-        insertPhoneNumber(phoneNumberData);
-        clickSubmitBtnParams();
-        selectAge(ageData);
-        clickSubmitBtn2nd();
-    }
-
-    public void checkErrorMessageForAgeParameter(String firstNameData, String lastNameData, String emailAddress,
-                                                    String countryCodeData, String phoneNumberData, String ageData, String wrongAgeData) {
-        insertFirstName(firstNameData);
-        insertLastName(lastNameData);
-        insertEmailAddress(emailAddress);
-        handleCountryCode(countryCodeData);
-        insertPhoneNumber(phoneNumberData);
-        clickSubmitBtnParams();
-        clickSubmitBtn2nd();
-        selectAge(ageData);
-        selectAge(wrongAgeData);
-        clickSubmitBtn2nd();
-    }*/
-
     public void registerDemoAccountWithParameter(String firstNameData, String lastNameData, String emailAddress,
                                                     String countryCodeData, String phoneNumberData, String parameterData, String parameter) {
         insertFirstName(firstNameData);
