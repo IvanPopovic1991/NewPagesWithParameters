@@ -68,4 +68,13 @@ public class WaitUtil {
             throw new AssertionError(failureMessage);
         }
     }
+
+    public static void threadSleep (int millis){
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
+        }
+    }
 }

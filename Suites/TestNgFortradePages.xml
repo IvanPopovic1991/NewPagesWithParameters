@@ -1,32 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Fortrade Pages">
-    <!--<listeners>
+    <listeners>
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
         <listener class-name="core.listeners.RetryTransformer"/>
         <listener class-name="core.listeners.ScreenshotListener"/>
         <listener class-name="core.listeners.TestListener"/>
-    </listeners>-->
+    </listeners>
     <parameter name="env" value="local"/>
     <parameter name="browser" value="chrome"/>
     <test name="Test cases - Premium Forex CA landing page">
         <parameter name="regulation" value="iiroc"/>
         <parameter name="countryCode" value="1"/>
-        <parameter name="tag" value="regulation=iiroc&amp;regtest=true"/>
+        <parameter name="tag" value="?regulation=iiroc&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsFortrade.PremiumForexCA">
-                <methods>
-                    <include name="checkLanguageFieldContainsDefaultValue"/>
-                    <!--<include name="emailIsReceived"/>
-                    <include name="emailIsReceived"/>
-                    <include name="checkingTheCustomTag"/>
-                    <include name="dummypParameter"/>
-                    <include name="dummyParameter"/>
-                    <include name="parameterDummy"/>
-                    <include name="customTagContainsDummy"/>
-                    <include name="customTagContainsDummyValue"/>-->
-                </methods>
-            </class>
+            <class name="tests.TestsFortrade.PremiumForexCA"/>
         </classes>
     </test>
 </suite>

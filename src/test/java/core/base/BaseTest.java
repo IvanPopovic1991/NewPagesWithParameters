@@ -1,5 +1,6 @@
 package core.base;
 
+import core.config.ConfigReader;
 import core.driver.DriverManager;
 import core.utils.ScreenshotUtil;
 import org.testng.ITestResult;
@@ -12,6 +13,9 @@ public class BaseTest {
     @BeforeMethod(alwaysRun = true)
     @Parameters({"env", "browser"})
     public void setUp(String env, String browser) {
+        //Dodata linija koda za ispis
+        System.out.println("THREAD: " + Thread.currentThread().getId());
+        System.out.println("DRIVER: " + DriverManager.getDriver());
 
         System.setProperty("env", env);
         System.setProperty("browser", browser);
@@ -24,6 +28,10 @@ public class BaseTest {
     }
 
     protected void openUrl(String url) {
+        //Dodata linija koda za ispis
+        System.out.println("THREAD: " + Thread.currentThread().getId());
+        System.out.println("DRIVER: " + DriverManager.getDriver());
+
         DriverManager.getDriver().get(url);
     }
 

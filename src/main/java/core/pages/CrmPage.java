@@ -259,9 +259,7 @@ public class CrmPage extends BasePage {
     public void checkCustomTag(String expectedValue) throws InterruptedException {
         ElementActions.click(menuBtn, "menu button");
         ElementActions.click(envAndMarSec, "environment and marketing section button");
-        Thread.sleep(1500);
         ElementActions.scrollTo(customTag,"Custom tag");
-        Thread.sleep(1500);
         String actualValue = readAttribute(customTag, "title", "The value of custom tag");
         System.out.println(actualValue);
         Assert.assertEquals(actualValue, expectedValue);

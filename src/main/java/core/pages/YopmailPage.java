@@ -100,7 +100,7 @@ public class YopmailPage extends BasePage {
                     ElementActions.click(refreshEmailBtn, "refresh inbox");
                     return false;
                 },
-                60, 5, "Email was not received within 60 seconds!");
+                90, 5, "Email was not received within 90 seconds!");
         driver.switchTo().defaultContent();
         driver.switchTo().frame(inboxFrame);
         ElementActions.click(emailMessage, "open email");

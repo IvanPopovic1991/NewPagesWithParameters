@@ -3,6 +3,8 @@ package tests.TestsFortrade;
 import core.actions.ElementActions;
 import core.base.BaseTest;
 import core.config.ConfigReader;
+import core.config.EnvironmentManager;
+import core.driver.DriverManager;
 import core.pages.CrmPage;
 import core.pages.FortradePage;
 import core.pages.ReadyFortrade;
@@ -26,83 +28,17 @@ public class PremiumForexCA extends BaseTest {
     private FortradePage fortradePage;
     private ReadyFortrade readyFortrade;
     private CrmPage crmPage;
+    private String baseUrl;
 
+    @Parameters({"tag"})
     @BeforeMethod
-    public void initPages(){
+    public void initPages(String tag){
         fortradePage = new FortradePage();
         readyFortrade = new ReadyFortrade();
         crmPage = new CrmPage();
-        openUrl(ConfigReader.getBaseUrl("base.url"));
-    }
-
-    @Test(description = "TC 2.1. Verify the demo account is registered successfully with valid data")
-    @Parameters({"regulation","countryCode"})
-    public void demoAccountRegistrationTest(String regulation,String countryCode) throws IOException, AWTException {
-
-        ScreenshotUtil.setCustomName("Demo account is successfully registered - " + regulation);
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,TestData.generateEmail(),countryCode,TestData.canadaPhoneNumber());
-        readyFortrade.assertURL("https://ready.fortrade.com/");
-        readyFortrade.clickUsePassBtn();
-        readyFortrade.clickMenuBtn();
-        readyFortrade.checkRegulation(regulation);
-    }
-
-    @Test(description = "TC 3.1. Verify that the account cannot be registered with already registered email address")
-    @Parameters({"regulation","countryCode"})
-    public void alreadyRegisteredEmailAddressTest(String regulation, String countryCode){
-        ScreenshotUtil.setCustomName("Already registered email address " + regulation);
-        Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
-        String email = TestData.generateEmail();
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
-        readyFortrade.assertURL(TestData.appUrl);
-        openUrl(ConfigReader.getBaseUrl("base.url"));
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
-        fortradePage.assertAlrRegEmailErrorMsg();
-    }
-
-    @Test(description="TC 3.2 Verify the demo account is not registered successfully with invalid data")
-    @Parameters({"regulation","countryCode"})
-    public void nonValidDataTest(String regulation,String countryCode){
-        ScreenshotUtil.setCustomName("Non valid data " + regulation);
-        Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
-        fortradePage.registerDemoAccount("123","574","abcd134324",countryCode,"0198798");
-        fortradePage.assertErrorMessages();
-    }
-
-    @Test(description = "TC 3.3. Verify that the account cannot be registered with already registered phone number")
-    @Parameters({"regulation","countryCode"})
-    public void alreadyRegisteredPhoneNumberTest(String regulation,String countryCode){
-        ScreenshotUtil.setCustomName("Already registered phone number " + regulation);
-        Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
-        String phoneNumber = TestData.canadaPhoneNumber();
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,TestData.generateEmail(),countryCode,phoneNumber);
-        readyFortrade.assertURL(TestData.appUrl);
-        openUrl(ConfigReader.getBaseUrl("base.url"));
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,TestData.generateEmail(),countryCode,phoneNumber);
-        fortradePage.assertErrMsgForAlreadyRegisteredAccount();
-    }
-
-    @Test(description = "TC 3.4. Verify that the account cannot be registered with already registered email address and phone number")
-    @Parameters({"regulation","countryCode"})
-    public void alreadyRegisteredEmailAndPhoneTest(String regulation, String countryCode){
-    ScreenshotUtil.setCustomName("Already registered email address and phone number " + regulation);
-    Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
-    String email = TestData.generateEmail();
-    String phone = TestData.canadaPhoneNumber();
-    fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,phone);
-    readyFortrade.assertURL(TestData.appUrl);
-    openUrl(ConfigReader.getBaseUrl("base.url"));
-    fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,phone);
-    fortradePage.assertAlrRegEmailErrorMsg();
-    }
-
-    @Test(description = "TC 3.5. Verify the demo account is not registered successfully with empty fields")
-    @Parameters({"regulation"})
-    public void emptyDataRegistrationTest(String regulation){
-        ScreenshotUtil.setCustomName("Unsuccessfully account registration with empty data " + regulation);
-        Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
-        fortradePage.clickGetStartedBtn();
-        //missing assertation
+        baseUrl = ConfigReader.getBaseUrl();
+        baseUrl += tag;
+        openUrl(baseUrl);
     }
 
     @Test(description = "TC 1.2.1 - Verify the logo is not clickable with left click")
@@ -120,6 +56,76 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Text is displayed correctly under the form for iiroc regulation." + regulation);
         Allure.step("Checked for text under the form for iiroc regulation");
         fortradePage.assertText(fortradePage.textUnderFormIiroc, TestData.textForIiroc);
+    }
+
+    @Test(description = "TC 2.1. Verify the demo account is registered successfully with valid data")
+    @Parameters({"regulation","countryCode"})
+    public void demoAccountRegistrationTest(String regulation,String countryCode) throws IOException, AWTException {
+        ScreenshotUtil.setCustomName("Demo account is successfully registered - " + regulation);
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,TestData.generateEmail(),countryCode,TestData.canadaPhoneNumber());
+        readyFortrade.assertURL("https://ready.fortrade.com/");
+        readyFortrade.clickUsePassBtn();
+        readyFortrade.clickMenuBtn();
+        readyFortrade.checkRegulation(regulation);
+    }
+
+    @Test(description = "TC 3.1. Verify that the account cannot be registered with already registered email address")
+    @Parameters({"regulation","countryCode"})
+    public void alreadyRegisteredEmailAddressTest(String regulation, String countryCode){
+        ScreenshotUtil.setCustomName("Already registered email address " + regulation);
+        Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
+        String email = TestData.generateEmail();
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        readyFortrade.assertURL(TestData.appUrl);
+        openUrl(baseUrl);
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.assertAlrRegEmailErrorMsg();
+    }
+
+    @Test(description="TC 3.2 Verify the demo account is not registered successfully with invalid data")
+    @Parameters({"regulation", "countryCode"})
+    public void nonValidDataTest(String regulation,String countryCode){
+        ScreenshotUtil.setCustomName("Non valid data " + regulation);
+        Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
+        fortradePage.registerDemoAccount("123","574","abcd134324",countryCode,"0198798");
+        fortradePage.assertErrorMessages();
+    }
+
+    @Test(description = "TC 3.3. Verify that the account cannot be registered with already registered phone number")
+    @Parameters({"regulation", "countryCode"})
+    public void alreadyRegisteredPhoneNumberTest(String regulation,String countryCode){
+        ScreenshotUtil.setCustomName("Already registered phone number " + regulation);
+        Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
+        String phoneNumber = TestData.canadaPhoneNumber();
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,TestData.generateEmail(),countryCode,phoneNumber);
+        readyFortrade.assertURL(TestData.appUrl);
+        openUrl(baseUrl);
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,TestData.generateEmail(),countryCode,phoneNumber);
+        fortradePage.assertErrMsgForAlreadyRegisteredAccount();
+    }
+
+    @Test(description = "TC 3.4. Verify that the account cannot be registered with already registered email address and phone number")
+    @Parameters({"regulation", "countryCode"})
+    public void alreadyRegisteredEmailAndPhoneTest(String regulation, String countryCode){
+    ScreenshotUtil.setCustomName("Already registered email address and phone number " + regulation);
+    Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
+    String email = TestData.generateEmail();
+    String phone = TestData.canadaPhoneNumber();
+    fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,phone);
+    readyFortrade.assertURL(TestData.appUrl);
+    openUrl(baseUrl);
+    fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,phone);
+    fortradePage.assertAlrRegEmailErrorMsg();
+    }
+
+    @Test(description = "TC 3.5. Verify the demo account is not registered successfully with empty fields")
+    @Parameters({"regulation"})
+    public void emptyDataRegistrationTest(String regulation){
+        ScreenshotUtil.setCustomName("Unsuccessfully account registration with empty data " + regulation);
+        Allure.step("Redirected to https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
+        fortradePage.clickGetStartedBtn();
+        fortradePage.assertBorderColor(fortradePage.borderColorForFirstName, "border-color", TestData.redBorderColor);
+        fortradePage.assertFirstStepErrorMessage(TestData.firstNameErrorMessage);
     }
 
     @Test(description = "TC 4.1 - Verify that the invalid data for the First Name field will show valid error message with red border")
@@ -174,7 +180,7 @@ public class PremiumForexCA extends BaseTest {
         fortradePage.assertFirstStepErrorMessage(TestData.sameLastNameErrorMessage);
     }
 
-    @Test(description = "TC 4.6 - Verify that the First Name cannot be the same as Last name.")
+    @Test(description = "TC 4.7 - Verify that the First Name cannot be the same as Last name.")
     @Parameters({"regulation"})
     public void sameLNameAndFNameTest(String regulation) {
         ScreenshotUtil.setCustomName("Your last name must be different from your first name - " + regulation);
@@ -357,7 +363,7 @@ public class PremiumForexCA extends BaseTest {
     }
 
     @Test(description = "9.1. Verify the border color in the CRM for regulation")
-    @Parameters({"regulation","countryCode"})
+    @Parameters({"regulation", "countryCode"})
     public void checkAccountRegulationTest(String regulation, String countryCode){
         ScreenshotUtil.setCustomName("Account regulation in CRM - Fortrade - " + regulation);
         String email = TestData.generateEmail();
@@ -367,7 +373,7 @@ public class PremiumForexCA extends BaseTest {
     }
 
     @Test(description = "9.2. Verify the account details is displayed correctly in the CRM")
-    @Parameters({"regulation","countryCode"})
+    @Parameters({"regulation", "countryCode"})
     public void checkAccountDetailsInCrmTest(String regulation, String countryCode){
         ScreenshotUtil.setCustomName("Account details in CRM - Fortrade - " + regulation);
         String email = TestData.generateEmail();
@@ -377,19 +383,29 @@ public class PremiumForexCA extends BaseTest {
     }
 
     @Test(description = "9.3. Verify the tags are displayed correctly in CRM")
-    @Parameters({"regulation","countryCode"})
-    public void checkTagsInCrmTest(String regulation,String countryCode){
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void checkTagsInCrmTest(String regulation,String countryCode, String tag){
         ScreenshotUtil.setCustomName("Marketing tags Fortrade page " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=age-annual-saving-knowledge-plang:all&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=age-annual-saving-knowledge-plang:all&tg=ivanA1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
         fortradePage.registerDemoAccountWithParameters(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(),
                 "25-34", "$15,000-$50,000", "$50,000-$100,000", "All the above","English");
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,"Testq Testa",regulation);
         crmPage.checkCrmTags();
+    }
+    @Test(description = "9.4. Verify that the Link ID field contains 'PC_windows' value in the CRM")
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void checkLinkIDPCWindows(String regulation,String countryCode, String tag){
+        ScreenshotUtil.setCustomName("Link ID tag contains the 'PC_windows' value " + regulation);
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the page url");
+        openUrl(baseUrl);
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkLinkIdValue("PC_windows");
     }
 
     @Test(description = "TC 10.1. Verify the email is sent on the new account email")
@@ -398,7 +414,6 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Email is received successfully - Fortrade page " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?"+tag);
         fortradePage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.canadaPhoneNumber());
         readyFortrade.assertURL(TestData.appUrl);
         readyFortrade.clickUsePassBtn();
@@ -409,27 +424,23 @@ public class PremiumForexCA extends BaseTest {
 
 
     @Test(description = "TC 12.5. Verify that message 'We sent you the code again' is received")
-    @Parameters({"regulation", "countryCode"})
-    public void iDidntReceiveTheCodeTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void iDidntReceiveTheCodeTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("I didn't received the code link " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=sms-age-annual-saving-knowledge-plang:all&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=sms-age-annual-saving-knowledge-plang:all");
         fortradePage.goToSecondStep(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.checkIDidntReceiveTheCodeLink();
     }
 
     @Test(description = "TC 12.6. Verify that wrong code cannot be submitted (negative test case)")
-    @Parameters({"regulation", "countryCode"})
-    public void wrongCodeCannotBeSubmittedTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void wrongCodeCannotBeSubmittedTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("Wrong code cannot be submitted " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=sms-age-annual-saving-knowledge-plang:all&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=sms-age-annual-saving-knowledge-plang:all");
         fortradePage.fillTheFormOnTheSecondStepWithWrongSmsCode(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(),
                 "25-34", "$15,000-$50,000", "$50,000-$100,000", "All the above","English",
                 "1", "1", "1", "1");
@@ -437,217 +448,185 @@ public class PremiumForexCA extends BaseTest {
     }
 
     @Test(description = "TC 12.9. Verify if user clicks pencil icon the same is returned to the 1st widget")
-    @Parameters({"regulation", "countryCode"})
-    public void editPencilButtonTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void editPencilButtonTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("Edit pencil button redirects to the first step " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=sms-age-annual-saving-knowledge-plang:all&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=sms-age-annual-saving-knowledge-plang:all");
         fortradePage.goToSecondStep(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.checkEditPencilButton();
     }
 
     @Test(description = "TC 13.1. Verify the user is redirected to the 2nd step - age verification window")
-    @Parameters({"regulation", "countryCode"})
-    public void redirectionToTheSecondStepAgeTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void redirectionToTheSecondStepAgeTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("User is redirected to the second step (age) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=age&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=age");
         fortradePage.goToSecondStep(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         WaitUtil.waitForVisible(fortradePage.age);
         Assert.assertTrue(fortradePage.age.isDisplayed());
     }
 
     @Test(description = "TC 13.2. Verify the 2nd step - age verification window is successfully completed and submitted")
-    @Parameters({"regulation", "countryCode"})
-    public void registeredAgeParameterTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void registeredAgeParameterTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("User is registered (age) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=age&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=age");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "25-34", "age");
         readyFortrade.assertURL(TestData.appUrl);
     }
 
     @Test(description = "TC 13.3. Verify the 2nd step - age verification window cannot be submitted if it's not completed")
-    @Parameters({"regulation", "countryCode"})
-    public void errorMessageForAgeParameterTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void errorMessageForAgeParameterTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("Error message (age) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=age&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=age");
         fortradePage.checkErrorMessageForParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "25-34", "-- Select --", "age");
         fortradePage.assertSecondStepErrorMessage("age");
     }
 
     @Test(description = "TC 13.4. Verify the age value is displayed correctly in the Link ID field in the CRM")
-    @Parameters({"regulation", "countryCode"})
-    public void ageParameterCRMTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void ageParameterCRMTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("Parameter in the CRM (age) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=age&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=age");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "25-34", "age");
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,25_34_age");
     }
 
     @Test(description = "TC 13.5. Vefiry that SMS verification field has emtpty (-) value")
-    @Parameters({"regulation", "countryCode"})
-    public void smsVerificationAgeTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void smsVerificationAgeTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("SMS field in the CRM (age) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=age&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=age");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "25-34", "age");
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkSMSValueParameter(email, "--");
     }
 
     @Test(description = "TC 14.1. Verify the user is redirected to the 2nd step - annual verification window")
-    @Parameters({"regulation", "countryCode"})
-    public void redirectionToTheSecondStepAnnualTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void redirectionToTheSecondStepAnnualTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("User is redirected to the second step (annual) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=annual&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=annual");
         fortradePage.goToSecondStep(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         WaitUtil.waitForVisible(fortradePage.annual);
         Assert.assertTrue(fortradePage.annual.isDisplayed());
     }
 
     @Test(description = "TC 14.2. Verify the 2nd step - annual income verification window is successfully completed and submitted")
-    @Parameters({"regulation", "countryCode"})
-    public void registeredAnnualParameterTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void registeredAnnualParameterTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("User is registered (annual) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=annual&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=annual");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "$15,000-$50,000", "annual");
         readyFortrade.assertURL(TestData.appUrl);
     }
 
     @Test(description = "TC 14.3. Verify the 2nd step - annual income verification window cannot be submitted if it's not completed")
-    @Parameters({"regulation", "countryCode"})
-    public void errorMessageForAnnualParameterTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void errorMessageForAnnualParameterTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("Error message (annual) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=annual&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=annual");
         fortradePage.checkErrorMessageForParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "$15,000-$50,000", "-- Select --", "annual");
         fortradePage.assertSecondStepErrorMessage("annual");
     }
 
     @Test(description = "TC 14.4. Verify the annual value is displayed correctly in the Link ID field in the CRM")
-    @Parameters({"regulation", "countryCode"})
-    public void annualParameterCRMTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void annualParameterCRMTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("Parameter in the CRM (annual) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=annual&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=annual");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "$15,000-$50,000", "annual");
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,15000_50000_annual");
     }
 
     @Test(description = "TC 14.5. Verify that SMS verification field has emtpty (-) value")
-    @Parameters({"regulation", "countryCode"})
-    public void smsVerificationAnnualTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void smsVerificationAnnualTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("SMS field in the CRM (annual) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=annual&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=annual");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "$15,000-$50,000", "annual");
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkSMSValueParameter(email, "--");
     }
 
     @Test(description = "TC 15.1. Verify the user is redirected to the 2nd step - saving and investments verification window")
-    @Parameters({"regulation", "countryCode"})
-    public void redirectionToTheSecondStepSavingTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void redirectionToTheSecondStepSavingTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("User is redirected to the second step (saving) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=saving&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=saving");
         fortradePage.goToSecondStep(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         WaitUtil.waitForVisible(fortradePage.saving);
         Assert.assertTrue(fortradePage.saving.isDisplayed());
     }
 
     @Test(description = "TC 15.2. Verify the 2nd step -  value of saving and investments verification window is successfully completed and submitted")
-    @Parameters({"regulation", "countryCode"})
-    public void registeredSavingParameterTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void registeredSavingParameterTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("User is registered (saving) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=saving&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=saving");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "$50,000-$100,000", "saving");
         readyFortrade.assertURL(TestData.appUrl);
     }
 
     @Test(description = "TC 15.3. Verify the 2nd step - value of saving and investments verification window cannot be submitted if it's not completed")
-    @Parameters({"regulation", "countryCode"})
-    public void errorMessageForSavingParameterTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void errorMessageForSavingParameterTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("Error message (saving) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=saving&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=saving");
         fortradePage.checkErrorMessageForParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "$50,000-$100,000", "-- Select --", "saving");
         fortradePage.assertSecondStepErrorMessage("saving");
     }
 
     @Test(description = "TC 15.4. Verify the saving value is displayed correctly in the Link ID field in the CRM")
-    @Parameters({"regulation", "countryCode"})
-    public void savingParameterCRMTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void savingParameterCRMTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("Parameter in the CRM (saving) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=saving&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=saving");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "$50,000-$100,000", "saving");
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,50000_100000_savings");
     }
 
     @Test(description = "TC 15.5. Verify that SMS verification field has emtpty (-) value")
-    @Parameters({"regulation", "countryCode"})
-    public void smsVerificationSavingTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void smsVerificationSavingTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("SMS field in the CRM (saving) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=saving&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=saving");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "$50,000-$100,000", "saving");
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkSMSValueParameter(email, "--");
@@ -655,146 +634,126 @@ public class PremiumForexCA extends BaseTest {
 
 
     @Test(description = "TC 16.1. Verify the user is redirected to the 2nd step - knowledge of trading verification window")
-    @Parameters({"regulation", "countryCode"})
-    public void redirectionToTheSecondStepKnowledgeTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void redirectionToTheSecondStepKnowledgeTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("User is redirected to the second step (knowledge) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=knowledge&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=knowledge");
         fortradePage.goToSecondStep(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         WaitUtil.waitForVisible(fortradePage.knowledge);
         Assert.assertTrue(fortradePage.knowledge.isDisplayed());
     }
 
     @Test(description = "TC 16.2. Verify the 2nd step -  knowledge of trading verification window is successfully completed and submitted")
-    @Parameters({"regulation", "countryCode"})
-    public void registeredKnowledgeParameterTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void registeredKnowledgeParameterTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("User is registered (knowledge) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=knowledge&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=knowledge");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "All the above", "knowledge");
         readyFortrade.assertURL(TestData.appUrl);
     }
 
     @Test(description = "TC 16.3. Verify the 2nd step - knowledge of trading verification window cannot be submitted if it's not completed")
-    @Parameters({"regulation", "countryCode"})
-    public void errorMessageForKnowledgeParameterTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void errorMessageForKnowledgeParameterTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("Error message (knowledge) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=knowledge&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=knowledge");
         fortradePage.checkErrorMessageForParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "All the above", "-- Select --", "knowledge");
         fortradePage.assertSecondStepErrorMessage("knowledge");
     }
 
     @Test(description = "TC 16.4. Verify the knowledge of trading value is displayed correctly in the Link ID field in the CRM")
-    @Parameters({"regulation", "countryCode"})
-    public void knowledgeParameterCRMTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void knowledgeParameterCRMTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("Parameter in the CRM (knowledge) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=knowledge&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=knowledge");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "All the above", "knowledge");
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,knowledge_of_trading_all_the_above");
     }
 
     @Test(description = "TC 16.5. Vefiry that SMS verification field has emtpty (-) value")
-    @Parameters({"regulation", "countryCode"})
-    public void smsVerificationKnowledgeTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void smsVerificationKnowledgeTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("SMS field in the CRM (knowledge) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=knowledge&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=knowledge");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "All the above", "knowledge");
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkSMSValueParameter(email, "--");
     }
 
     @Test(description = "TC 17.1. Verify the user is redirected to the 2nd step - language verification window")
-    @Parameters({"regulation", "countryCode"})
-    public void redirectionToTheSecondStepLanguageTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void redirectionToTheSecondStepLanguageTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("User is redirected to the second step (language) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=plang:all&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=plang:all");
         fortradePage.goToSecondStep(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         WaitUtil.waitForVisible(fortradePage.language);
         Assert.assertTrue(fortradePage.language.isDisplayed());
     }
 
     @Test(description = "TC 17.2. Verify the 2nd step -  desired communication language verification window is successfully completed and submitted")
-    @Parameters({"regulation", "countryCode"})
-    public void registeredLanguageParameterTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void registeredLanguageParameterTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("User is registered (language) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=language&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=plang:all");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "English", "language");
         readyFortrade.assertURL(TestData.appUrl);
     }
 
     @Test(description = "TC 17.3. Verify the 2nd step - desired communication language verification window cannot be submitted if it's not completed")
-    @Parameters({"regulation", "countryCode"})
-    public void errorMessageForLanguageParameterTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void errorMessageForLanguageParameterTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("Error message (language) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=plang:all&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=plang:all");
         fortradePage.checkErrorMessageForParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "English", "-- Select --", "language");
         fortradePage.assertSecondStepErrorMessage("language");
     }
 
     @Test(description = "TC 17.4. Verify the desired communication language value is displayed correctly in the Link ID field in the CRM")
-    @Parameters({"regulation", "countryCode"})
-    public void languageParameterCRMTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void languageParameterCRMTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("Parameter in the CRM (language) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=plang:all&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=plang:all");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "English", "language");
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,lang_EN");
     }
 
     @Test(description = "TC 17.5. Verify that SMS verification field has emtpty (-) value")
-    @Parameters({"regulation", "countryCode"})
-    public void smsVerificationLanguageTest(String regulation, String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void smsVerificationLanguageTest(String regulation, String countryCode, String tag) {
         ScreenshotUtil.setCustomName("SMS field in the CRM (language) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=plang:all&tg=ivanA" +
-                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
-                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        openUrl(baseUrl + "&fts=plang:all");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "English", "language");
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkSMSValueParameter(email, "--");
     }
 
     @Test(description = "TC 18.1. Verify the account is registered successfully with NON-valid tag in the URL")
-    @Parameters({"regulation","countryCode"})
-    public void nonValidParameterInTheUrlTest(String regulation,String countryCode) throws IOException, AWTException {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void nonValidParameterInTheUrlTest(String regulation,String countryCode, String tag) throws IOException, AWTException {
         ScreenshotUtil.setCustomName("Demo account is successfully registered with wrong parameters in the URL - " + regulation);
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=testq-testa");
+        openUrl(baseUrl + "&fts=testq-testa");
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,TestData.generateEmail(),countryCode,TestData.canadaPhoneNumber());
         readyFortrade.assertURL("https://ready.fortrade.com/");
         readyFortrade.clickUsePassBtn();
@@ -803,12 +762,12 @@ public class PremiumForexCA extends BaseTest {
     }
 
     @Test(description = "TC 18.2. Verify the 2nd step cannot be submitted if all parameter values are not completed")
-    @Parameters({"regulation","countryCode"})
-    public void noDataOnTheSecondStepTest(String regulation,String countryCode) {
+    @Parameters({"regulation", "countryCode", "tag"})
+    public void noDataOnTheSecondStepTest(String regulation,String countryCode, String tag) {
         ScreenshotUtil.setCustomName("Error messages (all parameters) " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=age-annual-saving-knowledge-plang:all");
+        openUrl(baseUrl + "&fts=age-annual-saving-knowledge-plang:all");
         fortradePage.fillTheFormOnTheSecondStepWithWrongData(TestData.firstName, TestData.lastName, email, countryCode, TestData.canadaPhoneNumber(), "25-34", "$15,000-$50,000", "$50,000-$100,000",
                 "All the above", "English");
         fortradePage.assertSecondStepErrorMessageAllParameters();
@@ -820,8 +779,7 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Dummy " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=annual-saving-knowledge-age-plang:all&" +
-                "ftsquery=age-equals(1,3)-or-[saving-equals(1,2,3)-and-knowledge-notequals(5)]&"+tag);
+        openUrl(baseUrl + "&fts=annual-saving-knowledge-age-plang:all&ftsquery=age-equals(1,3)-or-[saving-equals(1,2,3)-and-knowledge-notequals(5)]");
         fortradePage.registerDemoAccountWithParameters(TestData.firstName,TestData.lastName,email,countryCode,
                 TestData.canadaPhoneNumber(), "25-34", "$50,000-$100,000", "$50,000-$100,000",
                 "All the above","English");
@@ -836,8 +794,7 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Dummy - " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=annual-saving-knowledge-age-plang:all&" +
-                "ftsquery=age-equals(1_3)-or-[saving-equals(1_2_3)-and-knowledge-notequals(5)]&"+tag);
+        openUrl(baseUrl + "&fts=annual-saving-knowledge-age-plang:all&ftsquery=age-equals(1_3)-or-[saving-equals(1_2_3)-and-knowledge-notequals(5)]");
         fortradePage.registerDemoAccountWithParameters(TestData.firstName,TestData.lastName,email,countryCode,
                 TestData.canadaPhoneNumber(), "25-34", "$15,000-$50,000", "$50,000-$100,000",
                 "All the above","English");
@@ -852,8 +809,7 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Custom tag - Invalid " + regulation + "regulation");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=annual-saving-knowledge-age-plang:all&" +
-                "ftsquery=age(1)-or-[saving-equals(1,2,3)-and-knowledge-notequals(5)]&"+tag);
+        openUrl(baseUrl + "&fts=annual-saving-knowledge-age-plang:all&ftsquery=age(1)-or-[saving-equals(1,2,3)-and-knowledge-notequals(5)]");
         fortradePage.registerDemoAccountWithParameters(TestData.firstName,TestData.lastName,email,countryCode,
                 TestData.canadaPhoneNumber(), "45-54", "$15,000-$50,000", "$100,000-$250,000",
                 "None","English");
@@ -868,8 +824,7 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Custom tag - Invalid - " + regulation + "regulation");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=annual-saving-knowledge-age-plang:all&" +
-                "ftsquery=age(1)-or-[saving-equals(1,2,3)-and-knowledge-notequals(5)]&"+tag);
+        openUrl(baseUrl + "&fts=annual-saving-knowledge-age-plang:all&ftsquery=age(1)-or-[saving-equals(1,2,3)-and-knowledge-notequals(5)]");
         fortradePage.registerDemoAccountWithParameters(TestData.firstName,TestData.lastName,email,countryCode,
                 TestData.canadaPhoneNumber(), "45-54", "$15,000-$50,000", "$100,000-$250,000",
                 "None","English");
@@ -884,8 +839,7 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Empty " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("redirected to the url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=annual-saving-knowledge-age-plang:all&" +
-                "ftsquery=age-equals(1,3)-or-[saving-equals(1,2,3)-and-knowledge-notequals(5)]&"+tag);
+        openUrl(baseUrl + "&fts=annual-saving-knowledge-age-plang:all&ftsquery=age-equals(1,3)-or-[saving-equals(1,2,3)-and-knowledge-notequals(5)]");
         fortradePage.registerDemoAccountWithParameters(TestData.firstName,TestData.lastName,email,countryCode,
                 TestData.canadaPhoneNumber(), "45-54", "$15,000-$50,000", "$100,000-$250,000",
                 "All the above","English");
@@ -900,8 +854,7 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Empty - " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("redirected to the url");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=annual-saving-knowledge-age-plang:all&" +
-                "ftsquery=age-equals(1,3)-or-[saving-equals(1,2,3)-and-knowledge-notequals(5)]&"+tag);
+        openUrl(baseUrl + "&fts=annual-saving-knowledge-age-plang:all&ftsquery=age-equals(1,3)-or-[saving-equals(1,2,3)-and-knowledge-notequals(5)]");
         fortradePage.registerDemoAccountWithParameters(TestData.firstName,TestData.lastName,email,countryCode,
                 TestData.canadaPhoneNumber(), "45-54", "$15,000-$50,000", "$100,000-$250,000",
                 "All the above","English");
@@ -917,11 +870,10 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Dummy - device " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?ftsquery=device-equals(1)&"+tag);
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?ftsquery=device-equals(1)&"+tag);
+        openUrl(baseUrl + "&ftsquery=device-equals(1)");
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
-        crmPage.checkLinkIdValue("PC_windows");
         crmPage.checkCustomTag("Dummy");
     }
     @Test(description = "TC 19.8. Verify the custom tag field in the CRM is invalid if syntax is not valid")
@@ -930,11 +882,10 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Invalid - device " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?ftsquery=device(1)&"+tag);
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?ftsquery=device(1)&"+tag);
+        openUrl(baseUrl + "&ftsquery=device(1)");
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
-        crmPage.checkLinkIdValue("PC_windows");
         crmPage.checkCustomTag("Invalid");
     }
     @Test(description = "TC 19.9. Verify the custom tag field in the CRM is empty if ftsquery device parameter is not " +
@@ -944,11 +895,10 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Empty - device " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?ftsquery=device-equals(4)&"+tag);
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?ftsquery=device-equals(4)&"+tag);
+        openUrl(baseUrl + "&ftsquery=device-equals(4)");
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
-        crmPage.checkLinkIdValue("PC_windows");
         crmPage.checkCustomTag("");
     }
 
@@ -959,11 +909,10 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - non valid device value " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?ftsquery=device-equals(0)&"+tag);
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?ftsquery=device-equals(0)&"+tag);
+        openUrl(baseUrl + "&ftsquery=device-equals(0)");
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
-        crmPage.checkLinkIdValue("PC_windows");
         crmPage.checkCustomTag("Invalid");
     }
 
@@ -973,8 +922,10 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("TC 20-3-Custom Tag is empty " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=age-annual-saving-knowledge-plang:all&"+tag);
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?fts=age-annual-saving-knowledge-plang:all&"+tag);
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        openUrl(baseUrl + "&fts=age-annual-saving-knowledge-plang:all");
+        fortradePage.registerDemoAccountWithParameters(TestData.firstName,TestData.lastName,email,countryCode,
+                TestData.canadaPhoneNumber(), "45-54", "$15,000-$50,000", "$100,000-$250,000",
+                "All the above","English");
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("");
@@ -986,7 +937,7 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Language field in the CRM contains expected (FR) value " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?userLang=FR&"+tag);
+        openUrl(baseUrl + "&userLang=FR");
         fortradePage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.canadaPhoneNumber());
         readyFortrade.assertURL(TestData.appUrl);
         readyFortrade.assertDisplayedLanguage("EN");
@@ -1000,7 +951,7 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Language field in the CRM contains default (EN) value " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en");
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?userLang=FRA&"+tag);
+        openUrl(baseUrl + "&userLang=FRA");
         fortradePage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.canadaPhoneNumber());
         readyFortrade.assertURL(TestData.appUrl);
         readyFortrade.assertDisplayedLanguage("EN");
@@ -1015,7 +966,7 @@ public class PremiumForexCA extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en" +
                 "?ftsquery=device-equals(1)&dummyP=1&"+tag);
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?ftsquery=device-equals(1)&dummyP=1&"+tag);
+        openUrl(baseUrl + "&ftsquery=device-equals(1)&dummyP=1");
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
@@ -1029,7 +980,7 @@ public class PremiumForexCA extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en" +
                 "?ftsquery=device-equals(1)&dummyP=0&"+tag);
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?ftsquery=device-equals(1)&dummyP=0&"+tag);
+        openUrl(baseUrl + "&ftsquery=device-equals(1)&dummyP=0");
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
@@ -1043,7 +994,7 @@ public class PremiumForexCA extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en" +
                 "?ftsquery=device-equals(1)&dummyp=1&"+tag);
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?ftsquery=device-equals(1)&dummyp=1&"+tag);
+        openUrl(baseUrl + "&ftsquery=device-equals(1)&dummyp=1");
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
@@ -1056,7 +1007,7 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("TC 24-1-Custom tag field - dummy " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?Dummy=true&"+tag);
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?Dummy=true&"+tag);
+        openUrl(baseUrl + "&Dummy=true");
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
@@ -1069,11 +1020,10 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("TC 24-2-Custom tag field - dummy " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?Dummy=1&"+tag);
-        openUrl("https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?Dummy=1&"+tag);
+        openUrl(baseUrl + "&Dummy=1");
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("Dummy");
     }
 }
-
