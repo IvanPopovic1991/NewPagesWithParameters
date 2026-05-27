@@ -11,7 +11,7 @@ public class WaitUtil {
 
     private static final int TIMEOUT = 15;
 
-    private static WebDriverWait getWait() {
+    public static WebDriverWait getWait() {
         return new WebDriverWait(
                 DriverManager.getDriver(),
                 Duration.ofSeconds(TIMEOUT));
@@ -19,6 +19,10 @@ public class WaitUtil {
 
     public static void waitForVisible(WebElement element) {
         getWait().until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public static void waitForVisible(By locator){
+        getWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public static void waitForClickable(WebElement element) {

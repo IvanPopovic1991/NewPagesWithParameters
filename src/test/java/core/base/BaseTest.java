@@ -24,6 +24,14 @@ public class BaseTest {
 
         DriverManager.getDriver().manage().window().maximize();
 
+        System.out.println("Cookies before: "
+                + DriverManager.getDriver().manage().getCookies().size());
+
+        DriverManager.getDriver().manage().deleteAllCookies();
+
+        System.out.println("Cookies after: "
+                + DriverManager.getDriver().manage().getCookies().size());
+
         System.out.println("Driver started");
     }
 
