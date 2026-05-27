@@ -141,7 +141,7 @@ public class ProDarkEn extends BaseTest {
         Allure.step("Verified error message and border color for Phone field");
         ElementActions.type(fortradeRPage.phoneNumber, "0034334424558200", "phone");
         fortradeRPage.assertBorderColor(fortradeRPage.borderColorForPhone, "border-color", TestData.redBorderColor);
-        fortradeRPage.assertFirstStepErrorMessage(TestData.wrongPhoneErrorMsgFortradeR);
+        fortradeRPage.assertFirstStepErrorMessage(TestData.wrongPhoneErrorMsgOther);
     }
 
     @Test(description = "TC 4.6 - Verify that the Last Name cannot be the same as First name.")

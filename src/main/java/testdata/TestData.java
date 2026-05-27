@@ -61,15 +61,19 @@ public class TestData {
 
     public static String wrongPhoneErrorMessage = "Phone number must be exactly 10 digits and cannot start with 0";
 
-    public static String wrongPhoneErrorMsgFortradeR = "Must be a valid international phone number";
+    public static String wrongPhoneErrorMsgOther = "Must be a valid international phone number";
 
     public static String emptyPhoneErrorMessage = "Phone number is required";
 
     public static String secondStepErrorMessage = "Please select an option from the dropdown list.";
 
-    public static String privacyPolicyUrl = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Privacy_Policy.pdf";
+    public static String privacyPolicyUrlIiroc = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Privacy_Policy.pdf";
 
-    public static String termsAndConditionsUrl = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Client_Agreement.pdf";
+    public static String termsAndConditionsUrlIiroc = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Client_Agreement.pdf";
+
+    public static String privacyPolicyUrl = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Privacy_Policy.pdf";
+
+    public static String termsAndConditionsUrl = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_Mauritius_Client_Agreement.pdf";
 
     public static String alreadyHaveAnAccountUrl = "https://authfe.fortrade.com/oauth/account/login";
 
@@ -89,9 +93,11 @@ public class TestData {
 
     public static String contactUsUrl = "mailto:support@fortrade.com?subject=Client information request";
 
-    public static String supportUrl = "mailto:support@fortrade.com";
+    public static String supportUrl = "mailto:support@fortrade.com?subject=Client information request";
 
     public static String yopmailUrl ="https://yopmail.com/";
+
+    public static String clickHereUrl = "https://www.fortrade.com/wp-content/uploads/legal/How_to_guides/How_to_unsubscribe.pdf";
 
     public static String fortraderprivacyPolicy = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Privacy_Policy.pdf";
 
