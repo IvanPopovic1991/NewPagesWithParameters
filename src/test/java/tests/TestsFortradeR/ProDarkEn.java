@@ -170,13 +170,13 @@ public class ProDarkEn extends BaseTest {
     public void checkHeaderPrivacyPolicyLinkWithLeftClickTest() {
         ScreenshotUtil.setCustomName("Header privacy policy link - FortradeR");
         Allure.step("Left click on the header privacy policy link.");
-        fortradeRPage.checkLinksWithLeftClick(fortradeRPage.headerPrivacyPolicyLink, "header privacy policy link", TestData.fortraderprivacyPolicy);
+        fortradeRPage.checkLinksWithLeftClick(fortradeRPage.headerPrivacyPolicyLink, "header privacy policy link", TestData.fortraderPrivacyPolicyUrl);
     }
 
     @Test(description = "TC 7.1.1 - Verify the Privacy Policy link works with right click")
     public void checkHeaderPrivacyPolicyLinkWithRightClickTest() {
         Allure.step("Right click on the header privacy policy link.");
-        fortradeRPage.checkLinksWithRightClick(fortradeRPage.headerPrivacyPolicyLink, "header privacy policy link", TestData.fortraderprivacyPolicy);
+        fortradeRPage.checkLinksWithRightClick(fortradeRPage.headerPrivacyPolicyLink, "header privacy policy link", TestData.fortraderPrivacyPolicyUrl);
     }
 
     @Test(description = "TC 7.2 - Verify the Terms and Conditions link works with left click")

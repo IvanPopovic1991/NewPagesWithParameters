@@ -43,17 +43,34 @@ public class YopmailPage extends BasePage {
     @FindBy(xpath = "//tr/td/b[contains(text(), 'Testq')]")
     public WebElement fortradeTestqName;
 
-    @FindBy(xpath = "//div[@class='lmfd']/span[contains(text(), 'KapitalRS')]")
-    public WebElement emailMessageKRS;
-
     @FindBy(xpath = "//span[contains(text(), 'KapitalRS <podrska@kapitalrs.com>')]")
     public WebElement kapitalRSEmail;
 
+    @FindBy(xpath = "//div[@class='lmfd']/span[contains(text(), 'KapitalRS')]")
+    public WebElement emailMessageKRS;
+
+
     @FindBy(xpath = "//div[contains(text(),'Your Demo Account is Ready')]")
-    public WebElement emailTitleKRS;
+    public WebElement emailTitleKRSEn;
 
     @FindBy(xpath = "//td/p[contains(text(), 'Welcome, Testq!')]")
-    public WebElement kapitalRSTestqName;
+    public WebElement kapitalRSTestqNameEn;
+
+    @FindBy(xpath = "//div[@class='continue-prompt-text']")
+    public WebElement closeAdBtn;
+
+    @FindBy(xpath = "//iframe[@id='aswift_1']")
+    public WebElement adFrame;
+
+    @FindBy(xpath = "//div[@class='lmfd']/span[contains(text(), 'KapitalRS')]")
+    public WebElement emailMessageKapitalRS;
+
+    @FindBy(xpath = "//div[contains(text(),'Vaš Demo Nalog je Spreman')]")
+    public WebElement emailTitleKRSSr;
+
+    @FindBy(xpath = "//td/p[contains(text(), 'Dobrodošli, Testq!')]")
+    public WebElement kapitalRSTestqNameSr;
+
 
 /*    public void findEmail(String emailValue){
         ElementActions.type(search,emailValue,"search input");
@@ -110,29 +127,38 @@ public class YopmailPage extends BasePage {
     }
 
     public void findEmailKRS(String emailValue) {
+        /*try {
+            driver.switchTo().frame(adFrame);
+            ElementActions.click(closeAdBtn, "addBtn");
+        } catch (Exception e){
+            System.out.println(e);
+        }*/
         ElementActions.type(search, emailValue, "search input");
         ElementActions.click(goBtn, "go button");
+        WaitUtil.waitForCondition(driver -> {
+                    try {
+                        driver.switchTo().defaultContent();
+                        driver.switchTo().frame(inboxFrame);
 
-        for (int i = 0; i < 10; i++) {
-            try {
-                driver.switchTo().frame(inboxFrame);
-                if (emailMessageKRS.isDisplayed()) {
-                    break; // Exit loop when message appears
-                }
-            } catch (NoSuchElementException e) {
-                // Do nothing — element not yet found
-                if (i == 9) {
-                    Assert.fail("An email is not found after 9 tries!!!");
-                }
-            }
-            driver.switchTo().defaultContent();
-            ElementActions.click(refreshEmailBtn, "refresh email inbox");
-        }
+                        if (emailMessageKapitalRS.isDisplayed()) {
+                            return true;
+                        }
+
+                    } catch (Exception ignored) {
+                    }
+
+                    driver.switchTo().defaultContent();
+                    ElementActions.click(refreshEmailBtn, "refresh inbox");
+                    return false;
+                },
+                90, 5, "Email was not received within 90 seconds!");
+        driver.switchTo().defaultContent();
+        driver.switchTo().frame(inboxFrame);
         ElementActions.click(emailMessageKRS, "received message in mailbox");
         driver.switchTo().defaultContent();
         driver.switchTo().frame(mailFrame);
         Assert.assertEquals(getText(kapitalRSEmail, "kapitalRS email"), "KapitalRS <podrska@kapitalrs.com>");
-        Assert.assertTrue(getText(kapitalRSTestqName, "Testq name").contains("Welcome, Testq!"));
-        Assert.assertEquals(getText(emailTitleKRS, "email title"), "Your Demo Account is Ready");
+        Assert.assertTrue(getText(kapitalRSTestqNameSr, "Testq name").contains("Dobrodošli, Testq!"));
+        Assert.assertEquals(getText(emailTitleKRSSr, "email title"), "Vaš Demo Nalog je Spreman");
     }
 }
