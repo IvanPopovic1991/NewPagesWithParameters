@@ -8,6 +8,6 @@
         <listener class-name="core.listeners.TestListener"/>
     </listeners>
     <suite-files>
-        <suite-file path="TestNgKapitalRSPages.xml"/>
+        <suite-file path="TestNgBrokerViews.xml"/>
     </suite-files>
 </suite>
