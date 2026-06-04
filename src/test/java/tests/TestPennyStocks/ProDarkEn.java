@@ -65,7 +65,7 @@ public class ProDarkEn extends BaseTest {
         String email = TestData.generateEmail();
         pennyStocks.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         readyFortrade.assertURL(TestData.appUrl);
-        openUrl(ConfigReader.getBaseUrl("base.url"));
+        openUrl(ConfigReader.getBaseUrl());
         pennyStocks.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         pennyStocks.assertAlrRegEmailErrorMsg();
     }
@@ -87,7 +87,7 @@ public class ProDarkEn extends BaseTest {
         String phoneNumber = TestData.generatePhoneNumber();
         pennyStocks.registerDemoAccount(TestData.firstName, TestData.lastName, TestData.generateEmail(), countryCode, phoneNumber);
         readyFortrade.assertURL(TestData.appUrl);
-        openUrl(ConfigReader.getBaseUrl("base.url"));
+        openUrl(ConfigReader.getBaseUrl());
         pennyStocks.registerDemoAccount(TestData.firstName, TestData.lastName, TestData.generateEmail(), countryCode, phoneNumber);
         pennyStocks.assertErrMsgForAlreadyRegisteredAccount();
     }
@@ -101,7 +101,7 @@ public class ProDarkEn extends BaseTest {
         String phone = TestData.generatePhoneNumber();
         pennyStocks.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, phone);
         readyFortrade.assertURL(TestData.appUrl);
-        openUrl(ConfigReader.getBaseUrl("base.url"));
+        openUrl(ConfigReader.getBaseUrl());
         pennyStocks.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, phone);
         pennyStocks.assertAlrRegEmailErrorMsg();
     }

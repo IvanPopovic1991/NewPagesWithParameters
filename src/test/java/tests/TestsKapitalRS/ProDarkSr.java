@@ -29,7 +29,7 @@ public class ProDarkSr extends BaseTest {
         readyFortrade = new ReadyFortrade();
         crmPage = new CrmPage();
         yopmailPage = new YopmailPage();
-        openUrl(ConfigReader.getBaseUrl("base.kapitalRS.url"));
+        openUrl(ConfigReader.getBaseUrl());
     }
 
     @Test(description = "TC 1.2.1 - Verify the logo is not clickable with left click")
@@ -59,7 +59,7 @@ public class ProDarkSr extends BaseTest {
         String email = TestData.generateEmail();
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
-        openUrl(ConfigReader.getBaseUrl("base.kapitalRS.url"));
+        openUrl(ConfigReader.getBaseUrl());
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertAlrRegEmailErrorMsg();
     }
@@ -81,7 +81,7 @@ public class ProDarkSr extends BaseTest {
         String phoneNumber = TestData.generatePhoneNumber();
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, TestData.generateEmail(), countryCode, phoneNumber);
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
-        openUrl(ConfigReader.getBaseUrl("base.kapitalRS.url"));
+        openUrl(ConfigReader.getBaseUrl());
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, TestData.generateEmail(), countryCode, phoneNumber);
         kapitalRSPage.assertErrMsgForAlreadyRegisteredAccount();
     }
@@ -95,7 +95,7 @@ public class ProDarkSr extends BaseTest {
         String phone = TestData.generatePhoneNumber();
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, phone);
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
-        openUrl(ConfigReader.getBaseUrl("base.kapitalRS.url"));
+        openUrl(ConfigReader.getBaseUrl());
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, phone);
         kapitalRSPage.assertAlrRegEmailErrorMsg();
     }

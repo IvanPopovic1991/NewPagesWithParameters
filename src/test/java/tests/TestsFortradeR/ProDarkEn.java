@@ -29,7 +29,7 @@ public class ProDarkEn extends BaseTest {
         readyFortrade = new ReadyFortrade();
         crmPage = new CrmPage();
         yopmailPage = new YopmailPage();
-        openUrl(ConfigReader.getBaseUrl("base.fortradeR.url"));
+        openUrl(ConfigReader.getBaseUrl());
     }
 
     @Test(description = "TC 1.2.1 - Verify the logo is not clickable with left click")
@@ -59,7 +59,7 @@ public class ProDarkEn extends BaseTest {
         String email = TestData.generateEmail();
         fortradeRPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         readyFortrade.assertURL(TestData.appUrl);
-        openUrl(ConfigReader.getBaseUrl("base.fortradeR.url"));
+        openUrl(ConfigReader.getBaseUrl());
         fortradeRPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         fortradeRPage.assertAlrRegEmailErrorMsg();
     }
@@ -81,7 +81,7 @@ public class ProDarkEn extends BaseTest {
         String phoneNumber = TestData.generatePhoneNumber();
         fortradeRPage.registerDemoAccount(TestData.firstName, TestData.lastName, TestData.generateEmail(), countryCode, phoneNumber);
         readyFortrade.assertURL(TestData.appUrl);
-        openUrl(ConfigReader.getBaseUrl("base.fortradeR.url"));
+        openUrl(ConfigReader.getBaseUrl());
         fortradeRPage.registerDemoAccount(TestData.firstName, TestData.lastName, TestData.generateEmail(), countryCode, phoneNumber);
         fortradeRPage.assertErrMsgForAlreadyRegisteredAccount();
     }
@@ -95,7 +95,7 @@ public class ProDarkEn extends BaseTest {
         String phone = TestData.generatePhoneNumber();
         fortradeRPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, phone);
         readyFortrade.assertURL(TestData.appUrl);
-        openUrl(ConfigReader.getBaseUrl("base.fortradeR.url"));
+        openUrl(ConfigReader.getBaseUrl());
         fortradeRPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, phone);
         fortradeRPage.assertAlrRegEmailErrorMsg();
     }
