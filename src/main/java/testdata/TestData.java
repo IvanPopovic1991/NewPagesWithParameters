@@ -43,6 +43,8 @@ public class TestData {
 
     public static String appUrl = "https://ready.fortrade.com/";
 
+    public static String appUrlKapitalRS = "https://pro.kapitalrs.com/";
+
      public static String textForIiroc = "By proceeding, I agree to the Privacy Policy and the Terms and Conditions . By providing my contact details to Fortrade Canada, I agree to receive telephone calls from Customer Service Representatives regarding Fortrade Canada, its products, services, promotions, and offers. I can opt out of phone contact anytime by informing a Customer Service Representative or unsubscribing via notification settings.";
 
     public static String blueBorderColor = "";
@@ -67,6 +69,43 @@ public class TestData {
 
     public static String secondStepErrorMessage = "Please select an option from the dropdown list.";
 
+
+
+
+
+
+
+
+
+    public static String sameFirstNameErrorMessageKapitalRS = "Vaše ime mora da se razlikuje od vašeg prezimena.";
+
+    public static String sameLastNameErrorMessageKapitalRS = "Vaše ime mora da se razlikuje od vašeg prezimena.";
+
+    public static String firstNameErrorMessageKapitalRS = "Ime nije uneto u ispravnom formatu";
+
+    public static String lastNameErrorMessageKapitalRS = "Prezime nije uneto u ispravnom formatu";
+
+    public static String emailErrorMessageKapitalRS = "Nevažeći format imejla.";
+
+    public static String wrongPhoneErrorMsgKapitalRS = "Nevažeći format telefona.";
+
+    public static String secondStepErrorMessageKapitalRS = "Molimo Vas izaberite odgovarajuću opciju iz padajuće liste.";
+
+    public static String alreadyHaveAnAccountUrlKapitalRS = "https://authfe.kapitalrs.com/oauth/account/login";
+
+    public static String kontaktirajteNasLink = "mailto:podrska@kapitalrs.com?subject=Client information request";
+
+
+
+
+
+
+
+
+
+
+
+    //public static String privacyPolicyUrl = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Privacy_Policy.pdf";
     public static String privacyPolicyUrlIiroc = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Privacy_Policy.pdf";
 
     public static String termsAndConditionsUrlIiroc = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Client_Agreement.pdf";
@@ -78,6 +117,8 @@ public class TestData {
     public static String alreadyHaveAnAccountUrl = "https://authfe.fortrade.com/oauth/account/login";
 
     public static String riskWarningUrl = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Risk_Disclosure.pdf";
+
+    public static String riskWarningKapitalRS = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Risk_Disclosure.pdf";
 
     public static String fcaUrl = "https://register.fca.org.uk/s/firm";
 
@@ -100,6 +141,7 @@ public class TestData {
     public static String clickHereUrl = "https://www.fortrade.com/wp-content/uploads/legal/How_to_guides/How_to_unsubscribe.pdf";
 
     public static String fortraderprivacyPolicy = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Privacy_Policy.pdf";
+    public static String fortraderPrivacyPolicyUrl = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Privacy_Policy.pdf";
 
     public static String fortraderTermsAndCondUrl = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_Mauritius_Client_Agreement.pdf";
 
