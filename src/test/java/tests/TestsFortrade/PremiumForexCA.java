@@ -1022,4 +1022,56 @@ public class PremiumForexCA extends BaseTest {
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("Dummy");
     }
+    
+    @Test(description = "TC 25.1. Verify that the Link Id field in the CRM contains '{number}_IPL' value")
+    @Parameters({"regulation","tag","countryCode"})
+    public void checkNumberIplValue(String regulation, String tag, String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 25-1-Link Id tag field - {number}_IPL " + regulation + " regulation");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?tag1=1452789330&"+tag);
+        openUrl(baseUrl + "&tag1=1452789330");
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkLinkIdValue("143.14928425357874_IPL");
+    }
+
+    @Test(description = "TC 25.2. Verify that the Link Id field in the CRM contains 'missingTag1_IPL' value")
+    @Parameters({"regulation","tag","countryCode"})
+    public void checkMissingTag1IplValue(String regulation, String tag, String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 25-2-Link Id tag field - missingTag1_IPL " + regulation + " regulation");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?tag1=123abc&"+tag);
+        openUrl(baseUrl + "&tag1=123abc");
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkLinkIdValue("missingTag1_IPL");
+    }
+
+    @Test(description = "TC 25.3. Verify that the Link Id field in the CRM contains 'missingCID_IPL' value")
+    @Parameters({"regulation","tag","countryCode"})
+    public void checkMissingCidIplValue(String regulation, String tag, String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 25-3-Link Id tag field - missingCID_IPL " + regulation + " regulation");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?tag1=123456789&"+tag);
+        openUrl(baseUrl + "&tag1=123456789");
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkLinkIdValue("missingCID_IPL");
+    }
+
+    @Test(description = "TC 25.4. Verify that the Link Id field in the CRM contains 'divByZero_IPL' value")
+    @Parameters({"regulation","tag","countryCode"})
+    public void checkDivByZeroIplValue(String regulation, String tag, String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 25-4-Link Id tag field - missingCID_IPL " + regulation + " regulation");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?tag1=930863512&"+tag);
+        openUrl(baseUrl + "&tag1=930863512");
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkLinkIdValue("divByZero_IPL");
+    }
 }

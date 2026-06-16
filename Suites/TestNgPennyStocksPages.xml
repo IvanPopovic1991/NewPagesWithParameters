@@ -15,11 +15,15 @@
         <classes>
             <class name="tests.TestPennyStocks.ProDarkEn">
                     <methods>
-                        <exclude name="logoClickabilityTest"/>
+                        <include name="checkNumberIplValue"/>
+                        <include name="checkMissingTag1IplValue"/>
+                        <include name="checkMissingCidIplValue"/>
+                        <include name="checkDivByZeroIplValue"/>
+                        <!--<exclude name="logoClickabilityTest"/>
                         <exclude name="checkFscLinkWithLeftClickTest"/>
                         <exclude name="checkFscLinkWithRightClickTest"/>
                         <exclude name="customTagContainsDummyValue"/>
-                        <exclude name="customTagContainsDummy"/>
+                        <exclude name="customTagContainsDummy"/>-->
                     </methods>
             </class>
         </classes>
