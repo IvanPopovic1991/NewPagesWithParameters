@@ -1,6 +1,5 @@
 package core.base;
 
-import core.config.ConfigReader;
 import core.driver.DriverManager;
 import core.utils.ScreenshotUtil;
 import org.testng.ITestResult;
