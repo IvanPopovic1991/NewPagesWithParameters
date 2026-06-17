@@ -55,19 +55,33 @@ public class TestData {
 
     public static String sameLastNameErrorMessage = "First Name and Last Name cannot be equal.";
 
+    public static String sameFirstNameErrorMessageEs = "El Nombre y el Apellido no pueden ser iguales.";
+
+    public static String sameLastNameErrorMessageEs = "El Nombre y el Apellido no pueden ser iguales.";
+
     public static String firstNameErrorMessage = "Please enter all your given first name(s).";
+
+    public static String firstNameErrorMessageEs = "Por favor, introduce todos tus nombres de pila.";
 
     public static String lastNameErrorMessage = "Please enter your last name.";
 
+    public static String lastNameErrorMessageEs = "Por favor, introduce tu apellido.";
+
     public static String emailErrorMessage = "Must be a valid email address.";
+
+    public static String emailErrorMessageEs = "Formato de correo electrónico no válido.";
 
     public static String wrongPhoneErrorMessage = "Phone number must be exactly 10 digits and cannot start with 0";
 
     public static String wrongPhoneErrorMsgOther = "Must be a valid international phone number";
 
+    public static String wrongPhoneErrorMsgOtherEs = "Formato de teléfono no válido.";
+
     public static String emptyPhoneErrorMessage = "Phone number is required";
 
     public static String secondStepErrorMessage = "Please select an option from the dropdown list.";
+
+    public static String secondStepErrorMessageEs = "Por favor, selecciona una opción del menú desplegable.";
 
 
 
@@ -135,6 +149,9 @@ public class TestData {
     public static String contactUsUrl = "mailto:support@fortrade.com?subject=Client information request";
 
     public static String supportUrl = "mailto:support@fortrade.com?subject=Client information request";
+
+
+    public static String supportUrlEs = "mailto:support@fortrade.com";
 
     public static String yopmailUrl ="https://yopmail.com/";
 
