@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="FortradeR Pages">
+<suite name="Fortrade Pages">
     <listeners>
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
         <listener class-name="core.listeners.RetryTransformer"/>
@@ -9,17 +9,10 @@
     </listeners>
     <parameter name="env" value="local"/>
     <parameter name="browser" value="chrome"/>
-    <test name="Test cases - Trusted Broker ES landing page">
+    <test name="Test cases - Pro Dark EN landing page">
         <parameter name="countryCode" value="381"/>
         <classes>
-            <class name="tests.TestsFortradeR.TrustedBrokerEs">
-                <methods>
-                    <exclude name="logoClickabilityTest"/>
-                    <exclude name="customTagContainsDummy"/>
-                    <exclude name="customTagContainsDummyValue"/>
-                    <exclude name="checkLanguageFieldContainsExpectedValue"/>
-                </methods>
-            </class>
+            <class name="tests.TestsFortradeR.TrustedBrokerEn"/>
         </classes>
     </test>
 </suite>
