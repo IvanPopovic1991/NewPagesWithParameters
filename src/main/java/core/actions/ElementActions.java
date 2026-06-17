@@ -38,6 +38,7 @@ public class ElementActions {
 
             try {
 
+                WaitUtil.waitForVisible(element);
                 WaitUtil.waitForClickable(element);
 
                 element.click();
@@ -73,6 +74,7 @@ public class ElementActions {
     public static void jsClick(WebElement element, String elementName) {
 
         WaitUtil.waitForVisible(element);
+        WaitUtil.waitForClickable(element);
 
         ((JavascriptExecutor) driver())
                 .executeScript("arguments[0].click();", element);
