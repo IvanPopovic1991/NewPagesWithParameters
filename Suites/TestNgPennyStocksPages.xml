@@ -13,19 +13,7 @@
         <parameter name="countryCode" value="Serbia"/>
         <parameter name="regulation" value="FSC"/>
         <classes>
-            <class name="tests.TestPennyStocks.ProDarkEn">
-                    <methods>
-                        <include name="checkNumberIplValue"/>
-                        <include name="checkMissingTag1IplValue"/>
-                        <include name="checkMissingCidIplValue"/>
-                        <include name="checkDivByZeroIplValue"/>
-                        <!--<exclude name="logoClickabilityTest"/>
-                        <exclude name="checkFscLinkWithLeftClickTest"/>
-                        <exclude name="checkFscLinkWithRightClickTest"/>
-                        <exclude name="customTagContainsDummyValue"/>
-                        <exclude name="customTagContainsDummy"/>-->
-                    </methods>
-            </class>
+            <class name="tests.TestPennyStocks.ProDarkEn"/>
         </classes>
     </test>
 </suite>

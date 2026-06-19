@@ -287,6 +287,19 @@ public class ProDarkEn extends BaseTest {
         crmPage.checkCrmTags();
     }
 
+    @Test(description = "9.4. Verify that the Link ID field contains 'PC_windows' value in the CRM")
+    @Parameters({"countryCode"})
+    public void checkLinkIDPCWindows(String countryCode){
+        ScreenshotUtil.setCustomName("Link ID tag contains the 'PC_windows' value - Penny Stocks");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.brokereviews.com/lps/pro-dark/en");
+        openUrl("https://dlp.brokereviews.com/lps/pro-dark/en");
+        pennyStocks.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
+        readyFortrade.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("PC_windows");
+    }
+
     @Test(description = "TC 10.1. Verify the email is sent on the new account email")
     @Parameters({"countryCode"})
     public void emailIsReceived(String countryCode) {
@@ -380,7 +393,7 @@ public class ProDarkEn extends BaseTest {
         openUrl("https://dlp.pennystocks-uk.com/lps/pro-dark/en?fts=age");
         pennyStocks.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "25-34", "age");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,25_34_age");
+        crmPage.checkParameterLinkIdInTheCRM(email, "25_34_age");
     }
 
     @Test(description = "TC 13.5. Vefiry that SMS verification field has emtpty (-) value")
@@ -438,7 +451,7 @@ public class ProDarkEn extends BaseTest {
         openUrl("https://dlp.pennystocks-uk.com/lps/pro-dark/en?fts=annual");
         pennyStocks.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$15,000-$50,000", "annual");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,15000_50000_annual");
+        crmPage.checkParameterLinkIdInTheCRM(email, "15000_50000_annual");
     }
 
     @Test(description = "TC 14.5. Verify that SMS verification field has emtpty (-) value")
@@ -496,7 +509,7 @@ public class ProDarkEn extends BaseTest {
         openUrl("https://dlp.pennystocks-uk.com/lps/pro-dark/en?fts=saving");
         pennyStocks.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$50,000-$100,000", "saving");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,50000_100000_savings");
+        crmPage.checkParameterLinkIdInTheCRM(email, "50000_100000_savings");
     }
 
     @Test(description = "TC 15.5. Verify that SMS verification field has emtpty (-) value")
@@ -554,7 +567,7 @@ public class ProDarkEn extends BaseTest {
         openUrl("https://dlp.pennystocks-uk.com/lps/pro-dark/en?fts=knowledge");
         pennyStocks.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "All the above", "knowledge");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,knowledge_of_trading_all_the_above");
+        crmPage.checkParameterLinkIdInTheCRM(email, "knowledge_of_trading_all_the_above");
     }
 
     @Test(description = "TC 16.5. Vefiry that SMS verification field has emtpty (-) value")
@@ -612,7 +625,7 @@ public class ProDarkEn extends BaseTest {
         openUrl(baseUrl + "?fts=plang:all");
         pennyStocks.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber(), "English", "language");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,lang_EN");
+        crmPage.checkParameterLinkIdInTheCRM(email, "lang_EN");
     }
 
     @Test(description = "TC 17.5. Verify that SMS verification field has emtpty (-) value")
@@ -910,9 +923,31 @@ public class ProDarkEn extends BaseTest {
         crmPage.checkCustomTag("Dummy");
     }
 
+    @Test(description = "TC 24.3. Verify that the custom tag field in the CRM contains '' (empty) value")
+    @Parameters({"regulation","countryCode"})
+    public void customTagContainsEmpty(String regulation,  String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-3-Custom tag field - empty ");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.pennystocks-uk.com/lps/pro-dark/en?Dummy=false");
+        openUrl(baseUrl + "?Dummy=false");
+        pennyStocks.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        pennyStocks.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkCustomTag("");
+    }
 
-
-
+    @Test(description = "TC 24.4. Verify that the custom tag field in the CRM contains '' (empty) value")
+    @Parameters({"regulation","countryCode"})
+    public void customTagContainsEmptyValue(String regulation, String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-4-Custom tag field - empty ");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.pennystocks-uk.com/lps/pro-dark/en?Dummy=0");
+        openUrl(baseUrl + "?Dummy=0");
+        pennyStocks.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        pennyStocks.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkCustomTag("");
+    }
 
     @Test(description = "TC 25.1. Verify that the Link Id field in the CRM contains '{number}_IPL' value")
     @Parameters({"regulation", "countryCode"})
@@ -924,7 +959,7 @@ public class ProDarkEn extends BaseTest {
         pennyStocks.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         pennyStocks.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
-        crmPage.checkLinkIdValue("143.14928425357874_IPL");
+        crmPage.checkLinkIdValue("0.0953@1500");
     }
 
     @Test(description = "TC 25.2. Verify that the Link Id field in the CRM contains 'missingTag1_IPL' value")
@@ -937,7 +972,7 @@ public class ProDarkEn extends BaseTest {
         pennyStocks.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         pennyStocks.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
-        crmPage.checkLinkIdValue("missingTag1_IPL");
+        crmPage.checkLinkIdValue("missingTag1");
     }
 
     @Test(description = "TC 25.3. Verify that the Link Id field in the CRM contains 'missingCID_IPL' value")
@@ -950,7 +985,7 @@ public class ProDarkEn extends BaseTest {
         pennyStocks.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         pennyStocks.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
-        crmPage.checkLinkIdValue("missingCID_IPL");
+        crmPage.checkLinkIdValue("missingCID");
     }
 
     @Test(description = "TC 25.4. Verify that the Link Id field in the CRM contains 'divByZero_IPL' value")
@@ -963,7 +998,7 @@ public class ProDarkEn extends BaseTest {
         pennyStocks.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         pennyStocks.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
-        crmPage.checkLinkIdValue("divByZero_IPL");
+        crmPage.checkLinkIdValue("divByZero");
     }
 
 }

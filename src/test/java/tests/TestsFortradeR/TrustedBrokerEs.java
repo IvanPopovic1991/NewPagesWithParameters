@@ -282,6 +282,22 @@ public class TrustedBrokerEs extends BaseTest {
         crmPage.checkCrmTags();
     }
 
+    @Test(description = "9.4. Verify that the Link ID field contains 'PC_windows' value in the CRM")
+    @Parameters({"countryCode"})
+    public void checkLinkIDPCWindows(String countryCode){
+        ScreenshotUtil.setCustomName("Link ID tag contains the 'PC_windows' value - FortradeR");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the page url");
+        openUrl("https://dlp.fortrader.com/lps/trusted-broker/es?fts=age-annual-saving-knowledge-plang:all&tg=ivanA" +
+                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
+                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        fortradeREsPage.registerDemoAccountWithParameters(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(),
+                "25-34", "$15,000-$50,000", "$50,000-$100,000", "All the above", "English");
+        readyFortrade.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("PC_windows");
+    }
+
     @Test(description = "TC 10.1. Verify the email is sent on the new account email")
     @Parameters({"countryCode"})
     public void emailIsReceived(String countryCode) {
@@ -752,7 +768,6 @@ public class TrustedBrokerEs extends BaseTest {
         fortradeREsPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         fortradeREsPage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
-        crmPage.checkLinkIdValue("PC_windows");
         crmPage.checkCustomTag("Dummy");
     }
 
@@ -766,7 +781,6 @@ public class TrustedBrokerEs extends BaseTest {
         fortradeREsPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         fortradeREsPage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
-        crmPage.checkLinkIdValue("PC_windows");
         crmPage.checkCustomTag("Invalid");
     }
 
@@ -781,7 +795,6 @@ public class TrustedBrokerEs extends BaseTest {
         fortradeREsPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         fortradeREsPage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
-        crmPage.checkLinkIdValue("PC_windows");
         crmPage.checkCustomTag("");
     }
 
@@ -796,7 +809,6 @@ public class TrustedBrokerEs extends BaseTest {
         fortradeREsPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         fortradeREsPage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
-        crmPage.checkLinkIdValue("PC_windows");
         crmPage.checkCustomTag("Invalid");
     }
 
@@ -911,6 +923,32 @@ public class TrustedBrokerEs extends BaseTest {
         fortradeREsPage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
         crmPage.checkCustomTag("Dummy");
+    }
+
+    @Test(description = "TC 24.3. Verify that the custom tag field in the CRM contains '' (empty) value")
+    @Parameters({"countryCode"})
+    public void customTagContainsEmpty(String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-3-Custom tag field-empty-FortradeREs");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrader.com/lps/trusted-broker/es?Dummy=false");
+        openUrl("https://dlp.fortrader.com/lps/trusted-broker/es?Dummy=false");
+        fortradeREsPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
+        fortradeREsPage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkCustomTag("");
+    }
+
+    @Test(description = "TC 24.4. Verify that the custom tag field in the CRM contains '' (empty) value")
+    @Parameters({"countryCode"})
+    public void customTagContainsEmptyValue(String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-4-Custom tag field-empty-FortradeREs");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrader.com/lps/trusted-broker/es?Dummy=0");
+        openUrl("https://dlp.fortrader.com/lps/trusted-broker/es?Dummy=0");
+        fortradeREsPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
+        fortradeREsPage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkCustomTag("");
     }
 
     @Test(description = "TC 25.1. Verify that the Link Id field in the CRM contains '{number}' value")

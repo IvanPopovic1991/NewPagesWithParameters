@@ -497,7 +497,7 @@ public class PremiumForexCA extends BaseTest {
         openUrl(baseUrl + "&fts=age");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "25-34", "age");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,25_34_age");
+        crmPage.checkParameterLinkIdInTheCRM(email, "25_34_age");
     }
 
     @Test(description = "TC 13.5. Vefiry that SMS verification field has emtpty (-) value")
@@ -555,7 +555,7 @@ public class PremiumForexCA extends BaseTest {
         openUrl(baseUrl + "&fts=annual");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "$15,000-$50,000", "annual");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,15000_50000_annual");
+        crmPage.checkParameterLinkIdInTheCRM(email, "15000_50000_annual");
     }
 
     @Test(description = "TC 14.5. Verify that SMS verification field has emtpty (-) value")
@@ -613,7 +613,7 @@ public class PremiumForexCA extends BaseTest {
         openUrl(baseUrl + "&fts=saving");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "$50,000-$100,000", "saving");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,50000_100000_savings");
+        crmPage.checkParameterLinkIdInTheCRM(email, "50000_100000_savings");
     }
 
     @Test(description = "TC 15.5. Verify that SMS verification field has emtpty (-) value")
@@ -672,7 +672,7 @@ public class PremiumForexCA extends BaseTest {
         openUrl(baseUrl + "&fts=knowledge");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "All the above", "knowledge");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,knowledge_of_trading_all_the_above");
+        crmPage.checkParameterLinkIdInTheCRM(email, "knowledge_of_trading_all_the_above");
     }
 
     @Test(description = "TC 16.5. Vefiry that SMS verification field has emtpty (-) value")
@@ -730,7 +730,7 @@ public class PremiumForexCA extends BaseTest {
         openUrl(baseUrl + "&fts=plang:all");
         fortradePage.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber(), "English", "language");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,lang_EN");
+        crmPage.checkParameterLinkIdInTheCRM(email, "lang_EN");
     }
 
     @Test(description = "TC 17.5. Verify that SMS verification field has emtpty (-) value")
@@ -1022,6 +1022,32 @@ public class PremiumForexCA extends BaseTest {
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("Dummy");
     }
+
+    @Test(description = "TC 24.3. Verify that the custom tag field in the CRM contains '' (empty) value")
+    @Parameters({"regulation","tag","countryCode"})
+    public void customTagContainsEmpty(String regulation, String tag, String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-3-Custom tag field - empty " + regulation + " regulation");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?Dummy=false&"+tag);
+        openUrl(baseUrl + "&Dummy=false");
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkCustomTag("");
+    }
+
+    @Test(description = "TC 24.4. Verify that the custom tag field in the CRM contains '' (empty) value")
+    @Parameters({"regulation","tag","countryCode"})
+    public void customTagContainsEmptyValue(String regulation, String tag, String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-4-Custom tag field - dummy " + regulation + " regulation");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrade.com/lps/premium-forex-landing-ephone-ca/en?Dummy=0&"+tag);
+        openUrl(baseUrl + "&Dummy=0");
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkCustomTag("");
+    }
     
     @Test(description = "TC 25.1. Verify that the Link Id field in the CRM contains '{number}_IPL' value")
     @Parameters({"regulation","tag","countryCode"})
@@ -1033,7 +1059,7 @@ public class PremiumForexCA extends BaseTest {
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
-        crmPage.checkLinkIdValue("143.14928425357874_IPL");
+        crmPage.checkLinkIdValue("0.0953@1500");
     }
 
     @Test(description = "TC 25.2. Verify that the Link Id field in the CRM contains 'missingTag1_IPL' value")
@@ -1046,7 +1072,7 @@ public class PremiumForexCA extends BaseTest {
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
-        crmPage.checkLinkIdValue("missingTag1_IPL");
+        crmPage.checkLinkIdValue("missingTag1");
     }
 
     @Test(description = "TC 25.3. Verify that the Link Id field in the CRM contains 'missingCID_IPL' value")
@@ -1059,7 +1085,7 @@ public class PremiumForexCA extends BaseTest {
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
-        crmPage.checkLinkIdValue("missingCID_IPL");
+        crmPage.checkLinkIdValue("missingCID");
     }
 
     @Test(description = "TC 25.4. Verify that the Link Id field in the CRM contains 'divByZero_IPL' value")
@@ -1072,6 +1098,6 @@ public class PremiumForexCA extends BaseTest {
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
-        crmPage.checkLinkIdValue("divByZero_IPL");
+        crmPage.checkLinkIdValue("divByZero");
     }
 }

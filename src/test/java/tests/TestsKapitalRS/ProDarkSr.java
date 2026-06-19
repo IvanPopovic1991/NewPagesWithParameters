@@ -433,7 +433,7 @@ public class ProDarkSr extends BaseTest {
         openUrl("https://dlp.kapitalrs.com/lps/pro-dark/sr?fts=age");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "25-34", "age");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,25_34_age");
+        crmPage.checkParameterLinkIdInTheCRM(email, "25_34_age");
     }
 
     @Test(description = "TC 13.5. Vefiry that SMS verification field has emtpty (-) value")
@@ -491,7 +491,7 @@ public class ProDarkSr extends BaseTest {
         openUrl("https://dlp.kapitalrs.com/lps/pro-dark/sr?fts=annual");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$15,000-$50,000", "annual");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,15000_50000_annual");
+        crmPage.checkParameterLinkIdInTheCRM(email, "15000_50000_annual");
     }
 
     @Test(description = "TC 14.5. Verify that SMS verification field has emtpty (-) value")
@@ -549,7 +549,7 @@ public class ProDarkSr extends BaseTest {
         openUrl("https://dlp.kapitalrs.com/lps/pro-dark/sr?fts=saving");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$50,000-$100,000", "saving");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,50000_100000_savings");
+        crmPage.checkParameterLinkIdInTheCRM(email, "50000_100000_savings");
     }
 
     @Test(description = "TC 15.5. Verify that SMS verification field has emtpty (-) value")
@@ -607,7 +607,7 @@ public class ProDarkSr extends BaseTest {
         openUrl("https://dlp.kapitalrs.com/lps/pro-dark/sr?fts=knowledge");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "Sve navedeno", "knowledge");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,knowledge_of_trading_all_the_above");
+        crmPage.checkParameterLinkIdInTheCRM(email, "knowledge_of_trading_all_the_above");
     }
 
     @Test(description = "TC 16.5. Vefiry that SMS verification field has emtpty (-) value")
@@ -665,7 +665,7 @@ public class ProDarkSr extends BaseTest {
         openUrl("https://dlp.kapitalrs.com/lps/pro-dark/sr?fts=plang:all");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "Engleski", "language");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,lang_EN");
+        crmPage.checkParameterLinkIdInTheCRM(email, "lang_EN");
     }
 
     @Test(description = "TC 17.5. Verify that SMS verification field has emtpty (-) value")
@@ -824,7 +824,6 @@ public class ProDarkSr extends BaseTest {
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
-        crmPage.checkLinkIdValue("PC_windows");
         crmPage.checkCustomTag("Invalid");
     }
 
@@ -958,7 +957,7 @@ public class ProDarkSr extends BaseTest {
     @Test(description = "TC 24.2. Verify that the custom tag field in the CRM contains Dummy parameter ")
     @Parameters({"countryCode"})
     public void customTagContainsDummyValue(String countryCode) throws InterruptedException {
-        ScreenshotUtil.setCustomName("TC 24-2-Custom tag field-dummy-KapitalRS");
+        ScreenshotUtil.setCustomName("TC 24-2-Custom tag field-dummy - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/pro-dark/sr?Dummy=1");
         openUrl("https://dlp.kapitalrs.com/lps/pro-dark/sr?Dummy=1");
@@ -966,5 +965,83 @@ public class ProDarkSr extends BaseTest {
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
         crmPage.checkCustomTag("Dummy");
+    }
+
+    @Test(description = "TC 24.3. Verify that the custom tag field in the CRM contains '' (empty) value")
+    @Parameters({"countryCode"})
+    public void customTagContainsEmpty(String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-3-Custom tag field-empty-KapitalRS");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/pro-dark/sr?Dummy=false");
+        openUrl("https://dlp.kapitalrs.com/lps/pro-dark/sr?Dummy=false");
+        kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
+        kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkCustomTag("");
+    }
+
+    @Test(description = "TC 24.4. Verify that the custom tag field in the CRM contains '' (empty) value ")
+    @Parameters({"countryCode"})
+    public void customTagContainsEmptyValue(String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-2-Custom tag field- empty - KapitalRS");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/pro-dark/sr?Dummy=0");
+        openUrl("https://dlp.kapitalrs.com/lps/pro-dark/sr?Dummy=0");
+        kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
+        kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkCustomTag("");
+    }
+
+    @Test(description = "TC 25.1. Verify that the Link Id field in the CRM contains '{number}_IPL' value")
+    @Parameters({"countryCode"})
+    public void checkNumberIplValue(String countryCode) {
+        ScreenshotUtil.setCustomName("TC 25-1-Link Id tag field - {number}_IPL - KapitalRS");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/pro-dark/sr?tag1=1452789330&");
+        openUrl("https://dlp.kapitalrs.com/lps/pro-dark/sr?tag1=1452789330");
+        kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
+        kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("0.0953@1500");
+    }
+
+    @Test(description = "TC 25.2. Verify that the Link Id field in the CRM contains 'missingTag1_IPL' value")
+    @Parameters({"countryCode"})
+    public void checkMissingTag1IplValue(String countryCode) {
+        ScreenshotUtil.setCustomName("TC 25-2-Link Id tag field - missingTag1_IPL - KapitalRS");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/pro-dark/sr?tag1=123abc&");
+        openUrl("https://dlp.kapitalrs.com/lps/pro-dark/sr?tag1=123abc");
+        kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
+        kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("missingTag1");
+    }
+
+    @Test(description = "TC 25.3. Verify that the Link Id field in the CRM contains 'missingCID_IPL' value")
+    @Parameters({"countryCode"})
+    public void checkMissingCidIplValue(String countryCode) {
+        ScreenshotUtil.setCustomName("TC 25-3-Link Id tag field - missingCID_IPL - KapitalRS");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/pro-dark/sr?tag1=123456789&");
+        openUrl("https://dlp.kapitalrs.com/lps/pro-dark/sr?tag1=123456789");
+        kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
+        kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("missingCID");
+    }
+
+    @Test(description = "TC 25.4. Verify that the Link Id field in the CRM contains 'divByZero_IPL' value")
+    @Parameters({"countryCode"})
+    public void checkDivByZeroIplValue(String countryCode) {
+        ScreenshotUtil.setCustomName("TC 25-4-Link Id tag field - missingCID_IPL - KapitalRS");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/pro-dark/sr?tag1=930863512&");
+        openUrl("https://dlp.kapitalrs.com/lps/pro-dark/sr?tag1=930863512");
+        kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
+        kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("divByZero");
     }
 }
