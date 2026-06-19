@@ -18,7 +18,7 @@ public class DriverManager {
 
         log.info("Initializing WebDriver...");
 
-        //killChromeProcesses();
+        killChromeProcesses();
 
         WebDriver webDriver = DriverFactory.createDriver();
 
@@ -31,7 +31,7 @@ public class DriverManager {
         return driver.get();
     }
 
-    public static void quitDriver() {
+    /*public static void quitDriver() {
 
         if (driver.get() != null) {
 
@@ -46,14 +46,39 @@ public class DriverManager {
 
             log.warn("Attempted to quit WebDriver but driver was null");
         }
+    }*/
+
+    public static void quitDriver() {
+        WebDriver webDriver = getDriver();
+
+        if (webDriver == null) {
+            log.warn("Attempted to quit WebDriver but driver was null");
+            return;
+        }
+
+        try {
+            log.info("Closing WebDriver");
+            webDriver.quit();
+            log.info("WebDriver closed successfully");
+        } catch (Exception e) {
+            log.error("Error while closing WebDriver", e);
+        } finally {
+            driver.remove();
+        }
     }
 
     private static void killChromeProcesses() {
         try {
             log.info("Killing leftover Chrome processes...");
 
+            /*Process p1 = Runtime.getRuntime().exec("taskkill /F /IM chrome.exe /T");
+            Process p2 = Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe /T");*/
+
             Process p1 = Runtime.getRuntime().exec("taskkill /F /IM chrome.exe /T");
+            p1.waitFor();
+
             Process p2 = Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe /T");
+            p2.waitFor();
 
             // opcionalno: ispis output-a (debug)
             printProcessOutput(p1);

@@ -923,4 +923,82 @@ public class TrustedBrokerEn extends BaseTest {
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
         crmPage.checkCustomTag("Dummy");
     }
+
+    @Test(description = "TC 24.3. Verify that the custom tag field in the CRM contains '' (empty) value")
+    @Parameters({"countryCode"})
+    public void customTagContainsEmpty(String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-3-Custom tag field-empty-FortradeR");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrader.com/lps/trusted-broker/en?Dummy=false");
+        openUrl("https://dlp.fortrader.com/lps/trusted-broker/en?Dummy=false");
+        fortradeRPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
+        fortradeRPage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkCustomTag("");
+    }
+
+    @Test(description = "TC 24.4. Verify that the custom tag field in the CRM contains '' (empty) value")
+    @Parameters({"countryCode"})
+    public void customTagContainsEmptyValue(String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-4-Custom tag field-empty-FortradeR");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrader.com/lps/trusted-broker/en?Dummy=0");
+        openUrl("https://dlp.fortrader.com/lps/trusted-broker/en?Dummy=0");
+        fortradeRPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
+        fortradeRPage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkCustomTag("");
+    }
+
+    @Test(description = "TC 25.1. Verify that the Link Id field in the CRM contains '{number}' value")
+    @Parameters({"countryCode"})
+    public void checkNumberIplValue(String countryCode){
+        ScreenshotUtil.setCustomName("TC 25-1-Link Id tag field - {number}");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrader.com/lps/trusted-broker/en?tag1=1452789330");
+        openUrl("https://dlp.fortrader.com/lps/trusted-broker/en?tag1=1452789330");
+        fortradeRPage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        fortradeRPage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("0.0953@1500");
+    }
+
+    @Test(description = "TC 25.2. Verify that the Link Id field in the CRM contains 'missingTag1' value")
+    @Parameters({"countryCode"})
+    public void checkMissingTag1IplValue(String countryCode){
+        ScreenshotUtil.setCustomName("TC 25-2-Link Id tag field - missingTag1");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrader.com/lps/trusted-broker/en?tag1=123abc");
+        openUrl("https://dlp.fortrader.com/lps/trusted-broker/en?tag1=123abc");
+        fortradeRPage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        fortradeRPage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("missingTag1");
+    }
+
+    @Test(description = "TC 25.3. Verify that the Link Id field in the CRM contains 'missingCID' value")
+    @Parameters({"countryCode"})
+    public void checkMissingCidIplValue(String countryCode) {
+        ScreenshotUtil.setCustomName("TC 25-3-Link Id tag field - missingCID");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrader.com/lps/trusted-broker/en?tag1=123456789");
+        openUrl("https://dlp.fortrader.com/lps/trusted-broker/en?tag1=123456789");
+        fortradeRPage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        fortradeRPage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("missingCID");
+    }
+
+    @Test(description = "TC 25.4. Verify that the Link Id field in the CRM contains 'divByZero' value")
+    @Parameters({"countryCode"})
+    public void checkDivByZeroIplValue(String countryCode) {
+        ScreenshotUtil.setCustomName("TC 25-4-Link Id tag field - div by zero");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrader.com/lps/trusted-broker/en?tag1=930863512");
+        openUrl("https://dlp.fortrader.com/lps/trusted-broker/en?tag1=930863512");
+        fortradeRPage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        fortradeRPage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("divByZero");
+    }
 }

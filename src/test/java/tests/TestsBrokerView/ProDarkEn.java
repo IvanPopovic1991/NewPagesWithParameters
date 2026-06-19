@@ -287,6 +287,19 @@ public class ProDarkEn extends BaseTest {
         crmPage.checkCrmTags();
     }
 
+    @Test(description = "9.4. Verify that the Link ID field contains 'PC_windows' value in the CRM")
+    @Parameters({"countryCode"})
+    public void checkLinkIDPCWindows(String countryCode){
+        ScreenshotUtil.setCustomName("Link ID tag contains the 'PC_windows' value - Broker Views");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.brokereviews.com/lps/pro-dark/en");
+        openUrl("https://dlp.brokereviews.com/lps/pro-dark/en");
+        brokerView.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
+        readyFortrade.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("PC_windows");
+    }
+
     @Test(description = "TC 10.1. Verify the email is sent on the new account email")
     @Parameters({"countryCode"})
     public void emailIsReceived(String countryCode) {
@@ -380,7 +393,7 @@ public class ProDarkEn extends BaseTest {
         openUrl("https://dlp.brokereviews.com/lps/pro-dark/en?fts=age");
         brokerView.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "25-34", "age");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,25_34_age");
+        crmPage.checkParameterLinkIdInTheCRM(email, "25_34_age");
     }
 
     @Test(description = "TC 13.5. Vefiry that SMS verification field has emtpty (-) value")
@@ -438,7 +451,7 @@ public class ProDarkEn extends BaseTest {
         openUrl("https://dlp.brokereviews.com/lps/pro-dark/en?fts=annual");
         brokerView.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$15,000-$50,000", "annual");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,15000_50000_annual");
+        crmPage.checkParameterLinkIdInTheCRM(email, "15000_50000_annual");
     }
 
     @Test(description = "TC 14.5. Verify that SMS verification field has emtpty (-) value")
@@ -496,7 +509,7 @@ public class ProDarkEn extends BaseTest {
         openUrl("https://dlp.brokereviews.com/lps/pro-dark/en?fts=saving");
         brokerView.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$50,000-$100,000", "saving");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,50000_100000_savings");
+        crmPage.checkParameterLinkIdInTheCRM(email, "50000_100000_savings");
     }
 
     @Test(description = "TC 15.5. Verify that SMS verification field has emtpty (-) value")
@@ -554,7 +567,7 @@ public class ProDarkEn extends BaseTest {
         openUrl("https://dlp.brokereviews.com/lps/pro-dark/en?fts=knowledge");
         brokerView.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "All the above", "knowledge");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,knowledge_of_trading_all_the_above");
+        crmPage.checkParameterLinkIdInTheCRM(email, "knowledge_of_trading_all_the_above");
     }
 
     @Test(description = "TC 16.5. Vefiry that SMS verification field has emtpty (-) value")
@@ -612,7 +625,7 @@ public class ProDarkEn extends BaseTest {
         openUrl(baseUrl + "?fts=plang:all");
         brokerView.registerDemoAccountWithParameter(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber(), "English", "language");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,lang_EN");
+        crmPage.checkParameterLinkIdInTheCRM(email, "lang_EN");
     }
 
     @Test(description = "TC 17.5. Verify that SMS verification field has emtpty (-) value")
@@ -908,6 +921,85 @@ public class ProDarkEn extends BaseTest {
         brokerView.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("Dummy");
+    }
+
+    @Test(description = "TC 24.3. Verify that the custom tag field in the CRM contains '' (empty) value")
+    @Parameters({"regulation","countryCode"})
+    public void customTagContainsEmpty(String regulation,  String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-3-Custom tag field - empty ");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.brokereviews.com/lps/pro-dark/en?Dummy=false");
+        openUrl(baseUrl + "?Dummy=false");
+        brokerView.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        brokerView.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkCustomTag("");
+    }
+
+    @Test(description = "TC 24.4. Verify that the custom tag field in the CRM contains '' (empty) value")
+    @Parameters({"regulation","countryCode"})
+    public void customTagContainsEmptyValue(String regulation, String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-4-Custom tag field - empty ");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.brokereviews.com/lps/pro-dark/en?Dummy=0");
+        openUrl(baseUrl + "?Dummy=0");
+        brokerView.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        brokerView.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkCustomTag("");
+    }
+
+
+    @Test(description = "TC 25.1. Verify that the Link Id field in the CRM contains '{number}_IPL' value")
+    @Parameters({"regulation","countryCode"})
+    public void checkNumberIplValue(String regulation, String countryCode) {
+        ScreenshotUtil.setCustomName("TC 25-1-Link Id tag field - {number}_IPL - Broker Views");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.brokereviews.com/lps/pro-dark/en?tag1=1452789330&");
+        openUrl(baseUrl + "?tag1=1452789330");
+        brokerView.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        brokerView.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkLinkIdValue("0.0953@1500");
+    }
+
+    @Test(description = "TC 25.2. Verify that the Link Id field in the CRM contains 'missingTag1_IPL' value")
+    @Parameters({"regulation","countryCode"})
+    public void checkMissingTag1IplValue(String regulation, String countryCode) {
+        ScreenshotUtil.setCustomName("TC 25-2-Link Id tag field - missingTag1_IPL - Broker Views");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.brokereviews.com/lps/pro-dark/en?tag1=123abc&");
+        openUrl(baseUrl + "?tag1=123abc");
+        brokerView.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        brokerView.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkLinkIdValue("missingTag1");
+    }
+
+    @Test(description = "TC 25.3. Verify that the Link Id field in the CRM contains 'missingCID_IPL' value")
+    @Parameters({"regulation","countryCode"})
+    public void checkMissingCidIplValue(String regulation, String countryCode) {
+        ScreenshotUtil.setCustomName("TC 25-3-Link Id tag field - missingCID_IPL - Broker Views");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.brokereviews.com/lps/pro-dark/en?tag1=123456789&");
+        openUrl(baseUrl + "?tag1=123456789");
+        brokerView.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        brokerView.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkLinkIdValue("missingCID");
+    }
+
+    @Test(description = "TC 25.4. Verify that the Link Id field in the CRM contains 'divByZero_IPL' value")
+    @Parameters({"regulation","countryCode"})
+    public void checkDivByZeroIplValue(String regulation, String countryCode) {
+        ScreenshotUtil.setCustomName("TC 25-4-Link Id tag field - missingCID_IPL - Broker Views");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.brokereviews.com/lps/pro-dark/en?tag1=930863512&");
+        openUrl(baseUrl + "?tag1=930863512");
+        brokerView.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        brokerView.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName,regulation);
+        crmPage.checkLinkIdValue("divByZero");
     }
 
 }

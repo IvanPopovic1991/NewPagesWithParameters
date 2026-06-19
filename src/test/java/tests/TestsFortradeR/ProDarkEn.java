@@ -281,6 +281,22 @@ public class ProDarkEn extends BaseTest {
         crmPage.checkCrmTags();
     }
 
+    @Test(description = "9.4. Verify that the Link ID field contains 'PC_windows' value in the CRM")
+    @Parameters({"countryCode"})
+    public void checkLinkIDPCWindows(String countryCode){
+        ScreenshotUtil.setCustomName("Link ID tag contains the 'PC_windows' value - FortradeR");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the page url");
+        openUrl("https://dlp.fortrader.com/lps/pro-dark/en?fts=age-annual-saving-knowledge-plang:all&tg=ivanA" +
+                "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
+                "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
+        fortradeRPage.registerDemoAccountWithParameters(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(),
+                "25-34", "$15,000-$50,000", "$50,000-$100,000", "All the above", "English");
+        readyFortrade.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email,TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("PC_windows");
+    }
+
     @Test(description = "TC 10.1. Verify the email is sent on the new account email")
     @Parameters({"countryCode"})
     public void emailIsReceived(String countryCode) {
@@ -373,7 +389,7 @@ public class ProDarkEn extends BaseTest {
         openUrl("https://dlp.fortrader.com/lps/pro-dark/en?fts=age");
         fortradeRPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "25-34", "age");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,25_34_age");
+        crmPage.checkParameterLinkIdInTheCRM(email, "25_34_age");
     }
 
     @Test(description = "TC 13.5. Vefiry that SMS verification field has emtpty (-) value")
@@ -431,7 +447,7 @@ public class ProDarkEn extends BaseTest {
         openUrl("https://dlp.fortrader.com/lps/pro-dark/en?fts=annual");
         fortradeRPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$15,000-$50,000", "annual");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,15000_50000_annual");
+        crmPage.checkParameterLinkIdInTheCRM(email, "15000_50000_annual");
     }
 
     @Test(description = "TC 14.5. Verify that SMS verification field has emtpty (-) value")
@@ -489,7 +505,7 @@ public class ProDarkEn extends BaseTest {
         openUrl("https://dlp.fortrader.com/lps/pro-dark/en?fts=saving");
         fortradeRPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$50,000-$100,000", "saving");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,50000_100000_savings");
+        crmPage.checkParameterLinkIdInTheCRM(email, "50000_100000_savings");
     }
 
     @Test(description = "TC 15.5. Verify that SMS verification field has emtpty (-) value")
@@ -547,7 +563,7 @@ public class ProDarkEn extends BaseTest {
         openUrl("https://dlp.fortrader.com/lps/pro-dark/en?fts=knowledge");
         fortradeRPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "All the above", "knowledge");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,knowledge_of_trading_all_the_above");
+        crmPage.checkParameterLinkIdInTheCRM(email, "knowledge_of_trading_all_the_above");
     }
 
     @Test(description = "TC 16.5. Vefiry that SMS verification field has emtpty (-) value")
@@ -605,7 +621,7 @@ public class ProDarkEn extends BaseTest {
         openUrl("https://dlp.fortrader.com/lps/pro-dark/en?fts=plang:all");
         fortradeRPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "English", "language");
         readyFortrade.assertURL(TestData.appUrl);
-        crmPage.checkParameterLinkIdInTheCRM(email, "PC_windows,lang_EN");
+        crmPage.checkParameterLinkIdInTheCRM(email, "lang_EN");
     }
 
     @Test(description = "TC 17.5. Verify that SMS verification field has emtpty (-) value")
@@ -751,7 +767,6 @@ public class ProDarkEn extends BaseTest {
         fortradeRPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         fortradeRPage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
-        crmPage.checkLinkIdValue("PC_windows");
         crmPage.checkCustomTag("Dummy");
     }
 
@@ -765,7 +780,6 @@ public class ProDarkEn extends BaseTest {
         fortradeRPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         fortradeRPage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
-        crmPage.checkLinkIdValue("PC_windows");
         crmPage.checkCustomTag("Invalid");
     }
 
@@ -780,7 +794,6 @@ public class ProDarkEn extends BaseTest {
         fortradeRPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         fortradeRPage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
-        crmPage.checkLinkIdValue("PC_windows");
         crmPage.checkCustomTag("");
     }
 
@@ -795,7 +808,6 @@ public class ProDarkEn extends BaseTest {
         fortradeRPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         fortradeRPage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
-        crmPage.checkLinkIdValue("PC_windows");
         crmPage.checkCustomTag("Invalid");
     }
 
@@ -910,5 +922,83 @@ public class ProDarkEn extends BaseTest {
         fortradeRPage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
         crmPage.checkCustomTag("Dummy");
+    }
+
+    @Test(description = "TC 24.3. Verify that the custom tag field in the CRM contains '' (empty) value")
+    @Parameters({"countryCode"})
+    public void customTagContainsEmpty(String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-3-Custom tag field-empty-FortradeR");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrader.com/lps/pro-dark/en?Dummy=false");
+        openUrl("https://dlp.fortrader.com/lps/pro-dark/en?Dummy=false");
+        fortradeRPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
+        fortradeRPage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkCustomTag("");
+    }
+
+    @Test(description = "TC 24.4. Verify that the custom tag field in the CRM contains '' (empty) value")
+    @Parameters({"countryCode"})
+    public void customTagContainsEmptyValue(String countryCode) throws InterruptedException {
+        ScreenshotUtil.setCustomName("TC 24-4-Custom tag field-empty-FortradeR");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrader.com/lps/pro-dark/en?Dummy=0");
+        openUrl("https://dlp.fortrader.com/lps/pro-dark/en?Dummy=0");
+        fortradeRPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
+        fortradeRPage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkCustomTag("");
+    }
+
+    @Test(description = "TC 25.1. Verify that the Link Id field in the CRM contains '{number}' value")
+    @Parameters({"countryCode"})
+    public void checkNumberIplValue(String countryCode){
+        ScreenshotUtil.setCustomName("TC 25-1-Link Id tag field - {number}");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrader.com/lps/pro-dark/en?tag1=1452789330");
+        openUrl("https://dlp.fortrader.com/lps/pro-dark/en?tag1=1452789330");
+        fortradeRPage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        fortradeRPage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("0.0953@1500");
+    }
+
+    @Test(description = "TC 25.2. Verify that the Link Id field in the CRM contains 'missingTag1' value")
+    @Parameters({"countryCode"})
+    public void checkMissingTag1IplValue(String countryCode){
+        ScreenshotUtil.setCustomName("TC 25-2-Link Id tag field - missingTag1");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrader.com/lps/pro-dark/en?tag1=123abc");
+        openUrl("https://dlp.fortrader.com/lps/pro-dark/en?tag1=123abc");
+        fortradeRPage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        fortradeRPage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("missingTag1");
+    }
+
+    @Test(description = "TC 25.3. Verify that the Link Id field in the CRM contains 'missingCID' value")
+    @Parameters({"countryCode"})
+    public void checkMissingCidIplValue(String countryCode) {
+        ScreenshotUtil.setCustomName("TC 25-3-Link Id tag field - missingCID");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrader.com/lps/pro-dark/en?tag1=123456789");
+        openUrl("https://dlp.fortrader.com/lps/pro-dark/en?tag1=123456789");
+        fortradeRPage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        fortradeRPage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("missingCID");
+    }
+
+    @Test(description = "TC 25.4. Verify that the Link Id field in the CRM contains 'divByZero' value")
+    @Parameters({"countryCode"})
+    public void checkDivByZeroIplValue(String countryCode) {
+        ScreenshotUtil.setCustomName("TC 25-4-Link Id tag field - div by zero");
+        String email = TestData.generateEmail();
+        Allure.step("Redirected to the https://dlp.fortrader.com/lps/pro-dark/en?tag1=930863512");
+        openUrl("https://dlp.fortrader.com/lps/pro-dark/en?tag1=930863512");
+        fortradeRPage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
+        fortradeRPage.assertURL(TestData.appUrl);
+        crmPage.checkCrmData(email, TestData.fullName, "FSC");
+        crmPage.checkLinkIdValue("divByZero");
     }
 }
