@@ -109,7 +109,7 @@
 
                     <!-- TestNG file -->
                     <suiteXmlFiles>
-                        <suiteXmlFile>TestNg.xml</suiteXmlFile>
+                        <suiteXmlFile>Suites/TestNgAllPages.xml</suiteXmlFile>
                     </suiteXmlFiles>
 
                     <!-- Jenkins parameter passing -->
