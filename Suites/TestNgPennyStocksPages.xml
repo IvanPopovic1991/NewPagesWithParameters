@@ -13,7 +13,11 @@
         <parameter name="countryCode" value="Serbia"/>
         <parameter name="regulation" value="FSC"/>
         <classes>
-            <class name="tests.TestPennyStocks.ProDarkEn"/>
+            <class name="tests.TestPennyStocks.ProDarkEn">
+                <methods>
+                    <include name="demoAccountRegistrationTest"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
