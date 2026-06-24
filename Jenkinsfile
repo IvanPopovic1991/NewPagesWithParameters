@@ -23,7 +23,6 @@ pipeline {
 
     environment {
 
-        HEADLESS = 'true'
         ChromeExeFilePath = '/usr/bin/google-chrome'
 
         // Jenkins Credentials
@@ -40,44 +39,44 @@ pipeline {
 
         stage('Environment Info') {
             steps {
+
                 sh '''
-                echo "===== JAVA ====="
-                java -version
+                    echo "===== JAVA ====="
+                    java -version
 
-                echo "===== MAVEN ====="
-                mvn -version
+                    echo "===== MAVEN ====="
+                    mvn -version
 
-                echo "===== CHROME ====="
-                google-chrome --version || true
-            '''
+                    echo "===== CHROME ====="
+                    google-chrome --version || true
+                '''
             }
         }
 
         stage('Clean Allure Results') {
             steps {
+
                 sh 'rm -rf allure-results || true'
                 sh 'rm -rf target/allure-results || true'
             }
         }
 
         stage('Build & Test') {
+
             steps {
 
-                sh """
-                mvn clean test \
-                -Denv=${params.env} \
-                -Dbrowser=${params.browser} \
-                -Dheadless=true
-            """
-            }
-        }
+                catchError(
+                        buildResult: 'UNSTABLE',
+                        stageResult: 'FAILURE'
+                ) {
 
-        stage('Allure Report') {
-            steps {
-                allure([
-                        includeProperties: false,
-                        results: [[path: 'allure-results']]
-                ])
+                    sh """
+                        mvn clean test \
+                        -Denv=${params.env} \
+                        -Dbrowser=${params.browser} \
+                        -Dheadless=true
+                    """
+                }
             }
         }
     }
@@ -85,6 +84,16 @@ pipeline {
     post {
 
         always {
+
+            sh '''
+                echo "===== ALLURE RESULTS ====="
+                ls -la allure-results || true
+            '''
+
+            allure([
+                    includeProperties: false,
+                    results: [[path: 'allure-results']]
+            ])
 
             archiveArtifacts(
                     artifacts: 'target/screenshots/*.png',
@@ -95,6 +104,10 @@ pipeline {
 
         success {
             echo 'Build successful'
+        }
+
+        unstable {
+            echo 'Tests failed but Allure report was generated'
         }
 
         failure {
