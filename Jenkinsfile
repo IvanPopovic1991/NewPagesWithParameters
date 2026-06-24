@@ -67,7 +67,7 @@ pipeline {
                 mvn clean test \
                 -Denv=${params.env} \
                 -Dbrowser=${params.browser} \
-                -DHEADLESS=true
+                -Dheadless=true
             """
             }
         }

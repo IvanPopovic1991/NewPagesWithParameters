@@ -10,12 +10,23 @@ public class BrowserOptions {
 
         ChromeOptions options = new ChromeOptions();
 
-        options.addArguments("--start-maximized");
         options.addArguments("--disable-notifications");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--remote-debugging-port=9222");
-        options.addArguments("--user-data-dir=C:/temp/chrome-profile");
+
+        if (isHeadless()) {
+            options.addArguments("--headless=new");
+            options.addArguments("--window-size=1920,1080");
+        } else {
+            options.addArguments("--start-maximized");
+        }
+
+        String os = System.getProperty("os.name").toLowerCase();
+
+        if (os.contains("win")) {
+            options.addArguments("--remote-debugging-port=9222");
+            options.addArguments("--user-data-dir=C:/temp/chrome-profile");
+        }
 
         return options;
     }
