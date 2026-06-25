@@ -1,29 +1,32 @@
 package core.base;
 
+import core.config.ConfigReader;
 import core.driver.DriverManager;
 import core.utils.ScreenshotUtil;
-import io.qameta.allure.Allure;
 import org.openqa.selenium.Dimension;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
 
 public class BaseTest {
 
     @BeforeMethod(alwaysRun = true)
-    @Parameters({"env", "browser"})
-    public void setUp(String env, String browser) {
+    public void setUp() {
 
-        System.out.println("THREAD: " + Thread.currentThread().getId());
-        System.out.println("DRIVER: " + DriverManager.getDriver());
+        String env =
+                System.getProperty("env", "local");
+
+        String browser =
+                ConfigReader.getBrowser();
 
         System.setProperty("env", env);
         System.setProperty("browser", browser);
 
-        // Allure parameters
-        Allure.parameter("env", env);
-        Allure.parameter("browser", browser);
+        System.out.println("ENVIRONMENT: " + env);
+        System.out.println("BROWSER: " + browser);
+
+        System.out.println("THREAD: " + Thread.currentThread().getId());
+        System.out.println("DRIVER: " + DriverManager.getDriver());
 
         DriverManager.initDriver();
 
