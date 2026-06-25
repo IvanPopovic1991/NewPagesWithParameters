@@ -21,6 +21,14 @@ public class BaseTest {
 
         DriverManager.initDriver();
 
+        System.out.println(
+                "WINDOW SIZE: " +
+                        DriverManager.getDriver()
+                                .manage()
+                                .window()
+                                .getSize()
+        );
+
         DriverManager.getDriver().manage().window().maximize();
 
         System.out.println("Cookies before: "

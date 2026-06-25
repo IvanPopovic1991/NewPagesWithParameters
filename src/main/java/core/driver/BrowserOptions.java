@@ -54,6 +54,14 @@ public class BrowserOptions {
     }
 
     private static boolean isHeadless() {
+
+        String headless =
+                System.getProperty("headless");
+
+        System.out.println(
+                "HEADLESS PROPERTY = " + headless
+        );
+
         return Boolean.parseBoolean(
                 System.getProperty("headless", "false")
         );
