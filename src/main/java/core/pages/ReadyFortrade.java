@@ -64,7 +64,7 @@ public class ReadyFortrade extends BasePage {
             break;
             case "FSC":
             default: {
-                Assert.assertEquals(actualText, "Broker: Fortrade (Mauritius) Ltd (FSC)");
+                Assert.assertEquals(actualText, "Broker: Fortrade (Mauritius) Ltd (FSC) testq testa");
                 //"Broker Fortrade Mauritius Ltd FSC - successfully registered demo account", regulationMsg);
             }
             break;
