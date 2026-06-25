@@ -7,8 +7,6 @@
         <listener class-name="core.listeners.ScreenshotListener"/>
         <listener class-name="core.listeners.TestListener"/>
     </listeners>
-    <parameter name="env" value="local"/>
-    <parameter name="browser" value="chrome-testing"/>
     <test name="Test cases - Pro Dark EN landing page">
         <parameter name="countryCode" value="Serbia"/>
         <parameter name="regulation" value="FSC"/>
