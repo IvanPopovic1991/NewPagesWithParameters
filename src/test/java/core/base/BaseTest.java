@@ -2,12 +2,12 @@ package core.base;
 
 import core.driver.DriverManager;
 import core.utils.ScreenshotUtil;
-import io.qameta.allure.Allure;
 import org.openqa.selenium.Dimension;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
+import core.utils.AllureEnvironmentWriter;
 
 public class BaseTest {
 
@@ -21,11 +21,8 @@ public class BaseTest {
         System.setProperty("env", env);
         System.setProperty("browser", browser);
 
-        // Allure parameters
-        Allure.parameter("env", env);
-        Allure.parameter("browser", browser);
-
         DriverManager.initDriver();
+        AllureEnvironmentWriter.writeEnvironment();
 
         String os = System.getProperty("os.name").toLowerCase();
 
