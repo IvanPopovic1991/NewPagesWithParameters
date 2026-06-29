@@ -18,7 +18,7 @@
         <allure.version>2.24.0</allure.version>
 
         <env>local</env>
-        <browser>chrome</browser>
+        <browser>firefox</browser>
     </properties>
 
     <dependencies>
