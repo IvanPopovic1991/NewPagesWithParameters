@@ -10,7 +10,7 @@ pipeline {
 
         choice(
                 name: 'env',
-                choices: ['local', 'stage', 'production'],
+                choices: ['production', 'local', 'stage'],
                 description: 'Environment'
         )
 
