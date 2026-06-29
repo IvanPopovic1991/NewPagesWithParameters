@@ -17,7 +17,7 @@
         <testng.version>7.10.2</testng.version>
         <allure.version>2.24.0</allure.version>
 
-        <env>local</env>
+        <env>production</env>
         <browser>chrome</browser>
     </properties>
 
