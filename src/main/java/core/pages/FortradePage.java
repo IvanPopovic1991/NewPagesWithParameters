@@ -36,7 +36,7 @@ public class FortradePage extends BasePage {
     @FindBy(xpath = "//span[@class='cps-label']")
     public WebElement countryCodeDropdown;
 
-    @FindBy(xpath = "//input[@id='TelephoneMask']")
+    @FindBy(xpath = "//input[@id='Telephone']")
     public WebElement phoneNumber;
 
     @FindBy(xpath = "//button[@id='main-submit-btn']")
@@ -77,7 +77,7 @@ public class FortradePage extends BasePage {
     public WebElement iirocLogo;
 
     @FindBy(xpath = "//form/p")
-    public WebElement textUnderFormIiroc;
+    public WebElement textUnderForm;
 
     @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='FirstName']")
     public WebElement borderColorForFirstName;
@@ -88,7 +88,7 @@ public class FortradePage extends BasePage {
     @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='EmailAddress']")
     public WebElement borderColorForEmail;
 
-    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='TelephoneMask']")
+    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='Telephone']")
     public WebElement borderColorForPhone;
 
     @FindBy(xpath = "//p/a[text()='Privacy Policy']")
@@ -96,6 +96,9 @@ public class FortradePage extends BasePage {
 
     @FindBy(xpath = "//p/a[text()='Terms and Conditions']")
     public WebElement headerTermsAndConditionsLink;
+
+    @FindBy(xpath = "//p/a[text()='click here']")
+    public WebElement clickHereLink;
 
     @FindBy(xpath = "//p/a[text()='Already have an account?']")
     public WebElement alreadyHaveAnAccountLink;
@@ -112,6 +115,15 @@ public class FortradePage extends BasePage {
     @FindBy(xpath = "//div/a[contains(text(), 'Privacy policy')]")
     public WebElement footerPrivacyPolicyLink;
 
+    @FindBy(xpath = "//div[@class='footerRiskDisclaimer']//div[@class='asicClass']//a[contains(text(),'(FSG)')]")
+    public WebElement fsgLink;
+
+    @FindBy(xpath = "//div[@class='footerRiskDisclaimer']//div[@class='asicClass']//a[contains(text(),'(PDS)')]")
+    public WebElement pdsLink;
+
+    @FindBy(xpath = "//div[@class='footerRiskDisclaimer']//div[@class='asicClass']//a[contains(text(),'(TMD)')]")
+    public WebElement tmdLink;
+
     @FindBy(xpath = "//div/a[text()='FRN: 609970']")
     public WebElement footerFCALink;
 
@@ -124,7 +136,7 @@ public class FortradePage extends BasePage {
     @FindBy(xpath = "//div/a[text()='CIF license number 385/20']")
     public WebElement footerCYSECLink;
 
-    @FindBy(xpath = "//div/a[text()=' GB21026472']")
+    @FindBy(xpath = "//div/a[text()='GB21026472']")
     public WebElement footerFSCLink;
 
     @FindBy(xpath = "//div/a[text()=' No. F009856']")
@@ -153,6 +165,21 @@ public class FortradePage extends BasePage {
 
     @FindBy(xpath = "//div/input[@id='Details-Edit-Btn']")
     public WebElement editPencilButton;
+
+    @FindBy(xpath = "(//div[@class='fcaClass']/strong[contains(text(), '% of retail investor accounts lose money when trading CFDs with this provider.')])[2]")
+    public WebElement dynamicFCAPercentages;
+
+    @FindBy(xpath = "//div[@class='fcaClass']/b[contains(text(), '% of retail investor accounts lose money when trading CFDs with this provider.')]")
+    public WebElement staticFCAPercentages;
+
+    @FindBy(xpath = "(//div[@class='cysecClass']/strong[contains(text(), '% of retail investor accounts lose money when trading CFDs with this provider.')])[2]")
+    public WebElement dynamicCysecPercentages;
+
+    @FindBy(xpath = "//div[@class='cysecClass']/b[contains(text(), '% of retail investor accounts lose money when trading CFDs with this provider.')]")
+    public WebElement staticCysecPercentages;
+
+    @FindBy(xpath = "//div[@id='stickyHeader']/div/div[2]")
+    public WebElement riskWarningHeaderDfsa;
 
     @Step("Insert first name: {firstNameData}")
     public void insertFirstName(String firstNameData) {
@@ -413,7 +440,7 @@ public class FortradePage extends BasePage {
             "Please enter your last name.",
             "Must be a valid email address.",
             //"Phone number is required"
-            "Phone number must be exactly 10 digits and cannot start with 0"};
+            "Must be a valid international phone number"};
 
     public void assertErrorMessages() {
         for (int i = 1; i <= 4; i++) {
@@ -569,5 +596,121 @@ public class FortradePage extends BasePage {
         ElementActions.click(editPencilButton, "edit pencil button");
         WaitUtil.waitForVisible(firstName);
         Assert.assertTrue(firstName.isDisplayed());
+    }
+
+    public String headerPrivacyPolicyUrl (String regulation) {
+        String text = "";
+        switch (regulation) {
+            case "fsc": {
+                text = "FSC/Fortrade_MA_Privacy_Policy.pdf";
+            }
+            break;
+            case "fca": {
+                text = "Fortrade_Privacy_Policy.pdf";
+            }
+            break;
+            case "iiroc": {
+                text = "IIROC/Privacy_Policy.pdf";
+            }
+            break;
+            case "cysec": {
+                text = "CySEC/Privacy_Policy.pdf";
+            }
+            break;
+            case "dfsa": {
+                text = "DFSA/Privacy_Policy.pdf";
+            }
+        }
+        String privacyPolicy = "https://www.fortrade.com/wp-content/uploads/legal/" + text;
+        return privacyPolicy;
+    }
+
+    public String headerTermsAndConditionsUrl (String regulation) {
+        String text = "";
+        switch (regulation) {
+            case "fsc": {
+                text = "FSC/Fortrade_Mauritius_Client_Agreement.pdf";
+            }
+            break;
+            case "fca": {
+                text = "Fortrade_Terms_and_Conditions.pdf";
+            }
+            break;
+            case "iiroc": {
+                text = "IIROC/Client_Agreement.pdf";
+            }
+            break;
+            case "cysec": {
+                text = "CySEC/Client_Agreement.pdf";
+            }
+            break;
+            case "dfsa": {
+                text = "DFSA/Client_Agreement.pdf";
+            }
+        }
+        String termsAndConditions = "https://www.fortrade.com/wp-content/uploads/legal/" + text;
+        return termsAndConditions;
+    }
+
+    public String footerRiskWarningUrl (String regulation) {
+        String text = "";
+        switch (regulation) {
+            case "fsc": {
+                text = "FSC/Fortrade_MA_Risk_Disclosure.pdf";
+            }
+            break;
+            case "fca": {
+                text = "Fortrade_Risk_Disclosure.pdf";
+            }
+            break;
+            case "iiroc": {
+                text = "IIROC/Risk_Disclosure.pdf";
+            }
+            break;
+            case "cysec": {
+                text = "CySEC/Risk_Disclosure.pdf";
+            }
+            break;
+            case "asic": {
+                text = "ASIC/Fort_Securities_AU_Product_Disclosure_Statement-ASIC.pdf";
+            }
+            break;
+            case "dfsa": {
+                text = "DFSA/Risk_Disclosure.pdf";
+            }
+        }
+        String riskWarningURL = "https://www.fortrade.com/wp-content/uploads/legal/" + text;
+        return riskWarningURL;
+    }
+
+    public String footerPrivacyPolicyUrl (String regulation) {
+        String text = "";
+        switch (regulation) {
+            case "fsc": {
+                text = "FSC/Fortrade_MA_Privacy_Policy.pdf";
+            }
+            break;
+            case "fca": {
+                text = "Fortrade_Privacy_Policy.pdf";
+            }
+            break;
+            case "asic": {
+                text = "ASIC/Fort_Securities_AU_Privacy_Policy-ASIC.pdf";
+            }
+            break;
+            case "cysec": {
+                text = "CySEC/Privacy_Policy.pdf";
+            }
+            break;
+            case "iiroc": {
+                text = "IIROC/Privacy_Policy.pdf";
+            }
+            break;
+            case "dfsa": {
+                text = "DFSA/Privacy_Policy.pdf";
+            }
+        }
+        String privacyPolicyFooterURL = "https://www.fortrade.com/wp-content/uploads/legal/" + text;
+        return privacyPolicyFooterURL;
     }
 }

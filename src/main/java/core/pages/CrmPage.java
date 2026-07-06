@@ -113,6 +113,7 @@ public class CrmPage extends BasePage {
         ElementActions.doubleClick(accountCrm, "account row");
         driver.switchTo().defaultContent();
         driver.switchTo().frame(iFrameAccDetails);
+        WaitUtil.waitForPageLoad();
     }
 
     public void loopForTagsCrm() {
