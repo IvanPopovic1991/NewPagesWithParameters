@@ -51,7 +51,7 @@ public class PremiumForexCA extends BaseTest {
     public void verifyIirocTextTest(String regulation){
         ScreenshotUtil.setCustomName("Text is displayed correctly under the form for iiroc regulation." + regulation);
         Allure.step("Checked for text under the form for iiroc regulation");
-        fortradePage.assertText(fortradePage.textUnderFormIiroc, TestData.textForIiroc);
+        fortradePage.assertText(fortradePage.textUnderForm, TestData.textForIiroc);
     }
 
     @Test(description = "TC 2.1. Verify the demo account is registered successfully with valid data")
@@ -193,13 +193,14 @@ public class PremiumForexCA extends BaseTest {
     public void checkHeaderPrivacyPolicyLinkWithLeftClickTest(String regulation){
         ScreenshotUtil.setCustomName("Header privacy policy link - " + regulation);
         Allure.step("Left click on the header privacy policy link.");
-        fortradePage.checkLinksWithLeftClick(fortradePage.headerPrivacyPolicyLink, "header privacy policy link", TestData.privacyPolicyUrlIiroc);
+        fortradePage.checkLinksWithLeftClick(fortradePage.headerPrivacyPolicyLink, "header privacy policy link", fortradePage.headerPrivacyPolicyUrl(regulation));
     }
 
     @Test(description = "TC 7.1.1 - Verify the Privacy Policy link works with right click")
-    public void checkHeaderPrivacyPolicyLinkWithRightClickTest(){
+    @Parameters({"regulation"})
+    public void checkHeaderPrivacyPolicyLinkWithRightClickTest(String regulation){
         Allure.step("Right click on the header privacy policy link.");
-        fortradePage.checkLinksWithRightClick(fortradePage.headerPrivacyPolicyLink, "header privacy policy link", TestData.privacyPolicyUrlIiroc);
+        fortradePage.checkLinksWithRightClick(fortradePage.headerPrivacyPolicyLink, "header privacy policy link", fortradePage.headerPrivacyPolicyUrl(regulation));
     }
 
     @Test(description = "TC 7.2 - Verify the Terms and Conditions link works with left click")
@@ -207,13 +208,28 @@ public class PremiumForexCA extends BaseTest {
     public void checkHeaderTermsAndConditionsLinkWithLeftClickTest(String regulation){
         ScreenshotUtil.setCustomName("Header terms and conditions link - " + regulation);
         Allure.step("Left click on the terms and conditions link.");
-        fortradePage.checkLinksWithLeftClick(fortradePage.headerTermsAndConditionsLink, "header terms and conditions link", TestData.termsAndConditionsUrlIiroc);
+        fortradePage.checkLinksWithLeftClick(fortradePage.headerTermsAndConditionsLink, "header terms and conditions link", fortradePage.headerTermsAndConditionsUrl(regulation));
     }
 
     @Test(description = "TC 7.2.1 - Verify the Terms and Conditions link works with right click")
-    public void checkHeaderTermsAndConditionsLinkWithRightClickTest(){
+    @Parameters({"regulation"})
+    public void checkHeaderTermsAndConditionsLinkWithRightClickTest(String regulation){
         Allure.step("Right click on the terms and conditions link.");
-        fortradePage.checkLinksWithRightClick(fortradePage.headerTermsAndConditionsLink, "header terms and conditions link", TestData.termsAndConditionsUrlIiroc);
+        fortradePage.checkLinksWithRightClick(fortradePage.headerTermsAndConditionsLink, "header terms and conditions link", fortradePage.headerTermsAndConditionsUrl(regulation));
+    }
+
+    @Test(description = "TC 7.3 - Verify the click here link works with left click")
+    @Parameters({"regulation"})
+    public void checkClickHereLinkWithLeftClickTest(String regulation){
+        ScreenshotUtil.setCustomName("Click here link - " + regulation);
+        Allure.step("Left click on the click here link.");
+        fortradePage.checkLinksWithLeftClick(fortradePage.clickHereLink, "click here link", TestData.clickHereUrl);
+    }
+
+    @Test(description = "TC 7.3.1 - Verify the click here link works with right click")
+    public void checkClickHereLinkWithRightClickTest(){
+        Allure.step("Right click on the click here link.");
+        fortradePage.checkLinksWithRightClick(fortradePage.clickHereLink, "header terms and conditions link", TestData.clickHereUrl);
     }
 
     @Test(description = "TC 7.4 - Verify the Already have an account? link works with left click")
@@ -251,13 +267,14 @@ public class PremiumForexCA extends BaseTest {
     public void checkRiskWarningLinkWithLeftClickTest(String regulation){
         ScreenshotUtil.setCustomName("Risk warning link - " + regulation);
         Allure.step("Left click on the risk warning link.");
-        fortradePage.checkLinksWithLeftClick(fortradePage.footerRiskWarningLink, "risk warning link", TestData.riskWarningUrl);
+        fortradePage.checkLinksWithLeftClick(fortradePage.footerRiskWarningLink, "risk warning link", fortradePage.footerRiskWarningUrl(regulation));
     }
 
     @Test(description = "TC 7.7.1 - Verify the Risk warning link works with right click")
-    public void checkRiskWarningLinkWithRightClickTest(){
+    @Parameters({"regulation"})
+    public void checkRiskWarningLinkWithRightClickTest(String regulation){
         Allure.step("Right click on the risk warning link.");
-        fortradePage.checkLinksWithRightClick(fortradePage.footerRiskWarningLink, "risk warning link", TestData.riskWarningUrl);
+        fortradePage.checkLinksWithRightClick(fortradePage.footerRiskWarningLink, "risk warning link", fortradePage.footerRiskWarningUrl(regulation));
     }
 
     @Test(description = "TC 7.8 - Verify the Privacy policy link (in footer) works with left click")
@@ -265,13 +282,14 @@ public class PremiumForexCA extends BaseTest {
     public void checkFooterPrivacyPolicyLinkWithLeftClickTest(String regulation){
         ScreenshotUtil.setCustomName("Footer privacy policy link - " + regulation);
         Allure.step("Left click on the footer privacy policy link.");
-        fortradePage.checkLinksWithLeftClick(fortradePage.footerPrivacyPolicyLink, "footer privacy policy link", TestData.privacyPolicyUrlIiroc);
+        fortradePage.checkLinksWithLeftClick(fortradePage.footerPrivacyPolicyLink, "footer privacy policy link", fortradePage.footerPrivacyPolicyUrl(regulation));
     }
 
     @Test(description = "TC 7.8.1 - Verify the Privacy policy (in footer) link works with right click")
-    public void checkFooterPrivacyPolicyLinkWithRightClickTest(){
+    @Parameters({"regulation"})
+    public void checkFooterPrivacyPolicyLinkWithRightClickTest(String regulation){
         Allure.step("Right click on the footer privacy policy link.");
-        fortradePage.checkLinksWithRightClick(fortradePage.footerPrivacyPolicyLink, "footer privacy policy link", TestData.privacyPolicyUrlIiroc);
+        fortradePage.checkLinksWithRightClick(fortradePage.footerPrivacyPolicyLink, "footer privacy policy link", fortradePage.footerPrivacyPolicyUrl(regulation));
     }
 
     @Test(description = "TC 8.1 - Verify the FRN: 609970 (FCA) link works with left click")

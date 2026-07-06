@@ -47,6 +47,14 @@ public class TestData {
 
      public static String textForIiroc = "By proceeding, I agree to the Privacy Policy and the Terms and Conditions . By providing my contact details to Fortrade Canada, I agree to receive telephone calls from Customer Service Representatives regarding Fortrade Canada, its products, services, promotions, and offers. I can opt out of phone contact anytime by informing a Customer Service Representative or unsubscribing via notification settings.";
 
+     public static String textForAsic = "By providing your details to Fortrade Australia you are consenting to be contacted by telephone about offers and invites to trade Contracts for Difference (CFDs).";
+
+     public static String percentagesFCA = "70% of retail investor accounts lose money when trading CFDs with this provider.";
+
+     public static String percentagesCysec = "67.52% of retail investor accounts lose money when trading CFDs with this provider.";
+
+     public static String riskWarningHeaderDfsaText = "Contracts for difference (CFDs) are complex financial instruments and come with a high risk of losing money rapidly due to leverage. You should ensure you understand how CFDs work and that you can afford to take the high risk of losing your money.";
+
     public static String blueBorderColor = "";
 
     public static String redBorderColor = "rgb(255, 0, 0)";
@@ -120,6 +128,13 @@ public class TestData {
 
 
     //public static String privacyPolicyUrl = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Privacy_Policy.pdf";
+
+    public static String fsgUrl = "https://www.fortrade.com/wp-content/uploads/legal/ASIC/Fort_Securities_AU_Financial_Services_Guide-ASIC.pdf";
+
+    public static String pdsUrl = "https://www.fortrade.com/wp-content/uploads/legal/ASIC/Fort_Securities_AU_Product_Disclosure_Statement-ASIC.pdf";
+
+    public static String tmdUrl = "https://www.fortrade.com/wp-content/uploads/legal/ASIC/Fort_Securities_AU-TMD_Policy.pdf";
+
     public static String privacyPolicyUrlIiroc = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Privacy_Policy.pdf";
 
     public static String termsAndConditionsUrlIiroc = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Client_Agreement.pdf";
