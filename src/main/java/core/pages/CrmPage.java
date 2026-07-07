@@ -194,10 +194,23 @@ public class CrmPage extends BasePage {
     public void checkLinkIdValue(String linkIdValue) {
        ElementActions.click(menuBtn, "menu button");
        ElementActions.click(envAndMarSec, "environment and marketing section button");
+       String linkIdVal = getText(linkId, "Link ID field from the CRM");
+       System.out.println("Link ID field value from the CRM " + linkIdVal);
+       //Assert.assertEquals(linkIdVal, linkIdValue);
+       Assert.assertTrue(linkIdVal.contains(linkIdValue));
+    }
+
+    public void checkDeviceValue(){
+        ElementActions.click(menuBtn, "menu button");
+        ElementActions.click(envAndMarSec, "environment and marketing section button");
         String linkIdVal = getText(linkId, "Link ID field from the CRM");
         System.out.println("Link ID field value from the CRM " + linkIdVal);
-        //Assert.assertEquals(linkIdVal, linkIdValue);
-        Assert.assertTrue(linkIdVal.contains(linkIdValue));
+        String os = System.getProperty("os.name").toLowerCase();
+        if(os.contains("win")){
+            Assert.assertTrue(linkIdVal.contains("PC_windows"));
+        }else {
+            Assert.assertTrue(linkIdVal.contains("PC_Other"));
+        }
     }
 
     public void assertBorderColorInCRM(String regulation) {
@@ -219,7 +232,10 @@ public class CrmPage extends BasePage {
                 borderColor = "rgb(0, 128, 0)";
                 break;
             case "cysec":
-                borderColor = "rgb(255, 192, 203)";
+                borderColor = "rgb(255, 165, 0)";
+                break;
+            case "dfsa":
+                borderColor = "rgb(255, 255, 0)";
                 break;
             default:
                 throw new IllegalArgumentException("Unknown regulation: " + regulation);

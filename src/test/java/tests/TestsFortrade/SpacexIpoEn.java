@@ -202,7 +202,7 @@ public class SpacexIpoEn extends BaseTest {
         Allure.step("Verified error message and border color for Phone field");
         ElementActions.type(fortradePage.phoneNumber,"0034334424558200", "phone");
         fortradePage.assertBorderColor(fortradePage.borderColorForPhone, "border-color", TestData.redBorderColor);
-        fortradePage.assertFirstStepErrorMessage(TestData.wrongPhoneErrorMessage);
+        fortradePage.assertFirstStepErrorMessage(TestData.wrongPhoneErrorMsgOther);
     }
 
     @Test(description = "TC 4.6 - Verify that the Last Name cannot be the same as First name.")
@@ -390,6 +390,7 @@ public class SpacexIpoEn extends BaseTest {
 
     @Test(description = "TC 8.1 - Verify the FRN: 609970 (FCA) link works with left click")
     @Parameters({"regulation"})
+    @RunForRegulations("fca")
     public void checkFcaLinkWithLeftClickTest(String regulation){
         ScreenshotUtil.setCustomName("Fca link - " + regulation);
         Allure.step("Left click on the FCA link.");
@@ -397,6 +398,7 @@ public class SpacexIpoEn extends BaseTest {
     }
 
     @Test(description = "TC 8.1.1 - Verify the FRN: 609970 (FCA) link works with right click")
+    @RunForRegulations("fca")
     public void checkFcaLinkWithRightClickTest(){
         Allure.step("Right click on the FCA link.");
         fortradePage.checkLinksWithRightClick(fortradePage.footerFCALink, "fca link", TestData.fcaUrl);
@@ -404,6 +406,7 @@ public class SpacexIpoEn extends BaseTest {
 
     @Test(description = "TC 8.2 - Verify the CRN: BC1148613 (IIROC) link works with left click")
     @Parameters({"regulation"})
+    @RunForRegulations("iiroc")
     public void checkIirocLinkWithLeftClickTest(String regulation){
         ScreenshotUtil.setCustomName("Iiroc link - " + regulation);
         Allure.step("Left click on the IIROC link.");
@@ -411,6 +414,7 @@ public class SpacexIpoEn extends BaseTest {
     }
 
     @Test(description = "TC 8.2.1 - Verify the CRN: BC1148613 (IIROC) link works with right click")
+    @RunForRegulations("iiroc")
     public void checkIirocLinkWithRightClickTest(){
         Allure.step("Right click on the IIROC link.");
         fortradePage.checkLinksWithRightClick(fortradePage.footerIIROCLink, "iiroc link", TestData.iirocUrl);
@@ -418,6 +422,7 @@ public class SpacexIpoEn extends BaseTest {
 
     @Test(description = "TC 8.3 - Verify the ABN: 33 614 683 831 | AFSL: 493520 (ASIC) link works with left click")
     @Parameters({"regulation"})
+    @RunForRegulations("Asic")
     public void checkAsicLinkWithLeftClickTest(String regulation){
         ScreenshotUtil.setCustomName("Asic link - " + regulation);
         Allure.step("Left click on the ASIC link.");
@@ -425,6 +430,7 @@ public class SpacexIpoEn extends BaseTest {
     }
 
     @Test(description = "TC 8.3.1 - Verify the ABN: 33 614 683 831 | AFSL: 493520 (ASIC) link works with right click")
+    @RunForRegulations("Asic")
     public void checkAsicLinkWithRightClickTest(){
         Allure.step("Right click on the ASIC link.");
         fortradePage.checkLinksWithRightClick(fortradePage.footerASICLink, "asic link", TestData.asicUrl);
@@ -432,6 +438,7 @@ public class SpacexIpoEn extends BaseTest {
 
     @Test(description = "TC 8.4 - Verify the CIF license number 385/20 (CYSEC) link works with left click")
     @Parameters({"regulation"})
+    @RunForRegulations("cysec")
     public void checkCysecLinkWithLeftClickTest(String regulation){
         ScreenshotUtil.setCustomName("Cysec link - " + regulation);
         Allure.step("Left click on the CYSEC link.");
@@ -439,6 +446,7 @@ public class SpacexIpoEn extends BaseTest {
     }
 
     @Test(description = "TC 8.4.1 - Verify the CIF license number 385/20 (CYSEC) link works with right click")
+    @RunForRegulations("cysec")
     public void checkCysecLinkWithRightClickTest(){
         Allure.step("Right click on the CYSEC link.");
         fortradePage.checkLinksWithRightClick(fortradePage.footerCYSECLink, "cysec link", TestData.cysecUrl);
@@ -446,6 +454,7 @@ public class SpacexIpoEn extends BaseTest {
 
     @Test(description = "TC 8.5 - Verify the GB21026472 (FSC) link works with left click")
     @Parameters({"regulation"})
+    @RunForRegulations("fsc")
     public void checkFscLinkWithLeftClickTest(String regulation){
         ScreenshotUtil.setCustomName("Fsc link - " + regulation);
         Allure.step("Left click on the FSC link.");
@@ -453,6 +462,7 @@ public class SpacexIpoEn extends BaseTest {
     }
 
     @Test(description = "TC 8.5.1 - Verify the GB21026472 (FSC) link works with right click")
+    @RunForRegulations("fsc")
     public void checkFscLinkWithRightClickTest(){
         Allure.step("Right click on the FSC link.");
         fortradePage.checkLinksWithRightClick(fortradePage.footerFSCLink, "fsc link", TestData.fscUrl);
@@ -460,6 +470,7 @@ public class SpacexIpoEn extends BaseTest {
 
     @Test(description = "TC 8.6 - Verify the F009856 (DFSA) link works with left click")
     @Parameters({"regulation"})
+    @RunForRegulations("dfsa")
     public void checkDfsaLinkWithLeftClickTest(String regulation){
         ScreenshotUtil.setCustomName("Dfsa link - " + regulation);
         Allure.step("Left click on the DFSA link.");
@@ -467,6 +478,7 @@ public class SpacexIpoEn extends BaseTest {
     }
 
     @Test(description = "TC 8.6.1 - Verify the F009856 (DFSA) link works with right click")
+    @RunForRegulations("dfsa")
     public void checkDfsaLinkWithRightClickTest(){
         Allure.step("Right click on the DFSA link.");
         fortradePage.checkLinksWithRightClick(fortradePage.footerDFSALink, "dfsa link", TestData.dfsaUrl);
@@ -477,7 +489,7 @@ public class SpacexIpoEn extends BaseTest {
     public void checkAccountRegulationTest(String regulation, String countryCode){
         ScreenshotUtil.setCustomName("Account regulation in CRM - Fortrade - " + regulation);
         String email = TestData.generateEmail();
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,"Testq Testa",regulation);
     }
@@ -487,7 +499,7 @@ public class SpacexIpoEn extends BaseTest {
     public void checkAccountDetailsInCrmTest(String regulation, String countryCode){
         ScreenshotUtil.setCustomName("Account details in CRM - Fortrade - " + regulation);
         String email = TestData.generateEmail();
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,"Testq Testa",regulation);
     }
@@ -505,7 +517,7 @@ public class SpacexIpoEn extends BaseTest {
         crmPage.checkCrmData(email,"Testq Testa",regulation);
         crmPage.checkCrmTags();
     }
-    @Test(description = "9.4. Verify that the Link ID field contains 'PC_windows' value in the CRM")
+    @Test(description = "9.4. Verify that the Link ID field contains 'PC_windows' or 'PC_Other' value in the CRM")
     @Parameters({"regulation", "countryCode", "tag"})
     public void checkLinkIDPCWindows(String regulation,String countryCode, String tag){
         ScreenshotUtil.setCustomName("Link ID tag contains the 'PC_windows' value " + regulation);
@@ -515,7 +527,7 @@ public class SpacexIpoEn extends BaseTest {
         fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
-        crmPage.checkLinkIdValue("PC_windows");
+        crmPage.checkDeviceValue();
     }
 
     @Test(description = "TC 10.1. Verify the email is sent on the new account email")
@@ -864,7 +876,7 @@ public class SpacexIpoEn extends BaseTest {
     public void nonValidParameterInTheUrlTest(String regulation,String countryCode, String tag) throws IOException, AWTException {
         ScreenshotUtil.setCustomName("Demo account is successfully registered with wrong parameters in the URL - " + regulation);
         openUrl(baseUrl + "&fts=testq-testa");
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,TestData.generateEmail(),countryCode,TestData.canadaPhoneNumber());
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,TestData.generateEmail(),countryCode,TestData.generatePhoneNumber());
         readyFortrade.assertURL("https://ready.fortrade.com/");
         readyFortrade.clickUsePassBtn();
         readyFortrade.clickMenuBtn();
@@ -980,8 +992,13 @@ public class SpacexIpoEn extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Dummy - device " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en?ftsquery=device-equals(1)&"+tag);
-        openUrl(baseUrl + "&ftsquery=device-equals(1)");
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        String os = System.getProperty("os.name").toLowerCase();
+        if(os.contains("win")){
+            openUrl(baseUrl + "&ftsquery=device-equals(1)");
+        }else{
+            openUrl(baseUrl + "&ftsquery=device-equals(2)");
+        }
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("Dummy");
@@ -992,8 +1009,13 @@ public class SpacexIpoEn extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Invalid - device " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en?ftsquery=device(1)&"+tag);
-        openUrl(baseUrl + "&ftsquery=device(1)");
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        String os = System.getProperty("os.name").toLowerCase();
+        if(os.contains("win")){
+            openUrl(baseUrl + "&ftsquery=device(1)");
+        }else{
+            openUrl(baseUrl + "&ftsquery=device(2)");
+        }
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("Invalid");
@@ -1034,7 +1056,7 @@ public class SpacexIpoEn extends BaseTest {
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en?fts=age-annual-saving-knowledge-plang:all&"+tag);
         openUrl(baseUrl + "&fts=age-annual-saving-knowledge-plang:all");
         fortradePage.registerDemoAccountWithParameters(TestData.firstName,TestData.lastName,email,countryCode,
-                TestData.canadaPhoneNumber(), "45-54", "$15,000-$50,000", "$100,000-$250,000",
+                TestData.generatePhoneNumber(), "45-54", "$15,000-$50,000", "$100,000-$250,000",
                 "All the above","English");
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
@@ -1076,8 +1098,13 @@ public class SpacexIpoEn extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en" +
                 "?ftsquery=device-equals(1)&dummyP=1&"+tag);
-        openUrl(baseUrl + "&ftsquery=device-equals(1)&dummyP=1");
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        String os = System.getProperty("os.name").toLowerCase();
+        if(os.contains("win")){
+            openUrl(baseUrl + "&ftsquery=device-equals(1)&dummyP=1");
+        }else{
+            openUrl(baseUrl + "&ftsquery=device-equals(2)&dummyP=1");
+        }
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("DummyP");
@@ -1090,8 +1117,13 @@ public class SpacexIpoEn extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en" +
                 "?ftsquery=device-equals(1)&dummyP=0&"+tag);
-        openUrl(baseUrl + "&ftsquery=device-equals(1)&dummyP=0");
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        String os = System.getProperty("os.name").toLowerCase();
+        if(os.contains("win")){
+            openUrl(baseUrl + "&ftsquery=device-equals(1)&dummyP=0");
+        }else{
+            openUrl(baseUrl + "&ftsquery=device-equals(2)&dummyp=0");
+        }
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("Dummy");
@@ -1103,9 +1135,14 @@ public class SpacexIpoEn extends BaseTest {
         ScreenshotUtil.setCustomName("TC 23-3-Custom tag - Dummy value " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en" +
-                "?ftsquery=device-equals(1)&dummyp=1&"+tag);
-        openUrl(baseUrl + "&ftsquery=device-equals(1)&dummyp=1");
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+                "?ftsquery=device-equals(1)&dummyp=1"+tag);
+        String os = System.getProperty("os.name").toLowerCase();
+        if(os.contains("win")){
+            openUrl(baseUrl + "&ftsquery=device-equals(1)&dummyp=1");
+        } else{
+            openUrl(baseUrl + "&ftsquery=device-equals(2)&dummyp=1");
+        }
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("Dummy");
@@ -1118,7 +1155,7 @@ public class SpacexIpoEn extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en?Dummy=true&"+tag);
         openUrl(baseUrl + "&Dummy=true");
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("Dummy");
@@ -1131,7 +1168,7 @@ public class SpacexIpoEn extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en?Dummy=1&"+tag);
         openUrl(baseUrl + "&Dummy=1");
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("Dummy");
@@ -1144,7 +1181,7 @@ public class SpacexIpoEn extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en?Dummy=false&"+tag);
         openUrl(baseUrl + "&Dummy=false");
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("");
@@ -1157,7 +1194,7 @@ public class SpacexIpoEn extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en?Dummy=0&"+tag);
         openUrl(baseUrl + "&Dummy=0");
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkCustomTag("");
@@ -1170,7 +1207,7 @@ public class SpacexIpoEn extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en?tag1=1452789330&"+tag);
         openUrl(baseUrl + "&tag1=1452789330");
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkLinkIdValue("0.0953@1500");
@@ -1183,7 +1220,7 @@ public class SpacexIpoEn extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en?tag1=123abc&"+tag);
         openUrl(baseUrl + "&tag1=123abc");
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkLinkIdValue("missingTag1");
@@ -1196,7 +1233,7 @@ public class SpacexIpoEn extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en?tag1=123456789&"+tag);
         openUrl(baseUrl + "&tag1=123456789");
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkLinkIdValue("missingCID");
@@ -1209,7 +1246,7 @@ public class SpacexIpoEn extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en?tag1=930863512&"+tag);
         openUrl(baseUrl + "&tag1=930863512");
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkLinkIdValue("divByZero");
@@ -1222,7 +1259,7 @@ public class SpacexIpoEn extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/spacex-ipo/en?"+tag);
         openUrl(baseUrl);
-        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
+        fortradePage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.generatePhoneNumber());
         fortradePage.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
         crmPage.checkLinkIdValue("None_usd");
