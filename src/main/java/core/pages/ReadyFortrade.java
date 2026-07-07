@@ -62,6 +62,10 @@ public class ReadyFortrade extends BasePage {
                 //"Broker Fortrade Canada Limited CIRO - successfully registered demo account", regulationMsg);
             }
             break;
+            case "dfsa": {
+                Assert.assertEquals(actualText,"Broker: Fortrade (DIFC) Limited (DFSA)");
+            }
+            break;
             case "FSC":
             default: {
                 Assert.assertEquals(actualText, "Broker: Fortrade (Mauritius) Ltd (FSC)");
