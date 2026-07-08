@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Fortrade Pages"
-parallel="tests"
-thread-count="2">
+<suite name="Fortrade Pages">
 
     <listeners>
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
@@ -35,11 +33,7 @@ thread-count="2">
         <parameter name="countryCode" value="1"/>
         <parameter name="tag" value="?regulation=iiroc&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsFortrade.SpacexIpoEn">
-                    <methods>
-                        <include name="verifyErrorMessageForPhoneTest"/>
-                    </methods>
-            </class>
+            <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
     </test>
 
@@ -52,14 +46,16 @@ thread-count="2">
         </classes>
     </test>
 
-<!--    <test name="Test cases - Spacex Ipo En - CYSEC regulation">
+<!--
+    <test name="Test cases - Spacex Ipo En - CYSEC regulation">
         <parameter name="regulation" value="cysec"/>
         <parameter name="countryCode" value="357"/>
         <parameter name="tag" value="?regulation=cysec&amp;regtest=true"/>
         <classes>
             <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
-    </test>-->
+    </test>
+-->
 
     <test name="Test cases - Spacex Ipo En - DFSA regulation">
         <parameter name="regulation" value="dfsa"/>
@@ -69,4 +65,5 @@ thread-count="2">
             <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
     </test>
+
 </suite>
