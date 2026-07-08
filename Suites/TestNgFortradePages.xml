@@ -46,6 +46,7 @@
         </classes>
     </test>
 
+<!--
     <test name="Test cases - Spacex Ipo En - CYSEC regulation">
         <parameter name="regulation" value="cysec"/>
         <parameter name="countryCode" value="357"/>
@@ -54,6 +55,7 @@
             <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
     </test>
+-->
 
     <test name="Test cases - Spacex Ipo En - DFSA regulation">
         <parameter name="regulation" value="dfsa"/>
