@@ -41,38 +41,31 @@ public class ReadyFortrade extends BasePage {
 
     public void checkRegulation(String regulation) throws IOException, AWTException {
         String actualText = ElementActions.getText(txtRegulation,"regulation text");
+        String expectedText;
         switch (regulation) {
-            case "FCA": {
-                Assert.assertEquals(actualText, "Broker: Fortrade Ltd. (FCA)");
-                //"Broker Fortrade Ltd FCA - successfully registered demo account", regulationMsg);
-            }
-            break;
-            case "cyses": {
-                Assert.assertEquals(actualText, "Broker: Fortrade Cyprus Ltd. (CySec)");
-                //"Broker Fortrade Cyprus Ltd CySec - successfully registered demo account", regulationMsg);
-            }
-            break;
-            case "Asic": {
-                Assert.assertEquals(actualText, "Broker: Fort Securities Australia Pty Ltd. (ASIC)");
-                //"Broker Fort Securities Australia Pty Ltd ASIC - successfully registered demo account", regulationMsg);
-            }
-            break;
-            case "iiroc": {
-                Assert.assertEquals(actualText, "Broker: Fortrade Canada Limited (CIRO)");
-                //"Broker Fortrade Canada Limited CIRO - successfully registered demo account", regulationMsg);
-            }
-            break;
-            case "dfsa": {
-                Assert.assertEquals(actualText,"Broker: Fortrade (DIFC) Limited (DFSA)");
-            }
-            break;
-            case "FSC":
-            default: {
-                Assert.assertEquals(actualText, "Broker: Fortrade (Mauritius) Ltd (FSC)");
-                //"Broker Fortrade Mauritius Ltd FSC - successfully registered demo account", regulationMsg);
-            }
-            break;
+            case "fca":
+                expectedText = "Broker: Fortrade Ltd. (FCA)";
+                break;
+
+            case "cysec":
+                expectedText = "Broker: Fortrade Cyprus Ltd. (CySec)";
+                break;
+
+            case "asic":
+                expectedText = "Broker: Fort Securities Australia Pty Ltd. (ASIC)";
+                break;
+
+            case "iiroc":
+                expectedText = "Broker: Fortrade Canada Limited (CIRO)";
+                break;
+
+            case "fsc":
+            default:
+                expectedText = "Broker: Fortrade (Mauritius) Ltd (FSC)";
+                break;
         }
+
+        Assert.assertEquals(actualText, expectedText);
     }
 
     public void assertURL(String url) {

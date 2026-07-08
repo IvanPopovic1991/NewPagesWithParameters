@@ -166,13 +166,13 @@ public class FortradePage extends BasePage {
     @FindBy(xpath = "//div/input[@id='Details-Edit-Btn']")
     public WebElement editPencilButton;
 
-    @FindBy(xpath = "(//div[@class='fcaClass']/strong[contains(text(), '% of retail investor accounts lose money when trading CFDs with this provider.')])[2]")
+    @FindBy(xpath = "//div[@id='stickyHeader']/div/div[2]/div/strong")
     public WebElement dynamicFCAPercentages;
 
     @FindBy(xpath = "//div[@class='fcaClass']/b[contains(text(), '% of retail investor accounts lose money when trading CFDs with this provider.')]")
     public WebElement staticFCAPercentages;
 
-    @FindBy(xpath = "(//div[@class='cysecClass']/strong[contains(text(), '% of retail investor accounts lose money when trading CFDs with this provider.')])[2]")
+    @FindBy(xpath = "//div[@id='stickyHeader']/div/div[2]/div/strong")
     public WebElement dynamicCysecPercentages;
 
     @FindBy(xpath = "//div[@class='cysecClass']/b[contains(text(), '% of retail investor accounts lose money when trading CFDs with this provider.')]")
@@ -712,5 +712,13 @@ public class FortradePage extends BasePage {
         }
         String privacyPolicyFooterURL = "https://www.fortrade.com/wp-content/uploads/legal/" + text;
         return privacyPolicyFooterURL;
+    }
+
+    public String selectPhoneNumber(String regulation){
+        String phoneNumber = TestData.generatePhoneNumber();
+        if (regulation.equalsIgnoreCase("iiroc")){
+            phoneNumber = TestData.canadaPhoneNumber();
+        }
+        return phoneNumber;
     }
 }

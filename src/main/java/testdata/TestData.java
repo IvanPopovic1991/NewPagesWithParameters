@@ -163,7 +163,7 @@ public class TestData {
 
     public static String contactUsUrl = "mailto:support@fortrade.com?subject=Client information request";
 
-    public static String supportUrl = "mailto:support@fortrade.com?subject=Client information request";
+    public static String supportUrl = "mailto:support@fortrade.com";
 
 
     public static String supportUrlEs = "mailto:support@fortrade.com";
