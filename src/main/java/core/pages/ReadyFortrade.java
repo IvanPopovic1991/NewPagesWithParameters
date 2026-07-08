@@ -59,6 +59,10 @@ public class ReadyFortrade extends BasePage {
                 expectedText = "Broker: Fortrade Canada Limited (CIRO)";
                 break;
 
+            case "dfsa":
+                expectedText = "Broker: Fortrade (DIFC) Limited (DFSA)";
+                break;
+
             case "fsc":
             default:
                 expectedText = "Broker: Fortrade (Mauritius) Ltd (FSC)";

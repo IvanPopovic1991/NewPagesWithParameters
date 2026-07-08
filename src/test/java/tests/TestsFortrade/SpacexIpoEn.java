@@ -1083,7 +1083,7 @@ public class SpacexIpoEn extends BaseTest {
         openUrl(baseUrl + "&userLang=FR");
         fortradePage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, fortradePage.selectPhoneNumber(regulation));
         readyFortrade.assertURL(TestData.appUrl);
-        readyFortrade.assertDisplayedLanguage("EN");
+        readyFortrade.assertDisplayedLanguage("FR");
         crmPage.checkCrmData(email, TestData.fullName, regulation);
         crmPage.checkLanguageField(email, "fr");
     }
@@ -1097,7 +1097,7 @@ public class SpacexIpoEn extends BaseTest {
         openUrl(baseUrl + "&userLang=FRA");
         fortradePage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, fortradePage.selectPhoneNumber(regulation));
         readyFortrade.assertURL(TestData.appUrl);
-        readyFortrade.assertDisplayedLanguage("EN");
+        readyFortrade.assertDisplayedLanguage("FRA");
         crmPage.checkCrmData(email, TestData.fullName, regulation);
         crmPage.checkLanguageField(email, "en");
     }

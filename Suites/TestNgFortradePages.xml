@@ -48,16 +48,14 @@ thread-count="5">
         </classes>
     </test>
 
-<!--
-    <test name="Test cases - Spacex Ipo En - CYSEC regulation">
+    <!--<test name="Test cases - Spacex Ipo En - CYSEC regulation">
         <parameter name="regulation" value="cysec"/>
         <parameter name="countryCode" value="357"/>
         <parameter name="tag" value="?regulation=cysec&amp;regtest=true"/>
         <classes>
             <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
-    </test>
--->
+    </test>-->
 
     <test name="Test cases - Spacex Ipo En - DFSA regulation">
         <parameter name="regulation" value="dfsa"/>

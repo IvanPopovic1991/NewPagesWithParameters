@@ -18,7 +18,7 @@
         <allure.version>2.24.0</allure.version>
 
         <env>production</env>
-        <browser>chrome</browser>
+        <browser>edge</browser>
     </properties>
 
     <dependencies>

@@ -194,7 +194,8 @@ public class CrmPage extends BasePage {
     public void checkLinkIdValue(String linkIdValue) {
        ElementActions.click(menuBtn, "menu button");
        ElementActions.click(envAndMarSec, "environment and marketing section button");
-       String linkIdVal = getText(linkId, "Link ID field from the CRM");
+        ElementActions.scrollTo(linkId,"LinkId field");
+        String linkIdVal = getText(linkId, "Link ID field from the CRM");
        System.out.println("Link ID field value from the CRM " + linkIdVal);
        //Assert.assertEquals(linkIdVal, linkIdValue);
        Assert.assertTrue(linkIdVal.contains(linkIdValue));
