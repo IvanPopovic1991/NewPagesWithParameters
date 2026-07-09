@@ -868,7 +868,7 @@ public class PremiumForexCA extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Empty - " + regulation + " regulation");
         String email = TestData.generateEmail();
         Allure.step("redirected to the url");
-        openUrl(baseUrl + "&fts=annual-saving-knowledge-age-plang:all&ftsquery=age-equals(1,3)-or-[saving-equals(1,2,3)-and-knowledge-notequals(5)]");
+        openUrl(baseUrl + "&fts=annual-saving-knowledge-age-plang:all&ftsquery=age-equals(1_3)-or-[saving-equals(1_2_3)-and-knowledge-notequals(5)]");
         fortradePage.registerDemoAccountWithParameters(TestData.firstName,TestData.lastName,email,countryCode,
                 TestData.canadaPhoneNumber(), "45-54", "$15,000-$50,000", "$100,000-$250,000",
                 "All the above","English");
@@ -954,7 +954,7 @@ public class PremiumForexCA extends BaseTest {
         openUrl(baseUrl + "&userLang=FR");
         fortradePage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.canadaPhoneNumber());
         readyFortrade.assertURL(TestData.appUrl);
-        readyFortrade.assertDisplayedLanguage("EN");
+        readyFortrade.assertDisplayedLanguage("FR");
         crmPage.checkCrmData(email, TestData.fullName, regulation);
         crmPage.checkLanguageField(email, "fr");
     }
