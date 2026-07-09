@@ -2,10 +2,9 @@ package core.pages;
 
 import core.actions.ElementActions;
 import core.base.BasePage;
+import core.driver.DriverManager;
 import core.waitsManagement.WaitUtil;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
@@ -71,6 +70,24 @@ public class YopmailPage extends BasePage {
     @FindBy(xpath = "//td/p[contains(text(), 'Dobrodošli, Testq!')]")
     public WebElement kapitalRSTestqNameSr;
 
+    private By consentBtn = By.xpath("//p[@class='fc-button-label' and contains(text(), 'Consent')]");
+
+    public void acceptConsentIfPresent() {
+        WebElement consent = WaitUtil.waitForClickableOptional(consentBtn, 3);
+
+        if (consent != null) {
+            try {
+                consent.click();
+                System.out.println("Consent popup clicked.");
+            } catch (ElementClickInterceptedException e) {
+                ((JavascriptExecutor) DriverManager.getDriver())
+                        .executeScript("arguments[0].click();", consent);
+                System.out.println("Consent popup clicked with JavaScript.");
+            }
+        } else {
+            System.out.println("Consent popup was not displayed.");
+        }
+    }
 
 /*    public void findEmail(String emailValue){
         ElementActions.type(search,emailValue,"search input");
@@ -99,6 +116,7 @@ public class YopmailPage extends BasePage {
     }*/
 
     public void findEmail(String emailValue) {
+        acceptConsentIfPresent();
         ElementActions.type(search, emailValue, "search input");
         ElementActions.click(goBtn, "go button");
         WaitUtil.waitForCondition(driver -> {

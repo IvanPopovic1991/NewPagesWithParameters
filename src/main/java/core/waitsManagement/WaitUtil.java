@@ -17,6 +17,43 @@ public class WaitUtil {
                 Duration.ofSeconds(TIMEOUT));
     }
 
+    public static WebDriverWait getWait(int timeoutSeconds) {
+        return new WebDriverWait(
+                DriverManager.getDriver(),
+                Duration.ofSeconds(timeoutSeconds)
+        );
+    }
+
+    public static WebDriverWait getWait(int timeoutSeconds, int pollingMillis) {
+        WebDriverWait wait = new WebDriverWait(
+                DriverManager.getDriver(),
+                Duration.ofSeconds(timeoutSeconds)
+        );
+
+        wait.pollingEvery(Duration.ofMillis(pollingMillis));
+        wait.ignoring(NoSuchElementException.class);
+        wait.ignoring(StaleElementReferenceException.class);
+
+        return wait;
+    }
+
+    public static void waitForClickable(WebElement element, int timeoutSeconds) {
+        getWait(timeoutSeconds).until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public static WebElement waitForClickable(By locator, int timeoutSeconds) {
+        return getWait(timeoutSeconds).until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    public static WebElement waitForClickableOptional(By locator, int timeoutSeconds) {
+        try {
+            return getWait(timeoutSeconds, 200)
+                    .until(ExpectedConditions.elementToBeClickable(locator));
+        } catch (TimeoutException e) {
+            return null;
+        }
+    }
+
     public static void waitForVisible(WebElement element) {
         getWait().until(ExpectedConditions.visibilityOf(element));
     }
