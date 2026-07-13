@@ -80,7 +80,7 @@ public class BaseTest {
         DriverManager.getDriver().get(url);
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown(ITestResult result) {
 
         String status;

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Fortrade Pages">
+<suite name="Fortrade Pages"
+parallel="methods"
+thread-count="5">
 
     <listeners>
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
@@ -10,7 +12,7 @@
         <listener class-name="core.listeners.RegulationMethodInterceptor"/>
     </listeners>
 
-<!--    <test name="Test cases - Spacex Ipo En - FSC regulation">
+    <!--<test name="Test cases - Spacex Ipo En - FSC regulation">
         <parameter name="regulation" value="fsc"/>
         <parameter name="countryCode" value="381"/>
         <parameter name="tag" value="?regulation=fsc&amp;regtest=true"/>
@@ -44,9 +46,9 @@
         <classes>
             <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
-    </test>
+    </test>-->
 
-    <test name="Test cases - Spacex Ipo En - CYSEC regulation">
+    <!--<test name="Test cases - Spacex Ipo En - CYSEC regulation">
         <parameter name="regulation" value="cysec"/>
         <parameter name="countryCode" value="357"/>
         <parameter name="tag" value="?regulation=cysec&amp;regtest=true"/>
@@ -55,12 +57,12 @@
         </classes>
     </test>-->
 
-    <test name="Test cases - Spacex Ipo En - DFSA regulation">
+    <test name="Test cases - Gold Trading Dfsa - DFSA regulation">
         <parameter name="regulation" value="dfsa"/>
         <parameter name="countryCode" value="971"/>
         <parameter name="tag" value="?regulation=dfsa&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsFortrade.oilTradingDfsa"/>
+            <class name="tests.TestsFortrade.GoldTradingDfsa"/>
         </classes>
     </test>
 
