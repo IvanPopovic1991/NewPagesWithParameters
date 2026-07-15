@@ -22,6 +22,10 @@ public class TestData {
         return "000" + fakeNumber();
     }
 
+    public static String generatePhoneNumberFca() {
+        return "10" + fakeNumber();
+    }
+
     private static final Faker fake = new Faker();
 
     public static String canadaPhoneNumber() {
