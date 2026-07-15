@@ -1080,12 +1080,12 @@ public class oilTradingDfsa extends BaseTest {
         ScreenshotUtil.setCustomName("Language field in the CRM contains expected (FR) value " + regulation);
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.fortrade.com/lps/oil-trading-dfsa/en");
-        openUrl(baseUrl + "&userLang=FR");
+        openUrl(baseUrl + "&userLang=AR");
         fortradePage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, fortradePage.selectPhoneNumber(regulation));
         readyFortrade.assertURL(TestData.appUrl);
-        readyFortrade.assertDisplayedLanguage("FR");
+        readyFortrade.assertDisplayedLanguage("AR");
         crmPage.checkCrmData(email, TestData.fullName, regulation);
-        crmPage.checkLanguageField(email, "fr");
+        crmPage.checkLanguageField(email, "ar");
     }
 
     @Test(description = "TC 22.2. Verify that the Language field in the CRM contains the default value (the language of the base page URL) when we enter the wrong language in the userLang parameter")

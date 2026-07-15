@@ -108,13 +108,23 @@ public class CrmPage extends BasePage {
         }
         driver.switchTo().defaultContent();
         driver.switchTo().frame(iFrameSearch);
-        ElementActions.type(searchInCrm, email, "search bar for email in CRM");
-        ElementActions.click(searchBtnCrm, "search button in CRM");
-        ElementActions.doubleClick(accountCrm, "account row");
+
+        //Second way to check account in the CRM (slower)
+        /*ElementActions.type(searchInCrm, email, "search bar for email in CRM");
+        ElementActions.click(searchBtnCrm, "search button in CRM");*/
+
+        String emailAccount = "//nobr/span[text()='{email}']".replace("{email}", email);
+        By accountLocator = By.xpath(emailAccount);
+        WebElement accountCrm2 = WaitUtil.waitForClickable(accountLocator, 5);
+        ElementActions.doubleClick(accountCrm2, "account row");
         driver.switchTo().defaultContent();
         driver.switchTo().frame(iFrameAccDetails);
         WaitUtil.waitForPageLoad();
     }
+
+
+
+
 
     public void loopForTagsCrm() {
         String number = "1434";
