@@ -10,14 +10,14 @@
         <listener class-name="core.listeners.RegulationMethodInterceptor"/>
     </listeners>
 
-    <!--<test name="Test cases - Spacex Ipo En - FSC regulation">
+<!--    <test name="Test cases - Spacex Ipo En - FSC regulation">
         <parameter name="regulation" value="fsc"/>
         <parameter name="countryCode" value="381"/>
         <parameter name="tag" value="?regulation=fsc&amp;regtest=true"/>
         <classes>
             <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
-    </test>-->
+    </test>
 
     <test name="Test cases - Spacex Ipo En - FCA regulation">
         <parameter name="regulation" value="fca"/>
@@ -26,41 +26,41 @@
         <classes>
             <class name="tests.TestsFortrade.GoogleEphoneUk"/>
         </classes>
-    </test>
+    </test>-->
 
-    <!--<test name="Test cases - Spacex Ipo En - IIROC regulation">
+    <test name="Test cases - Google EPhone Ca - IIROC regulation">
         <parameter name="regulation" value="iiroc"/>
         <parameter name="countryCode" value="1"/>
         <parameter name="tag" value="?regulation=iiroc&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsFortrade.SpacexIpoEn"/>
+            <class name="tests.TestsFortrade.GoogleEPhoneCa"/>
         </classes>
-    </test>-->
+    </test>
 
-    <!--<test name="Test cases - Spacex Ipo En - ASIC regulation">
+<!--    <test name="Test cases - Spacex Ipo En - ASIC regulation">
         <parameter name="regulation" value="asic"/>
         <parameter name="countryCode" value="61"/>
         <parameter name="tag" value="?regulation=asic&amp;regtest=true"/>
         <classes>
             <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
-    </test>-->
+    </test>
 
-    <!--<test name="Test cases - Spacex Ipo En - CYSEC regulation">
+    <test name="Test cases - Spacex Ipo En - CYSEC regulation">
         <parameter name="regulation" value="cysec"/>
         <parameter name="countryCode" value="357"/>
         <parameter name="tag" value="?regulation=cysec&amp;regtest=true"/>
         <classes>
             <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
-    </test>-->
+    </test>
 
-    <!--<test name="Test cases - Gold Trading Dfsa - DFSA regulation">
+    <test name="Test cases - Gold Trading Dfsa - DFSA regulation">
         <parameter name="regulation" value="dfsa"/>
         <parameter name="countryCode" value="971"/>
         <parameter name="tag" value="?regulation=dfsa&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsFortrade.GoogleEphoneUk"/>
+            <class name="tests.TestsFortrade.oilTradingDfsa"/>
         </classes>
     </test>-->
 
