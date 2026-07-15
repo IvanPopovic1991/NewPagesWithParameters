@@ -36,7 +36,7 @@ public class FortradePage extends BasePage {
     @FindBy(xpath = "//span[@class='cps-label']")
     public WebElement countryCodeDropdown;
 
-    @FindBy(xpath = "//input[@id='Telephone']")
+    @FindBy(xpath = "//input[@id='TelephoneMask']")
     public WebElement phoneNumber;
 
     @FindBy(xpath = "//button[@id='main-submit-btn']")
@@ -718,6 +718,8 @@ public class FortradePage extends BasePage {
         String phoneNumber = TestData.generatePhoneNumber();
         if (regulation.equalsIgnoreCase("iiroc")){
             phoneNumber = TestData.canadaPhoneNumber();
+        } else if (regulation.equalsIgnoreCase("fca")){
+            phoneNumber = TestData.generatePhoneNumberFca();
         }
         return phoneNumber;
     }
