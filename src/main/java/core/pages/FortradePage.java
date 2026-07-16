@@ -88,7 +88,7 @@ public class FortradePage extends BasePage {
     @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='EmailAddress']")
     public WebElement borderColorForEmail;
 
-    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='Telephone']")
+    @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='TelephoneMask']")
     public WebElement borderColorForPhone;
 
     @FindBy(xpath = "//p/a[text()='Privacy Policy']")
@@ -440,7 +440,9 @@ public class FortradePage extends BasePage {
             "Please enter your last name.",
             "Must be a valid email address.",
             //"Phone number is required"
-            "Must be a valid international phone number"};
+            //"Must be a valid international phone number"
+            "Phone number must be exactly 10 digits and cannot start with 0"
+    };
 
     public void assertErrorMessages() {
         for (int i = 1; i <= 4; i++) {
