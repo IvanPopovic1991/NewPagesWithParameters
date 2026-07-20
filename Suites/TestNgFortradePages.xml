@@ -10,25 +10,25 @@
         <listener class-name="core.listeners.RegulationMethodInterceptor"/>
     </listeners>
 
-<!--    <test name="Test cases - Spacex Ipo En - FSC regulation">
+    <!--<test name="Test cases - Spacex Ipo En - FSC regulation">
         <parameter name="regulation" value="fsc"/>
         <parameter name="countryCode" value="381"/>
         <parameter name="tag" value="?regulation=fsc&amp;regtest=true"/>
         <classes>
             <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
-    </test>
+    </test>-->
 
     <test name="Test cases - Spacex Ipo En - FCA regulation">
         <parameter name="regulation" value="fca"/>
         <parameter name="countryCode" value="44"/>
         <parameter name="tag" value="?regulation=fca&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsFortrade.GoogleEphoneUk"/>
+            <class name="tests.TestsFortrade.NvidiaEphoneUk"/>
         </classes>
-    </test>-->
+    </test>
 
-    <test name="Test cases - Google EPhone Ca - IIROC regulation">
+    <!--<test name="Test cases - Google EPhone Ca - IIROC regulation">
         <parameter name="regulation" value="iiroc"/>
         <parameter name="countryCode" value="1"/>
         <parameter name="tag" value="?regulation=iiroc&amp;regtest=true"/>
@@ -39,7 +39,7 @@
                     </methods>
             </class>
         </classes>
-    </test>
+    </test>-->
 
 <!--    <test name="Test cases - Spacex Ipo En - ASIC regulation">
         <parameter name="regulation" value="asic"/>
