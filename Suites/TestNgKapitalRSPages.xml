@@ -7,12 +7,12 @@
         <listener class-name="core.listeners.ScreenshotListener"/>
         <listener class-name="core.listeners.TestListener"/>
     </listeners>
-    <parameter name="env" value="local"/>
-    <parameter name="browser" value="chrome"/>
+<!--    <parameter name="env" value="local"/>
+    <parameter name="browser" value="chrome"/>-->
     <test name="Test cases - Pro Dark SR landing page">
         <parameter name="countryCode" value="381"/>
         <classes>
-            <class name="tests.TestsKapitalRS.ProDarkSr"/>
+            <class name="tests.TestsKapitalRS.EntailSr"/>
         </classes>
     </test>
 </suite>
