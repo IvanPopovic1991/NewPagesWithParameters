@@ -10,6 +10,7 @@
 <!--    <parameter name="env" value="local"/>
     <parameter name="browser" value="chrome"/>-->
     <test name="Test cases - Pro Dark SR landing page">
+        <parameter name="tag" value="&amp;regulation=fsc&amp;regtest=true"/>
         <parameter name="countryCode" value="381"/>
         <classes>
             <class name="tests.TestsKapitalRS.EntailSr"/>

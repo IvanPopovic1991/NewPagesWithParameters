@@ -25,14 +25,17 @@ public class EntailSr extends BaseTest {
     private ReadyFortrade readyFortrade;
     private CrmPage crmPage;
     private YopmailPage yopmailPage;
+    private String baseUrl;
 
     @BeforeMethod
-    public void initPages() {
+    public void initPages(String tag) {
         kapitalRSPage = new KapitalRSPage();
         readyFortrade = new ReadyFortrade();
         crmPage = new CrmPage();
         yopmailPage = new YopmailPage();
-        openUrl(ConfigReader.getBaseUrl());
+        baseUrl = ConfigReader.getBaseUrl();
+        baseUrl += tag;
+        openUrl(baseUrl);
     }
 
     @Test(description = "TC 1.2.1 - Verify the logo is not clickable with left click")
@@ -40,7 +43,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Logo is not clickable - KapitalRS");
         Allure.step("Tried to click on KapitalRS logo");
         kapitalRSPage.checkLogoClickability();
-        kapitalRSPage.assertURL("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N");
+        kapitalRSPage.assertURL(baseUrl+"");
     }
 
     @Test(description = "TC 2.1. Verify the demo account is registered successfully with valid data")
@@ -62,7 +65,7 @@ public class EntailSr extends BaseTest {
         String email = TestData.generateEmail();
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
-        openUrl(ConfigReader.getBaseUrl());
+        openUrl(baseUrl);
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertAlrRegEmailErrorMsg();
     }
@@ -84,7 +87,7 @@ public class EntailSr extends BaseTest {
         String phoneNumber = TestData.generatePhoneNumber();
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, TestData.generateEmail(), countryCode, phoneNumber);
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
-        openUrl(ConfigReader.getBaseUrl());
+        openUrl(baseUrl);
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, TestData.generateEmail(), countryCode, phoneNumber);
         kapitalRSPage.assertErrMsgForAlreadyRegisteredAccount();
     }
@@ -98,7 +101,7 @@ public class EntailSr extends BaseTest {
         String phone = TestData.generatePhoneNumber();
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, phone);
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
-        openUrl(ConfigReader.getBaseUrl());
+        openUrl(baseUrl);
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, phone);
         kapitalRSPage.assertAlrRegEmailErrorMsg();
     }
@@ -321,7 +324,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Marketing tags KapitalRS page ");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=age-annual-saving-knowledge-plang:all&tg=ivanA" +
+        openUrl(baseUrl+"&fts=age-annual-saving-knowledge-plang:all&tg=ivanA" +
                 "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
                 "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
         kapitalRSPage.registerDemoAccountWithParameters(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(),
@@ -337,7 +340,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Link ID tag contains the 'PC_windows' value - KapitalRS page");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N");
+        openUrl(baseUrl);
         kapitalRSPage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,TestData.canadaPhoneNumber());
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email,TestData.fullName,"FSC");
@@ -350,7 +353,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Email is received successfully - KapitalRS page ");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N");
+        openUrl(baseUrl);
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         readyFortrade.clickUsePassBtn();
@@ -364,7 +367,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("I didn't received the code link - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=sms");
+        openUrl(baseUrl+"&fts=sms");
         kapitalRSPage.goToSecondStep(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.checkIDidntReceiveTheCodeLinkKapitalRS();
     }
@@ -375,7 +378,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Wrong code cannot be submitted - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=sms-age-annual-saving-knowledge-plang:all");
+        openUrl(baseUrl+"&fts=sms-age-annual-saving-knowledge-plang:all");
         kapitalRSPage.fillTheFormOnTheSecondStepWithWrongSmsCode(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(),
                 "25-34", "$15,000-$50,000", "$50,000-$100,000", "Sve navedeno", "Engleski",
                 "1", "1", "1", "1");
@@ -388,7 +391,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Edit pencil button redirects to the first step - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=sms");
+        openUrl(baseUrl+"&fts=sms");
         kapitalRSPage.goToSecondStep(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.checkEditPencilButton();
     }
@@ -399,7 +402,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("User is redirected to the second step (age) - KapitalRS ");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=age");
+        openUrl(baseUrl+"&fts=age");
         kapitalRSPage.goToSecondStep(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         WaitUtil.waitForVisible(kapitalRSPage.age);
         Assert.assertTrue(kapitalRSPage.age.isDisplayed());
@@ -411,7 +414,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("User is registered (age) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=age");
+        openUrl(baseUrl+"&fts=age");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "25-34", "age");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
     }
@@ -422,7 +425,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Error message (age) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=age");
+        openUrl(baseUrl+"&fts=age");
         kapitalRSPage.checkErrorMessageForParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "25-34", "-- Izaberite --", "age");
         kapitalRSPage.assertSecondStepErrorMessage("age");
     }
@@ -433,7 +436,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Parameter in the CRM (age) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=age");
+        openUrl(baseUrl+"&fts=age");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "25-34", "age");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkParameterLinkIdInTheCRM(email, "25_34_age");
@@ -445,7 +448,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("SMS field in the CRM (age) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=age");
+        openUrl(baseUrl+"&fts=age");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "25-34", "age");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkSMSValueParameter(email, "--");
@@ -457,7 +460,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("User is redirected to the second step (annual) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=annual");
+        openUrl(baseUrl+"&fts=annual");
         kapitalRSPage.goToSecondStep(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         WaitUtil.waitForVisible(kapitalRSPage.annual);
         Assert.assertTrue(kapitalRSPage.annual.isDisplayed());
@@ -469,7 +472,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("User is registered (annual) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=annual");
+        openUrl(baseUrl+"&fts=annual");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$15,000-$50,000", "annual");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
     }
@@ -480,7 +483,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Error message (annual) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=annual");
+        openUrl(baseUrl+"&fts=annual");
         kapitalRSPage.checkErrorMessageForParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$15,000-$50,000", "-- Izaberite --", "annual");
         kapitalRSPage.assertSecondStepErrorMessage("annual");
     }
@@ -491,7 +494,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Parameter in the CRM (annual) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=annual");
+        openUrl(baseUrl+"&fts=annual");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$15,000-$50,000", "annual");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkParameterLinkIdInTheCRM(email, "15000_50000_annual");
@@ -503,7 +506,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("SMS field in the CRM (annual) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=annual");
+        openUrl(baseUrl+"&fts=annual");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$15,000-$50,000", "annual");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkSMSValueParameter(email, "--");
@@ -515,7 +518,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("User is redirected to the second step (saving) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=saving");
+        openUrl(baseUrl+"&fts=saving");
         kapitalRSPage.goToSecondStep(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         WaitUtil.waitForVisible(kapitalRSPage.saving);
         Assert.assertTrue(kapitalRSPage.saving.isDisplayed());
@@ -527,7 +530,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("User is registered (saving) -KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=saving");
+        openUrl(baseUrl+"&fts=saving");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$50,000-$100,000", "saving");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
     }
@@ -538,7 +541,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Error message (saving) -KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=saving");
+        openUrl(baseUrl+"&fts=saving");
         kapitalRSPage.checkErrorMessageForParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$50,000-$100,000", "-- Izaberite --", "saving");
         kapitalRSPage.assertSecondStepErrorMessage("saving");
     }
@@ -549,7 +552,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Parameter in the CRM (saving) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=saving");
+        openUrl(baseUrl+"&fts=saving");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$50,000-$100,000", "saving");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkParameterLinkIdInTheCRM(email, "50000_100000_savings");
@@ -561,7 +564,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("SMS field in the CRM (saving) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=saving");
+        openUrl(baseUrl+"&fts=saving");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "$50,000-$100,000", "saving");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkSMSValueParameter(email, "--");
@@ -573,7 +576,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("User is redirected to the second step (knowledge) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=knowledge");
+        openUrl(baseUrl+"&fts=knowledge");
         kapitalRSPage.goToSecondStep(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         WaitUtil.waitForVisible(kapitalRSPage.knowledge);
         Assert.assertTrue(kapitalRSPage.knowledge.isDisplayed());
@@ -585,7 +588,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("User is registered (knowledge) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=knowledge&");
+        openUrl(baseUrl+"&fts=knowledge");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "Sve navedeno", "knowledge");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
     }
@@ -596,7 +599,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Error message (knowledge) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=knowledge");
+        openUrl(baseUrl+"&fts=knowledge");
         kapitalRSPage.checkErrorMessageForParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "Sve navedeno", "-- Izaberite --", "knowledge");
         kapitalRSPage.assertSecondStepErrorMessage("knowledge");
     }
@@ -607,7 +610,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Parameter in the CRM (knowledge) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=knowledge");
+        openUrl(baseUrl+"&fts=knowledge");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "Sve navedeno", "knowledge");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkParameterLinkIdInTheCRM(email, "knowledge_of_trading_all_the_above");
@@ -619,7 +622,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("SMS field in the CRM (knowledge) -KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=knowledge");
+        openUrl(baseUrl+"&fts=knowledge");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "Sve navedeno", "knowledge");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkSMSValueParameter(email, "--");
@@ -631,7 +634,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("User is redirected to the second step (language) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=plang:all");
+        openUrl(baseUrl+"&fts=plang:all");
         kapitalRSPage.goToSecondStep(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         WaitUtil.waitForVisible(kapitalRSPage.language);
         Assert.assertTrue(kapitalRSPage.language.isDisplayed());
@@ -643,7 +646,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("User is registered (language) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=plang:all");
+        openUrl(baseUrl+"&fts=plang:all");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "Engleski", "language");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
     }
@@ -654,7 +657,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Error message (language) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=plang:all");
+        openUrl(baseUrl+"&fts=plang:all");
         kapitalRSPage.checkErrorMessageForParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "Engleski", "-- Izaberite --", "language");
         kapitalRSPage.assertSecondStepErrorMessage("language");
     }
@@ -665,7 +668,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Parameter in the CRM (language) -KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=plang:all");
+        openUrl(baseUrl+"&fts=plang:all");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "Engleski", "language");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkParameterLinkIdInTheCRM(email, "lang_EN");
@@ -677,7 +680,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("SMS field in the CRM (language) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=plang:all");
+        openUrl(baseUrl+"&fts=plang:all");
         kapitalRSPage.registerDemoAccountWithParameter(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "Engleski", "language");
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkSMSValueParameter(email, "--");
@@ -687,7 +690,7 @@ public class EntailSr extends BaseTest {
     @Parameters({"countryCode"})
     public void nonValidParameterInTheUrlTest(String countryCode) throws IOException, AWTException {
         ScreenshotUtil.setCustomName("Demo account is successfully registered with wrong parameters in the URL - KapitalRS");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=testq-testa");
+        openUrl(baseUrl+"&fts=testq-testa");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, TestData.generateEmail(), countryCode, TestData.generatePhoneNumber());
         readyFortrade.assertURL("https://pro.kapitalrs.com/");
         readyFortrade.clickUsePassBtn();
@@ -701,7 +704,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Error messages (all parameters) - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=age-annual-saving-knowledge-plang:all");
+        openUrl(baseUrl+"&fts=age-annual-saving-knowledge-plang:all");
         kapitalRSPage.fillTheFormOnTheSecondStepWithWrongData(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(), "25-34", "$15,000-$50,000", "$50,000-$100,000",
                 "Sve navedeno", "Engleski");
         kapitalRSPage.assertSecondStepErrorMessageAllParameters();
@@ -713,7 +716,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Dummy - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=annual-saving-knowledge-age-plang:all&" +
+        openUrl(baseUrl+"&fts=annual-saving-knowledge-age-plang:all&" +
                 "ftsquery=age-equals(1,3)-or-[saving-equals(1,2,3)-and-knowledge-notequals(5)]");
         kapitalRSPage.registerDemoAccountWithParameters(TestData.firstName, TestData.lastName, email, countryCode,
                 TestData.generatePhoneNumber(), "25-34", "$50,000-$100,000", "$50,000-$100,000",
@@ -729,7 +732,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag with mark - Dummy - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=annual-saving-knowledge-age-plang:all&" +
+        openUrl(baseUrl+"&fts=annual-saving-knowledge-age-plang:all&" +
                 "ftsquery=age-equals(1_3)-or-[saving-equals(1_2_3)-and-knowledge-notequals(5)]");
         kapitalRSPage.registerDemoAccountWithParameters(TestData.firstName, TestData.lastName, email, countryCode,
                 TestData.generatePhoneNumber(), "25-34", "$15,000-$50,000", "$50,000-$100,000",
@@ -745,7 +748,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Custom tag - Invalid - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=annual-saving-knowledge-age-plang:all&" +
+        openUrl(baseUrl+"&fts=annual-saving-knowledge-age-plang:all&" +
                 "ftsquery=age(1)-or-[saving-equals(1,2,3)-and-knowledge-notequals(5)]");
         kapitalRSPage.registerDemoAccountWithParameters(TestData.firstName, TestData.lastName, email, countryCode,
                 TestData.generatePhoneNumber(), "45-54", "$15,000-$50,000", "$100,000-$250,000",
@@ -761,7 +764,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Custom tag with mark - Invalid - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the page url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=annual-saving-knowledge-age-plang:all&" +
+        openUrl(baseUrl+"&fts=annual-saving-knowledge-age-plang:all&" +
                 "ftsquery=age(1)-or-[saving-equals(1_2_3)-and-knowledge-notequals(5)]");
         kapitalRSPage.registerDemoAccountWithParameters(TestData.firstName, TestData.lastName, email, countryCode,
                 TestData.generatePhoneNumber(), "45-54", "$15,000-$50,000", "$100,000-$250,000",
@@ -777,7 +780,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Empty  - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("redirected to the url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=annual-saving-knowledge-age-plang:all&" +
+        openUrl(baseUrl+"&fts=annual-saving-knowledge-age-plang:all&" +
                 "ftsquery=age-equals(1,3)-or-[saving-equals(1,2,3)-and-knowledge-notequals(5)]");
         kapitalRSPage.registerDemoAccountWithParameters(TestData.firstName, TestData.lastName, email, countryCode,
                 TestData.generatePhoneNumber(), "45-54", "$15,000-$50,000", "$100,000-$250,000",
@@ -793,7 +796,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag with mark - Empty - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("redirected to the url");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=annual-saving-knowledge-age-plang:all&" +
+        openUrl(baseUrl+"&fts=annual-saving-knowledge-age-plang:all&" +
                 "ftsquery=age-equals(1_3)-or-[saving-equals(1_2_3)-and-knowledge-notequals(5)]");
         kapitalRSPage.registerDemoAccountWithParameters(TestData.firstName, TestData.lastName, email, countryCode,
                 TestData.generatePhoneNumber(), "45-54", "$15,000-$50,000", "$100,000-$250,000",
@@ -810,7 +813,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Dummy - device KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&ftsquery=device-equals(1)");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&ftsquery=device-equals(1)");
+        openUrl(baseUrl+"&ftsquery=device-equals(1)");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
@@ -823,7 +826,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Invalid - device - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&ftsquery=device(1)");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&ftsquery=device(1)");
+        openUrl(baseUrl+"&ftsquery=device(1)");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
@@ -837,7 +840,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - Empty - device KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&ftsquery=device-equals(4)");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&ftsquery=device-equals(4)");
+        openUrl(baseUrl+"&ftsquery=device-equals(4)");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
@@ -851,7 +854,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Custom Tag - non valid device value - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&ftsquery=device-equals(0)");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&ftsquery=device-equals(0)");
+        openUrl(baseUrl+"&ftsquery=device-equals(0)");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
@@ -864,7 +867,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("TC 20-3-Custom Tag is empty KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=age-annual-saving-knowledge-plang:all");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&fts=age-annual-saving-knowledge-plang:all");
+        openUrl(baseUrl+"&fts=age-annual-saving-knowledge-plang:all");
         kapitalRSPage.registerDemoAccountWithParameters(TestData.firstName, TestData.lastName, email, countryCode,
                 TestData.generatePhoneNumber(), "45-54", "$15,000-$50,000", "$100,000-$250,000",
                 "Sve navedeno", "Engleski");
@@ -873,19 +876,19 @@ public class EntailSr extends BaseTest {
         crmPage.checkCustomTag("");
     }
 
-    @Test(description = "TC 22.1. Verify that the Language field in the CRM contains expected value (in this case FR)")
+    @Test(description = "TC 22.1. Verify that the Language field in the CRM contains expected value (in this case SR)")
     @Parameters({"countryCode"})
     public void checkLanguageFieldContainsExpectedValue(String countryCode) {
-        ScreenshotUtil.setCustomName("Language field in the CRM contains expected (EN) value - KapitalRS");
+        ScreenshotUtil.setCustomName("Language field in the CRM contains expected (SR) value - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?userLang=EN");
+        openUrl(baseUrl+"&userLang=SR");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         readyFortrade.clickUsePassBtn();
-        readyFortrade.assertDisplayedLanguage("EN");
+        readyFortrade.assertDisplayedLanguage("SR");
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
-        crmPage.checkLanguageField(email, "en");
+        crmPage.checkLanguageField(email, "sr");
     }
 
     @Test(description = "TC 22.2. Verify that the Language field in the CRM contains the default value (the language of the base page URL) when we enter the wrong language in the userLang parameter")
@@ -894,7 +897,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("Language field in the CRM contains default (SR) value - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?userLang=FRA");
+        openUrl(baseUrl+"&userLang=FRA");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         readyFortrade.assertDisplayedLanguage("SR");
@@ -909,7 +912,7 @@ public class EntailSr extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N" +
                 "?ftsquery=device-equals(1)&dummyP=1");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&ftsquery=device-equals(1)&dummyP=1");
+        openUrl(baseUrl+"&ftsquery=device-equals(1)&dummyP=1");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
@@ -923,7 +926,7 @@ public class EntailSr extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N" +
                 "?ftsquery=device-equals(1)&dummyP=0");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&ftsquery=device-equals(1)&dummyP=0");
+        openUrl(baseUrl+"&ftsquery=device-equals(1)&dummyP=0");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
@@ -937,7 +940,7 @@ public class EntailSr extends BaseTest {
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N" +
                 "?ftsquery=device-equals(1)&dummyp=1");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N&ftsquery=device-equals(1)&dummyp=1");
+        openUrl(baseUrl+"&ftsquery=device-equals(1)&dummyp=1");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
@@ -950,7 +953,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("TC 24-1-Custom tag field-dummy-KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?Dummy=true");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?Dummy=true");
+        openUrl(baseUrl+"&Dummy=true");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
@@ -963,7 +966,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("TC 24-2-Custom tag field-dummy - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?Dummy=1");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?Dummy=1");
+        openUrl(baseUrl+"&Dummy=1");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
@@ -976,7 +979,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("TC 24-3-Custom tag field-empty-KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?Dummy=false");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?Dummy=false");
+        openUrl(baseUrl+"&Dummy=false");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
@@ -989,7 +992,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("TC 24-2-Custom tag field- empty - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?Dummy=0");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?Dummy=0");
+        openUrl(baseUrl+"&Dummy=0");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
@@ -1002,7 +1005,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("TC 25-1-Link Id tag field - {number}_IPL - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?tag1=1452789330&");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?tag1=1452789330");
+        openUrl(baseUrl+"&tag1=1452789330");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
@@ -1015,7 +1018,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("TC 25-2-Link Id tag field - missingTag1_IPL - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?tag1=123abc&");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?tag1=123abc");
+        openUrl(baseUrl+"&?tag1=123abc");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
@@ -1028,7 +1031,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("TC 25-3-Link Id tag field - missingCID_IPL - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?tag1=123456789&");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?tag1=123456789");
+        openUrl(baseUrl+"&tag1=123456789");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
@@ -1041,7 +1044,7 @@ public class EntailSr extends BaseTest {
         ScreenshotUtil.setCustomName("TC 25-4-Link Id tag field - missingCID_IPL - KapitalRS");
         String email = TestData.generateEmail();
         Allure.step("Redirected to the https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?tag1=930863512&");
-        openUrl("https://dlp.kapitalrs.com/lps/entail/sr?croforce_preview=6a60a5642a5b0e7eed0581d3&croforce_preview_variant=Xn7YB7ZR5N?tag1=930863512");
+        openUrl(baseUrl+"&tag1=930863512");
         kapitalRSPage.registerDemoAccount(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber());
         kapitalRSPage.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email, TestData.fullName, "FSC");
