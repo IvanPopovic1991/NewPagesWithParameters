@@ -5,12 +5,10 @@ import core.base.BasePage;
 import core.driver.DriverManager;
 import core.waitsManagement.WaitUtil;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import testdata.TestData;
 
@@ -33,10 +31,13 @@ public class FortradePage extends BasePage {
     @FindBy(xpath = "//input[@name='Prephone']")
     public WebElement countryCode;
 
+    /*@FindBy(xpath = "//div[@class='country-phone-select']")
+    public WebElement countryCode;*/
+
     @FindBy(xpath = "//span[@class='cps-label']")
     public WebElement countryCodeDropdown;
 
-    @FindBy(xpath = "//input[@id='TelephoneMask']")
+    @FindBy(xpath = "//input[@id='Telephone']")
     public WebElement phoneNumber;
 
     @FindBy(xpath = "//button[@id='main-submit-btn']")
@@ -196,11 +197,6 @@ public class FortradePage extends BasePage {
         ElementActions.type(email, emailAddress, "email field");
     }
 
-    @Step("Insert country code : {countryCode}")
-    public void enterCountryCode(String countryCodeData) {
-        ElementActions.type(countryCode, countryCodeData, "country code");
-    }
-
     /**
      * country code type field detection
      */
@@ -230,7 +226,18 @@ public class FortradePage extends BasePage {
         System.out.println("Expected country code number");
     }
 
+    @Step("Insert country code : {countryCode}")
+    public void enterCountryCode(String countryCodeData) {
+        ElementActions.type(countryCode, countryCodeData, "country code");
+    }
+
     public void selectCountry(String country) {
+        ElementActions.click(countryCodeDropdown, "Country Dropdown");
+        By countryLocator = By.xpath("//div/ul/li[@data-dial='" + country + "']");
+        WaitUtil.waitForVisible(countryLocator);
+        WebElement countryElement = driver.findElement(countryLocator);
+        //((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", countryElement);
+        ElementActions.click(countryElement, "Country: " + country);
     }
 
     /**
