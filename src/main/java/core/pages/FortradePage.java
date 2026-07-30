@@ -37,7 +37,7 @@ public class FortradePage extends BasePage {
     @FindBy(xpath = "//span[@class='cps-label']")
     public WebElement countryCodeDropdown;
 
-    @FindBy(xpath = "//input[@id='Telephone']")
+    @FindBy(xpath = "//input[@id='TelephoneMask']")
     public WebElement phoneNumber;
 
     @FindBy(xpath = "//button[@id='main-submit-btn']")
@@ -448,7 +448,8 @@ public class FortradePage extends BasePage {
             "Must be a valid email address.",
             //"Phone number is required"
             //"Must be a valid international phone number"
-            "Phone number must be exactly 10 digits and cannot start with 0"
+            //"Phone number must be exactly 10 digits and cannot start with 0",
+            "Phone number must be between 6 and 11 digits and cannot start with 0"
     };
 
     public void assertErrorMessages() {
@@ -729,6 +730,8 @@ public class FortradePage extends BasePage {
             phoneNumber = TestData.canadaPhoneNumber();
         } else if (regulation.equalsIgnoreCase("fca")){
             phoneNumber = TestData.generatePhoneNumberFca();
+        } else if (regulation.equalsIgnoreCase("asic")){
+            phoneNumber = TestData.generatePhoneNumberAsic();
         }
         return phoneNumber;
     }
