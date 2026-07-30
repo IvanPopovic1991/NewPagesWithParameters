@@ -12,7 +12,7 @@ thread-count="5">
         <listener class-name="core.listeners.RegulationMethodInterceptor"/>
     </listeners>
 
-    <test name="Test cases - Spacex Ipo En - FSC regulation">
+<!--    <test name="Test cases - Spacex Ipo En - FSC regulation">
         <parameter name="regulation" value="fsc"/>
         <parameter name="countryCode" value="381"/>
         <parameter name="tag" value="?regulation=fsc&amp;regtest=true"/>
@@ -37,25 +37,25 @@ thread-count="5">
         <classes>
             <class name="tests.TestsFortrade.BettertradingProDarkDrEn"/>
         </classes>
-    </test>
+    </test>-->
 
     <test name="Test cases - Spacex Ipo En - ASIC regulation">
         <parameter name="regulation" value="asic"/>
         <parameter name="countryCode" value="61"/>
         <parameter name="tag" value="?regulation=asic&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsFortrade.BettertradingProDarkDrEn"/>
+            <class name="tests.TestsFortrade.TrustedBrokerEPhoneAuEn"/>
         </classes>
     </test>
 
-    <!--<test name="Test cases - Spacex Ipo En - CYSEC regulation">
+<!--    <test name="Test cases - Spacex Ipo En - CYSEC regulation">
         <parameter name="regulation" value="cysec"/>
         <parameter name="countryCode" value="357"/>
         <parameter name="tag" value="?regulation=cysec&amp;regtest=true"/>
         <classes>
             <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
-    </test>-->
+    </test>
 
     <test name="Test cases - Gold Trading Dfsa - DFSA regulation">
         <parameter name="regulation" value="dfsa"/>
@@ -64,6 +64,6 @@ thread-count="5">
         <classes>
             <class name="tests.TestsFortrade.BettertradingProDarkDrEn"/>
         </classes>
-    </test>
+    </test>-->
 
 </suite>

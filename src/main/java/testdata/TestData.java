@@ -26,6 +26,10 @@ public class TestData {
         return "10" + fakeNumber();
     }
 
+    public static String generatePhoneNumberAsic() {
+        return "491" + fakeNumber();
+    }
+
     private static final Faker fake = new Faker();
 
     public static String canadaPhoneNumber() {
@@ -87,6 +91,8 @@ public class TestData {
 
     public static String wrongPhoneErrorMsgOther = "Must be a valid international phone number";
 
+    public static String wrongPhoneErrorMsgAu = "Phone number must be between 6 and 11 digits and cannot start with 0";
+
     public static String wrongPhoneErrorMsgOtherEs = "Formato de teléfono no válido.";
 
     public static String emptyPhoneErrorMessage = "Phone number is required";
@@ -94,14 +100,6 @@ public class TestData {
     public static String secondStepErrorMessage = "Please select an option from the dropdown list.";
 
     public static String secondStepErrorMessageEs = "Por favor, selecciona una opción del menú desplegable.";
-
-
-
-
-
-
-
-
 
     public static String sameFirstNameErrorMessageKapitalRS = "Vaše ime mora da se razlikuje od vašeg prezimena.";
 
@@ -120,16 +118,6 @@ public class TestData {
     public static String alreadyHaveAnAccountUrlKapitalRS = "https://authfe.kapitalrs.com/oauth/account/login";
 
     public static String kontaktirajteNasLink = "mailto:podrska@kapitalrs.com?subject=Client information request";
-
-
-
-
-
-
-
-
-
-
 
     //public static String privacyPolicyUrl = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Privacy_Policy.pdf";
 
@@ -169,7 +157,6 @@ public class TestData {
 
     public static String supportUrl = "mailto:support@fortrade.com";
 
-
     public static String supportUrlEs = "mailto:support@fortrade.com";
 
     public static String yopmailUrl ="https://yopmail.com/";
@@ -177,6 +164,7 @@ public class TestData {
     public static String clickHereUrl = "https://www.fortrade.com/wp-content/uploads/legal/How_to_guides/How_to_unsubscribe.pdf";
 
     public static String fortraderprivacyPolicy = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Privacy_Policy.pdf";
+
     public static String fortraderPrivacyPolicyUrl = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Privacy_Policy.pdf";
 
     public static String fortraderTermsAndCondUrl = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_Mauritius_Client_Agreement.pdf";
