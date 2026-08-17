@@ -292,7 +292,7 @@ public class TrustedBrokerEs extends BaseTest {
                 "1434&tag1=ivanB@1434&tag2=ivanL1434&tag3=ivanM1434&gid=ivanC@1434&G_GEO=ivanD1434&G_GEOint=ivanE1434&G_" +
                 "Device=ivanF1434&G_DeviceModel=ivanG1434&G_AdPos=ivanH1434&g_Track=ivanI1434&Track=ivanj1434&gclid=ivanK1434");
         fortradeREsPage.registerDemoAccountWithParameters(TestData.firstName, TestData.lastName, email, countryCode, TestData.generatePhoneNumber(),
-                "25-34", "$15,000-$50,000", "$50,000-$100,000", "All the above", "English");
+                "25-34", "$15,000-$50,000", "$50,000-$100,000", "Todo lo anterior", "Inglés");
         readyFortrade.assertURL(TestData.appUrl);
         crmPage.checkCrmData(email,TestData.fullName, "FSC");
         crmPage.checkLinkIdValue("PC_windows");

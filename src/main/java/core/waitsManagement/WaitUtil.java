@@ -9,7 +9,7 @@ import java.util.function.Function;
 
 public class WaitUtil {
 
-    private static final int TIMEOUT = 40;
+    private static final int TIMEOUT = 15;
 
     public static WebDriverWait getWait() {
         return new WebDriverWait(
@@ -117,5 +117,19 @@ public class WaitUtil {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
+    }
+
+    public static void waitForExactText(WebElement element, String expectedText) {
+        getWait().until(driver ->
+                expectedText.equals(element.getText().trim()));
+    }
+
+    public static void waitForCssValue(WebElement element,
+                                       String propertyName,
+                                       String expectedValue) {
+
+        new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(5))
+                .until(driver ->
+                        expectedValue.equals(element.getCssValue(propertyName)));
     }
 }

@@ -147,6 +147,32 @@ public class ElementActions {
         Allure.step("Selected " + text + " from " + elementName);
     }
 
+    /* ================= DROPDOWN ================= */
+
+    @Step("Select '{value}' from dropdown {elementName}")
+    public static void selectByValue(WebElement element,
+                                     String value,
+                                     String elementName) {
+
+        WaitUtil.waitForVisible(element);
+
+        Select select = new Select(element);
+
+        boolean exists = select.getOptions().stream()
+                .anyMatch(option -> value.equals(option.getAttribute("value")));
+
+        if (!exists) {
+            throw new NoSuchElementException(
+                    "Option with value '" + value + "' was not found in dropdown '" + elementName + "'");
+        }
+
+        select.selectByValue(value);
+
+        log.info("Selected value '{}' from dropdown {}", value, elementName);
+
+        Allure.step("Selected value '" + value + "' from " + elementName);
+    }
+
     /* ================= MOUSE ================= */
 
     @Step("Double click on {elementName}")
@@ -306,5 +332,13 @@ public class ElementActions {
         Allure.step("Get " + value + " from " + attributeName);
 
         return value;
+    }
+
+    public static boolean isElementDisplayed(WebElement element) {
+        try {
+            return element.isDisplayed();
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+            return false;
+        }
     }
 }

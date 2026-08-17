@@ -12,7 +12,7 @@
     <test name="Test cases - Pro Dark EN landing page">
         <parameter name="countryCode" value="381"/>
         <classes>
-            <class name="tests.TestsFortradeR.TrustedBrokerEn"/>
+            <class name="tests.TestsFortradeR.ProDarkEs"/>
         </classes>
     </test>
 </suite>

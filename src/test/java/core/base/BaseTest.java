@@ -1,6 +1,8 @@
 package core.base;
 
 import core.driver.DriverManager;
+import core.localization.MessageProvider;
+import core.localization.UrlProvider;
 import core.utils.ScreenshotUtil;
 import org.openqa.selenium.Dimension;
 import org.testng.ITestResult;
@@ -14,9 +16,6 @@ public class BaseTest {
     @BeforeMethod(alwaysRun = true)
     @Parameters({"env", "browser"})
     public void setUp(String env, String browser) {
-
-        System.out.println("THREAD: " + Thread.currentThread().getId());
-        System.out.println("DRIVER: " + DriverManager.getDriver());
 
         System.setProperty("env", env);
         System.setProperty("browser", browser);
@@ -74,8 +73,9 @@ public class BaseTest {
 
     protected void openUrl(String url) {
 
-        System.out.println("THREAD: " + Thread.currentThread().getId());
-        System.out.println("DRIVER: " + DriverManager.getDriver());
+        UrlProvider.initialize(url);
+
+        MessageProvider.initialize(url);
 
         DriverManager.getDriver().get(url);
     }
