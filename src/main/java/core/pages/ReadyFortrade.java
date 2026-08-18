@@ -6,6 +6,7 @@ import core.waitsManagement.WaitUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
 import java.awt.*;
@@ -73,7 +74,7 @@ public class ReadyFortrade extends BasePage {
     }
 
     public void assertURL(String url) {
-        WaitUtil.waitForUrlContains(url);
+        WaitUtil.getWait(40).until(ExpectedConditions.urlContains(url));
         Assert.assertTrue(driver.getCurrentUrl().contains(url));
     }
 
