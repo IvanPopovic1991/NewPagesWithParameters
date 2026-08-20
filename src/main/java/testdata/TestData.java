@@ -163,7 +163,8 @@ public class TestData {
 
     public static String dfsaUrl = "https://www.dfsa.ae/public-register/firms/fortrade-difc-limited";
 
-    public static String contactUsUrl = "mailto:podrska@kapitalrs.com?subject";
+    public static String contactUsUrl = "mailto:support@fortrade.com?subject";
+    public static String contactUsUrlKapitalRS = "mailto:podrska@kapitalrs.com?subject";
 
     public static String supportUrl = "mailto:support@fortrade.com";
 

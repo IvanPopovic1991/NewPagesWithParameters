@@ -230,7 +230,7 @@ public class ProDarkSr extends BaseTest {
     public void checkContactUsLinkTest(String regulation){
         ScreenshotUtil.setCustomName("Contact Us link - " + regulation + " regulation - KapitalRS");
         Allure.step("Left click on the contact us link.");
-        kapitalRSPage.checkMailLinks(kapitalRSPage.contactUsLink, "href", TestData.contactUsUrl);
+        kapitalRSPage.checkMailLinks(kapitalRSPage.contactUsLink, "href", TestData.contactUsUrlKapitalRS);
     }
 
     @Test(description = "TC 7.7 - Verify the Risk warning link works with left click")
