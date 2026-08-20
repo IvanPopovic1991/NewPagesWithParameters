@@ -69,6 +69,13 @@ public class GoldTradingDfsa extends BaseTest {
         fortradePage.assertText(fortradePage.textUnderForm, TestData.textForAsic);
     }
 
+    @Test(description = "TC 1.7.1. Verify the CFD text is displayed on the landing page")
+    @Parameters({"regulation"})
+    public void verifyCFDTextIsDisplayed(String regulation){
+        ScreenshotUtil.setCustomName("CFD text is displayed on the page - " + regulation + " regulation - Fortrade");
+        Assert.assertTrue(fortradePage.isTextVisibleAnywhereIgnoreCase("CFD"), "Text 'CFD' (case-insensitive) was not found, but should be.");
+    }
+
     @Test(description = "TC 1.8. Verify FCA risk percentages")
     @Parameters({"regulation"})
     @RunForRegulations("fca")
@@ -1075,7 +1082,7 @@ public class GoldTradingDfsa extends BaseTest {
         crmPage.checkCustomTag("");
     }
 
-    @Test(description = "TC 22.1. Verify that the Language field in the CRM contains expected value (in this case FR)")
+    @Test(description = "TC 22.1. Verify that the Language field in the CRM contains the expected value (the language that you enter in the URL)")
     @Parameters({"regulation", "countryCode"})
     @RunForRegulations({"fsc", "fca", "cysec", "dfsa"})
     public void checkLanguageFieldContainsExpectedValue(String regulation,String countryCode) throws IOException, AWTException {

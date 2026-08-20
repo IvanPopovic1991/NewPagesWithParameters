@@ -45,8 +45,8 @@ public class YopmailPage extends BasePage {
     @FindBy(xpath = "//span[contains(text(), 'KapitalRS <podrska@kapitalrs.com>')]")
     public WebElement kapitalRSEmail;
 
-    @FindBy(xpath = "//div[@class='lmfd']/span[contains(text(), 'KapitalRS')]")
-    public WebElement emailMessageKRS;
+    /*@FindBy(xpath = "//div[@class='lmfd']/span[contains(text(), 'KapitalRS')]")
+    public WebElement emailMessageKRS;*/
 
 
     @FindBy(xpath = "//div[contains(text(),'Your Demo Account is Ready')]")
@@ -144,13 +144,14 @@ public class YopmailPage extends BasePage {
         Assert.assertEquals(getText(fortradeEmail, ""), "Fortrade <ftadmin@fortrade.com>");
     }
 
-    public void findEmailKRS(String emailValue) {
-        /*try {
+    /*public void findEmailKRS(String emailValue) {
+        *//*try {
             driver.switchTo().frame(adFrame);
             ElementActions.click(closeAdBtn, "addBtn");
         } catch (Exception e){
             System.out.println(e);
-        }*/
+        }*//*
+        acceptConsentIfPresent();
         ElementActions.type(search, emailValue, "search input");
         ElementActions.click(goBtn, "go button");
         WaitUtil.waitForCondition(driver -> {
@@ -178,5 +179,34 @@ public class YopmailPage extends BasePage {
         Assert.assertEquals(getText(kapitalRSEmail, "kapitalRS email"), "KapitalRS <podrska@kapitalrs.com>");
         Assert.assertTrue(getText(kapitalRSTestqNameSr, "Testq name").contains("Dobrodošli, Testq!"));
         Assert.assertEquals(getText(emailTitleKRSSr, "email title"), "Vaš Demo Nalog je Spreman");
+    }*/
+
+    public void findEmailKapitalRS(String emailValue) {
+        acceptConsentIfPresent();
+        ElementActions.type(search, emailValue, "search input");
+        ElementActions.click(goBtn, "go button");
+        WaitUtil.waitForCondition(driver -> {
+                    try {
+                        driver.switchTo().defaultContent();
+                        driver.switchTo().frame(inboxFrame);
+
+                        if (emailMessageKapitalRS.isDisplayed()) {
+                            return true;
+                        }
+
+                    } catch (Exception ignored) {
+                    }
+
+                    driver.switchTo().defaultContent();
+                    ElementActions.click(refreshEmailBtn, "refresh inbox");
+                    return false;
+                },
+                90, 5, "Email was not received within 90 seconds!");
+        driver.switchTo().defaultContent();
+        driver.switchTo().frame(inboxFrame);
+        ElementActions.click(emailMessageKapitalRS, "open email");
+        driver.switchTo().defaultContent();
+        driver.switchTo().frame(mailFrame);
+        Assert.assertEquals(getText(kapitalRSEmail, ""), "KapitalRS <podrska@kapitalrs.com>");
     }
 }

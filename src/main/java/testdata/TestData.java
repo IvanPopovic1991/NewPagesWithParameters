@@ -115,7 +115,17 @@ public class TestData {
 
     public static String secondStepErrorMessageKapitalRS = "Molimo Vas izaberite odgovarajuću opciju iz padajuće liste.";
 
+
+    public static String headerPrivacyPolicyUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/politika-o-zastiti-privatnosti/";
+    public static String headerTermsAndConditionsUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/pravila-i-uslovi/";
+    public static String clickHereUrlKapitalRS = "https://www.fortrade.com/wp-content/uploads/legal/How_to_guides/How_to_unsubscribe.pdf";
     public static String alreadyHaveAnAccountUrlKapitalRS = "https://authfe.kapitalrs.com/oauth/account/login";
+    public static String footerPrivacyPolicyUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/politika-o-zastiti-privatnosti/";
+    public static String footerRiskWarningKapitalRS = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Risk_Disclosure.pdf";
+
+
+
+
 
     public static String kontaktirajteNasLink = "mailto:podrska@kapitalrs.com?subject=Client information request";
 
@@ -153,9 +163,11 @@ public class TestData {
 
     public static String dfsaUrl = "https://www.dfsa.ae/public-register/firms/fortrade-difc-limited";
 
-    public static String contactUsUrl = "mailto:support@fortrade.com?subject=Client information request";
+    public static String contactUsUrl = "mailto:podrska@kapitalrs.com?subject";
 
     public static String supportUrl = "mailto:support@fortrade.com";
+
+    public static String infoUrl = "mailto:info@fortrade.com";
 
     public static String supportUrlEs = "mailto:support@fortrade.com";
 
