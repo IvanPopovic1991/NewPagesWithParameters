@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Broker Views Pages" configfailurepolicy="continue">
+
     <listeners>
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
         <listener class-name="core.listeners.RetryTransformer"/>
         <listener class-name="core.listeners.ScreenshotListener"/>
         <listener class-name="core.listeners.TestListener"/>
+        <listener class-name="core.listeners.RegulationMethodInterceptor"/>
     </listeners>
-    <parameter name="env" value="local"/>
-    <parameter name="browser" value="chrome"/>
-    <test name="Test cases - Pro Dark EN landing page">
-        <parameter name="countryCode" value="Serbia"/>
-        <parameter name="regulation" value="FSC"/>
+
+    <test name="Test cases - Pro dark en - Broker Views - FSC regulation">
+        <parameter name="regulation" value="fsc"/>
+        <parameter name="countryCode" value="389"/>
+        <parameter name="tag" value="?regulation=fsc&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsBrokerView.ProDarkEn"/>
+            <class name="tests.TestsBrokerViews.ProDarkEn"/>
         </classes>
     </test>
+
 </suite>
