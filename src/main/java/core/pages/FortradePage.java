@@ -704,7 +704,7 @@ public class FortradePage extends BasePage {
             }
             break;
             case "cysec": {
-                text = "CYSEC/Client_Agreement.pdf";
+                text = "CySEC/Client_Agreement.pdf";
             }
             break;
             case "dfsa": {

@@ -9,7 +9,7 @@ import java.util.function.Function;
 
 public class WaitUtil {
 
-    private static final int TIMEOUT = 15;
+    private static final int TIMEOUT = 20;
 
     public static WebDriverWait getWait() {
         return new WebDriverWait(

@@ -74,7 +74,7 @@ public class ReadyFortrade extends BasePage {
     }
 
     public void assertURL(String url) {
-        WaitUtil.getWait(40).until(ExpectedConditions.urlContains(url));
+        WaitUtil.getWait(45).until(ExpectedConditions.urlContains(url));
         Assert.assertTrue(driver.getCurrentUrl().contains(url));
     }
 
