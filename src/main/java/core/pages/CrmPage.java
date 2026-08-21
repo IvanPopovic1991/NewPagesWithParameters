@@ -179,13 +179,15 @@ public class CrmPage extends BasePage {
     public void checkLanguageInCrm(String expectedText){
         ElementActions.click(menuBtn, "menu button");
         ElementActions.click(envAndMarSec, "environment and marketing section button");
+        ElementActions.scrollTo(language, "language field");
         Assert.assertEquals(readAttribute(language,"title","language field"),expectedText);
     }
 
     public void checkCrmFtsQuery(String value) {
         ElementActions.click(menuBtn, "menu button");
         ElementActions.click(envAndMarSec, "environment and marketing section button");
-        String customTagText = readAttribute(customTag, "title", "tag");
+        ElementActions.scrollTo(customTag,"custom tag");
+        String customTagText = readAttribute(customTag, "title", "custom tag");
         System.out.println("This is the value of the " + customTag + ": " + customTagText);
         try {
             Thread.sleep(1000);
@@ -214,6 +216,7 @@ public class CrmPage extends BasePage {
     public void checkDeviceValue(){
         ElementActions.click(menuBtn, "menu button");
         ElementActions.click(envAndMarSec, "environment and marketing section button");
+        ElementActions.scrollTo(linkId,"LinkId field");
         String linkIdVal = getText(linkId, "Link ID field from the CRM");
         System.out.println("Link ID field value from the CRM " + linkIdVal);
         String os = System.getProperty("os.name").toLowerCase();
