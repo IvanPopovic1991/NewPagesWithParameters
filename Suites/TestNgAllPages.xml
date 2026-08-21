@@ -10,7 +10,7 @@
     </listeners>
 
     <suite-files>
-        <suite-file path="TestNgPennyStocksPages.xml"/>
+        <suite-file path="TestNgBrokerViews.xml"/>
     </suite-files>
 
 </suite>
