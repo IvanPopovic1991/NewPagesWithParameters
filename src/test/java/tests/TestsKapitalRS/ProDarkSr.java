@@ -1047,7 +1047,7 @@ public class ProDarkSr extends BaseTest {
         kapitalRSPage.registerDemoAccount(TestData.firstName,TestData.lastName,email,countryCode,kapitalRSPage.selectPhoneNumber(regulation));
         readyFortrade.assertURL(TestData.appUrlKapitalRS);
         crmPage.checkCrmData(email,TestData.fullName,regulation);
-        crmPage.checkLinkIdValue("0.0953@1500");
+        crmPage.checkLinkIdValue(TestData.resultOfAnIPLValue);
     }
 
     @Test(description = "TC 25.2. Verify that the Link Id field in the CRM contains 'missingTag1_IPL' value")

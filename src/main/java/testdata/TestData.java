@@ -47,8 +47,6 @@ public class TestData {
 
     public static String fullName = "Testq Testa";
 
-    public static String sameNameAndSurname = "Test";
-
     public static String appUrl = "https://ready.fortrade.com/";
 
     public static String appUrlKapitalRS = "https://pro.kapitalrs.com/";
@@ -66,68 +64,13 @@ public class TestData {
     public static String blueBorderColor = "";
 
     public static String redBorderColor = "rgb(255, 0, 0)";
-
-    public static String sameFirstNameErrorMessage = "First Name and Last Name cannot be equal.";
-
-    public static String sameLastNameErrorMessage = "First Name and Last Name cannot be equal.";
-
-    public static String sameFirstNameErrorMessageEs = "El Nombre y el Apellido no pueden ser iguales.";
-
-    public static String sameLastNameErrorMessageEs = "El Nombre y el Apellido no pueden ser iguales.";
-
-    public static String firstNameErrorMessage = "Please enter all your given first name(s).";
-
-    public static String firstNameErrorMessageEs = "Por favor, introduce todos tus nombres de pila.";
-
-    public static String lastNameErrorMessage = "Please enter your last name.";
-
-    public static String lastNameErrorMessageEs = "Por favor, introduce tu apellido.";
-
-    public static String emailErrorMessage = "Must be a valid email address.";
-
-    public static String emailErrorMessageEs = "Formato de correo electrónico no válido.";
-
-    public static String wrongPhoneErrorMessage = "Phone number must be exactly 10 digits and cannot start with 0";
-
-    public static String wrongPhoneErrorMsgOther = "Must be a valid international phone number";
-
-    public static String wrongPhoneErrorMsgAu = "Phone number must be between 6 and 11 digits and cannot start with 0";
-
-    public static String wrongPhoneErrorMsgOtherEs = "Formato de teléfono no válido.";
-
-    public static String emptyPhoneErrorMessage = "Phone number is required";
-
-    public static String secondStepErrorMessage = /*"Please select an option from the dropdown list."*/ "يرجى اختيار خيار من القائمة المنسدلة.";
-
-    public static String secondStepErrorMessageEs = "Por favor, selecciona una opción del menú desplegable.";
-
-    public static String sameFirstNameErrorMessageKapitalRS = "Vaše ime mora da se razlikuje od vašeg prezimena.";
-
-    public static String sameLastNameErrorMessageKapitalRS = "Vaše ime mora da se razlikuje od vašeg prezimena.";
-
-    public static String firstNameErrorMessageKapitalRS = "Ime nije uneto u ispravnom formatu";
-
-    public static String lastNameErrorMessageKapitalRS = "Prezime nije uneto u ispravnom formatu";
-
-    public static String emailErrorMessageKapitalRS = "Nevažeći format imejla.";
-
-    public static String wrongPhoneErrorMsgKapitalRS = "Nevažeći format telefona.";
-
-    public static String secondStepErrorMessageKapitalRS = "Molimo Vas izaberite odgovarajuću opciju iz padajuće liste.";
-
     public static String headerPrivacyPolicyUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/politika-o-zastiti-privatnosti/";
-
     public static String headerTermsAndConditionsUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/pravila-i-uslovi/";
-
     public static String clickHereUrlKapitalRS = "https://www.fortrade.com/wp-content/uploads/legal/How_to_guides/How_to_unsubscribe.pdf";
-
     public static String alreadyHaveAnAccountUrlKapitalRS = "https://authfe.kapitalrs.com/oauth/account/login";
-
     public static String footerPrivacyPolicyUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/politika-o-zastiti-privatnosti/";
-
     public static String footerRiskWarningKapitalRS = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Risk_Disclosure.pdf";
 
-    public static String kontaktirajteNasLink = "mailto:podrska@kapitalrs.com?subject=Client information request";
 
     //public static String privacyPolicyUrl = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Privacy_Policy.pdf";
 
@@ -137,19 +80,7 @@ public class TestData {
 
     public static String tmdUrl = "https://www.fortrade.com/wp-content/uploads/legal/ASIC/Fort_Securities_AU-TMD_Policy.pdf";
 
-    public static String privacyPolicyUrlIiroc = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Privacy_Policy.pdf";
-
-    public static String termsAndConditionsUrlIiroc = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Client_Agreement.pdf";
-
-    public static String privacyPolicyUrl = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Privacy_Policy.pdf";
-
-    public static String termsAndConditionsUrl = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_Mauritius_Client_Agreement.pdf";
-
     public static String alreadyHaveAnAccountUrl = "https://authfe.fortrade.com/oauth/account/login";
-
-    public static String riskWarningUrl = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Risk_Disclosure.pdf";
-
-    public static String riskWarningKapitalRS = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Risk_Disclosure.pdf";
 
     public static String fcaUrl = "https://register.fca.org.uk/s/firm";
 
@@ -164,24 +95,17 @@ public class TestData {
     public static String dfsaUrl = "https://www.dfsa.ae/public-register/firms/fortrade-difc-limited";
 
     public static String contactUsUrl = "mailto:support@fortrade.com?subject";
-
     public static String contactUsUrlKapitalRS = "mailto:podrska@kapitalrs.com?subject";
 
     public static String supportUrl = "mailto:support@fortrade.com";
 
     public static String infoUrl = "mailto:info@fortrade.com";
 
-    public static String supportUrlEs = "mailto:support@fortrade.com";
-
     public static String yopmailUrl ="https://yopmail.com/";
 
     public static String clickHereUrl = "https://www.fortrade.com/wp-content/uploads/legal/How_to_guides/How_to_unsubscribe.pdf";
 
-    public static String fortraderprivacyPolicy = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Privacy_Policy.pdf";
-
-    public static String fortraderPrivacyPolicyUrl = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Privacy_Policy.pdf";
-
-    public static String fortraderTermsAndCondUrl = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_Mauritius_Client_Agreement.pdf";
-
-    public static String fortraderClickHereURL = "https://www.fortrade.com/wp-content/uploads/legal/How_to_guides/How_to_unsubscribe.pdf";
+    // Formula for IPLValue:
+    // FTD_CRM / initial_ls_CRM @ LTV (ili: N/L@R) ---> ovo izvlacis iz Moshikovog Google Sheet fajla
+    public static String resultOfAnIPLValue = "0.0952@1500";
 }
