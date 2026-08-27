@@ -15,7 +15,7 @@
         <parameter name="countryCode" value="389"/>
         <parameter name="tag" value="?regulation=fsc&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsFortradeR.ProDarkEs"/>
+            <class name="tests.TestsFortradeR.ProDarkAl"/>
         </classes>
     </test>
 
