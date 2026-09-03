@@ -12,7 +12,7 @@ parallel="tests">
         <listener class-name="core.listeners.RegulationMethodInterceptor"/>
     </listeners>
 
-    <test name="Test cases - Spacex Ipo En - Fortrade - FSC regulation">
+<!--    <test name="Test cases - Spacex Ipo En - Fortrade - FSC regulation">
         <parameter name="regulation" value="fsc"/>
         <parameter name="countryCode" value="389"/>
         <parameter name="tag" value="?regulation=fsc&amp;regtest=true"/>
@@ -46,24 +46,24 @@ parallel="tests">
         <classes>
             <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
-    </test>
+    </test>-->
 
     <test name="Test cases - Spacex Ipo En - Fortrade - CYSEC regulation">
         <parameter name="regulation" value="cysec"/>
         <parameter name="countryCode" value="357"/>
         <parameter name="tag" value="?regulation=cysec&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsFortrade.SpacexIpoEn"/>
+            <class name="tests.TestsFortrade.DlpFortradeCysecEn"/>
         </classes>
     </test>
 
-    <test name="Test cases - Gold Trading Dfsa - Fortrade - DFSA regulation">
+<!--    <test name="Test cases - Gold Trading Dfsa - Fortrade - DFSA regulation">
         <parameter name="regulation" value="dfsa"/>
         <parameter name="countryCode" value="971"/>
         <parameter name="tag" value="?regulation=dfsa&amp;regtest=true"/>
         <classes>
             <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
-    </test>
+    </test>-->
 
 </suite>

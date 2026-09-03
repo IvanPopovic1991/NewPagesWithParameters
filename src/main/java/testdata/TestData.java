@@ -64,13 +64,18 @@ public class TestData {
     public static String blueBorderColor = "";
 
     public static String redBorderColor = "rgb(255, 0, 0)";
-    public static String headerPrivacyPolicyUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/politika-o-zastiti-privatnosti/";
-    public static String headerTermsAndConditionsUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/pravila-i-uslovi/";
-    public static String clickHereUrlKapitalRS = "https://www.fortrade.com/wp-content/uploads/legal/How_to_guides/How_to_unsubscribe.pdf";
-    public static String alreadyHaveAnAccountUrlKapitalRS = "https://authfe.kapitalrs.com/oauth/account/login";
-    public static String footerPrivacyPolicyUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/politika-o-zastiti-privatnosti/";
-    public static String footerRiskWarningKapitalRS = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Risk_Disclosure.pdf";
 
+    public static String headerPrivacyPolicyUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/politika-o-zastiti-privatnosti/";
+
+    public static String headerTermsAndConditionsUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/pravila-i-uslovi/";
+
+    public static String clickHereUrlKapitalRS = "https://www.fortrade.com/wp-content/uploads/legal/How_to_guides/How_to_unsubscribe.pdf";
+
+    public static String alreadyHaveAnAccountUrlKapitalRS = "https://authfe.kapitalrs.com/oauth/account/login";
+
+    public static String footerPrivacyPolicyUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/politika-o-zastiti-privatnosti/";
+
+    public static String footerRiskWarningKapitalRS = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Risk_Disclosure.pdf";
 
     //public static String privacyPolicyUrl = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Privacy_Policy.pdf";
 

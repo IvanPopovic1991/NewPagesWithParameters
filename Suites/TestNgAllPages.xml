@@ -10,7 +10,7 @@
     </listeners>
 
     <suite-files>
-        <suite-file path="TestNgFortradeRPages.xml"/>
+        <suite-file path="TestNgFortradePages.xml"/>
     </suite-files>
 
 </suite>
