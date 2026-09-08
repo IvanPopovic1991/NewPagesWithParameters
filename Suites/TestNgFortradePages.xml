@@ -53,25 +53,7 @@ parallel="tests">
         <parameter name="countryCode" value="357"/>
         <parameter name="tag" value="?regulation=cysec&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsFortrade.TrustedBrokerCysecEn">
-                    <methods>
-                        <include name="checkNumberIplValue"/>
-                        <include name="demoAccountRegistrationTest"/>
-                        <include name="dummypParameter"/>
-                        <include name="invalid_Lead_Registration"/>
-                        <include name="knowledgeParameterCRMTest"/>
-                        <include name="languageParameterCRMTest"/>
-                        <include name="nonValidParameterSyntax"/>
-                        <include name="parameterDummy"/>
-                        <include name="savingParameterCRMTest"/>
-                        <include name="smsVerificationAgeTest"/>
-                        <include name="smsVerificationAnnualTest"/>
-                        <include name="smsVerificationKnowledgeTest"/>
-                        <include name="smsVerificationLanguageTest"/>
-                        <include name="smsVerificationSavingTest"/>
-                        <include name="nonValidParameterInTheUrlTest"/>
-                    </methods>
-            </class>
+            <class name="tests.TestsFortrade.TrustedBrokerCysecEn"/>
         </classes>
     </test>
 
