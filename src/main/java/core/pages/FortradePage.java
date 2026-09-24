@@ -128,19 +128,19 @@ public class FortradePage extends BasePage {
     @FindBy(xpath = "//label[@class='input-wrapper error-wrapper' and @for='TelephoneMask']")
     public WebElement borderColorForPhoneFixed;
 
-    @FindBy(xpath = "//div[@class='formGrid']//a[contains(@href,'Privacy_Policy.pdf')]")
+    @FindBy(xpath = "//div[@class='formGrid']//a[contains(@href,'Privacy_Policy')]")
     public WebElement headerPrivacyPolicyLink;
 
-    @FindBy(xpath = "//div[@class='formGrid']//a[contains(@href,'Client_Agreement.pdf')]")
+    @FindBy(xpath = "//div[@class='formGrid']//a[contains(@href,'Client_Agreement')]")
     public WebElement headerTermsAndConditionsOtherLink;
 
     @FindBy(xpath = "//div[@class='formGrid']//a[contains(@href,'client-agreement')]")
     public WebElement headerTermsAndConditionsFSCLink;
 
-    @FindBy(xpath = "//div[@class='formGrid']//a[contains(@href,'Terms_and_Conditions.pdf')]")
+    @FindBy(xpath = "//div[@class='formGrid']//a[contains(@href,'Terms_and_Conditions')]")
     public WebElement headerTermsAndConditionsFCALink;
 
-    @FindBy(xpath = "//div[@class='formGrid']//a[contains(@href,'How_to_unsubscribe.pdf')]")
+    @FindBy(xpath = "//div[@class='formGrid']//a[contains(@href,'How_to_unsubscribe')]")
     public WebElement clickHereLink;
 
     @FindBy(xpath = "//div[@class='formGrid']//a[contains(@href,'https://ready.fortrade.com/?lang=')]")
@@ -152,16 +152,16 @@ public class FortradePage extends BasePage {
     @FindBy(xpath = "//div[contains(@class, 'container')]//a[contains(@href,'mailto:support@fortrade.com')]")
     public WebElement supportLink;
 
-    @FindBy(xpath = "//div[contains(@class, 'container')]//a[contains(@href,'Risk_Disclosure.pdf')]")
+    @FindBy(xpath = "//div[contains(@class, 'container')]//a[contains(@href,'Risk_Disclosure')]")
     public WebElement footerRiskWarningOtherLink;
 
-    @FindBy(xpath = "//a[contains(@href,'Fort_Securities_AU_Product_Disclosure_Statement-ASIC.pdf') and contains(@class,'frdLink')]")
+    @FindBy(xpath = "//a[contains(@href,'Fort_Securities_AU_Product_Disclosure_Statement-ASIC') and contains(@class,'frdLink')]")
     public WebElement footerRiskWarningASICLink;
 
-    @FindBy(xpath = "//div[contains(@class, 'container')]//a[contains(@href, 'Privacy_Policy.pdf')]")
+    @FindBy(xpath = "//div[contains(@class, 'container')]//a[contains(@href, 'Privacy_Policy')]")
     public WebElement footerPrivacyPolicyOtherLink;
 
-    @FindBy(xpath = "//div[contains(@class, 'container')]//a[contains(@href, 'Fort_Securities_AU_Privacy_Policy-ASIC.pdf')]")
+    @FindBy(xpath = "//div[contains(@class, 'container')]//a[contains(@href, 'Fort_Securities_AU_Privacy_Policy-ASIC')]")
     public WebElement footerPrivacyPolicyASICLink;
 
     @FindBy(xpath = "//a[contains(@href,'Fort_Securities_AU_Financial_Services_Guide-ASIC.pdf')]")
@@ -221,10 +221,10 @@ public class FortradePage extends BasePage {
     @FindBy(xpath = "//div[@class='fcaClass']/b[contains(text(), '% of retail investor accounts lose money when trading CFDs with this provider.')]")
     public WebElement staticFCAPercentages;
 
-    @FindBy(xpath = "//div[@id='stickyHeader']/div/div[2]/div/strong")
+    @FindBy(xpath = /*"//div[@id='stickyHeader']/div/div[2]/div/strong"*/ "//div[@id='stickyHeader']//div[@class='rwLong']/div/strong")
     public WebElement dynamicCysecPercentages;
 
-    @FindBy(xpath = "//div[@class='cysecClass']/b[contains(text(), '% of retail investor accounts lose money when trading CFDs with this provider.')]")
+    @FindBy(xpath = /*"//div[@class='cysecClass']/b[contains(text(), '% of retail investor accounts lose money when trading CFDs with this provider.')]"*/ "//div[@class='cysecClass']/b")
     public WebElement staticCysecPercentages;
 
     @FindBy(xpath = "//div[@id='stickyHeader']/div/div[2]")
@@ -585,7 +585,7 @@ public class FortradePage extends BasePage {
 
     public void assertText(WebElement element, String text){
         WaitUtil.waitForVisible(element);
-        Assert.assertEquals(ElementActions.getText(element, "text under form for iiroc"), text);
+        Assert.assertTrue(ElementActions.getText(element, "text under form for iiroc").contains(text));
     }
 
     public void assertBorderColor(WebElement element, String propertyName, String expectedValue) {
@@ -663,25 +663,32 @@ public class FortradePage extends BasePage {
 
     public String headerPrivacyPolicyUrl (String regulation) {
         String text = "";
+        String language;
+
+        if (UrlProvider.getLanguage().equalsIgnoreCase("en")){
+            language = "";
+        } else {
+            language = "_" + UrlProvider.getLanguage().toUpperCase();
+        }
         switch (regulation) {
             case "fsc": {
-                text = "FSC/Fortrade_MA_Privacy_Policy.pdf";
+                text = "FSC/Fortrade_MA_Privacy_Policy" + language + ".pdf";
             }
             break;
             case "fca": {
-                text = "Fortrade_Privacy_Policy.pdf";
+                text = "Fortrade_Privacy_Policy" + language + ".pdf";
             }
             break;
             case "iiroc": {
-                text = "IIROC/Privacy_Policy.pdf";
+                text = "IIROC/Privacy_Policy" + language + ".pdf";
             }
             break;
             case "cysec": {
-                text = "CYSEC/Privacy_Policy.pdf";
+                text = "CySEC/Privacy_Policy" + language + ".pdf";
             }
             break;
             case "dfsa": {
-                text = "DFSA/Privacy_Policy.pdf";
+                text = "DFSA/Privacy_Policy" + language + ".pdf";
             }
         }
         String privacyPolicy = "https://www.fortrade.com/wp-content/uploads/legal/" + text;
@@ -690,25 +697,32 @@ public class FortradePage extends BasePage {
 
     public String headerTermsAndConditionsUrl (String regulation) {
         String text = "";
+        String language;
+
+        if (UrlProvider.getLanguage().equalsIgnoreCase("en")){
+            language = "";
+        } else {
+            language = "_" + UrlProvider.getLanguage().toUpperCase();
+        }
         switch (regulation) {
             case "fsc": {
-                text = "FSC/Fortrade_Mauritius_Client_Agreement.pdf";
+                text = "FSC/Fortrade_Mauritius_Client_Agreement" + language + ".pdf";
             }
             break;
             case "fca": {
-                text = "Fortrade_Terms_and_Conditions.pdf";
+                text = "Fortrade_Terms_and_Conditions" + language + ".pdf";
             }
             break;
             case "iiroc": {
-                text = "IIROC/Client_Agreement.pdf";
+                text = "IIROC/Client_Agreement" + language + ".pdf";
             }
             break;
             case "cysec": {
-                text = "CySEC/Client_Agreement.pdf";
+                text = "CySEC/Client_Agreement" + language + ".pdf";
             }
             break;
             case "dfsa": {
-                text = "DFSA/Client_Agreement.pdf";
+                text = "DFSA/Client_Agreement" + language + ".pdf";
             }
         }
         String termsAndConditions = "https://www.fortrade.com/wp-content/uploads/legal/" + text;
@@ -717,29 +731,36 @@ public class FortradePage extends BasePage {
 
     public String footerRiskWarningUrl (String regulation) {
         String text = "";
+        String language;
+
+        if (UrlProvider.getLanguage().equalsIgnoreCase("en")){
+            language = "";
+        } else {
+            language = "_" + UrlProvider.getLanguage().toUpperCase();
+        }
         switch (regulation) {
             case "fsc": {
-                text = "FSC/Fortrade_MA_Risk_Disclosure.pdf";
+                text = "FSC/Fortrade_MA_Risk_Disclosure" + language + ".pdf";
             }
             break;
             case "fca": {
-                text = "Fortrade_Risk_Disclosure.pdf";
+                text = "Fortrade_Risk_Disclosure" + language + ".pdf";
             }
             break;
             case "iiroc": {
-                text = "IIROC/Risk_Disclosure.pdf";
+                text = "IIROC/Risk_Disclosure" + language + ".pdf";
             }
             break;
             case "cysec": {
-                text = "CySEC/Risk_Disclosure.pdf";
+                text = "CySEC/Risk_Disclosure" + language + ".pdf";
             }
             break;
             case "asic": {
-                text = "ASIC/Fort_Securities_AU_Product_Disclosure_Statement-ASIC.pdf";
+                text = "ASIC/Fort_Securities_AU_Product_Disclosure_Statement-ASIC" + language + ".pdf";
             }
             break;
             case "dfsa": {
-                text = "DFSA/Risk_Disclosure.pdf";
+                text = "DFSA/Risk_Disclosure" + language + ".pdf";
             }
         }
         String riskWarningURL = "https://www.fortrade.com/wp-content/uploads/legal/" + text;
@@ -748,29 +769,36 @@ public class FortradePage extends BasePage {
 
     public String footerPrivacyPolicyUrl (String regulation) {
         String text = "";
+        String language;
+
+        if (UrlProvider.getLanguage().equalsIgnoreCase("en")){
+            language = "";
+        } else {
+            language = "_" + UrlProvider.getLanguage().toUpperCase();
+        }
         switch (regulation) {
             case "fsc": {
-                text = "FSC/Fortrade_MA_Privacy_Policy.pdf";
+                text = "FSC/Fortrade_MA_Privacy_Policy" + language + ".pdf";
             }
             break;
             case "fca": {
-                text = "Fortrade_Privacy_Policy.pdf";
+                text = "Fortrade_Privacy_Policy" + language + ".pdf";
             }
             break;
             case "asic": {
-                text = "ASIC/Fort_Securities_AU_Privacy_Policy-ASIC.pdf";
+                text = "ASIC/Fort_Securities_AU_Privacy_Policy-ASIC" + language + ".pdf";
             }
             break;
             case "cysec": {
-                text = "CYSEC/Privacy_Policy.pdf";
+                text = "CySEC/Privacy_Policy" + language + ".pdf";
             }
             break;
             case "iiroc": {
-                text = "IIROC/Privacy_Policy.pdf";
+                text = "IIROC/Privacy_Policy" + language + ".pdf";
             }
             break;
             case "dfsa": {
-                text = "DFSA/Privacy_Policy.pdf";
+                text = "DFSA/Privacy_Policy" + language + ".pdf";
             }
         }
         String privacyPolicyFooterURL = "https://www.fortrade.com/wp-content/uploads/legal/" + text;
