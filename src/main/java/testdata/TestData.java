@@ -51,30 +51,24 @@ public class TestData {
 
     public static String appUrlKapitalRS = "https://pro.kapitalrs.com/";
 
-    public static String textForIiroc = "By proceeding, I agree to the Privacy Policy and the Terms and Conditions . By providing my contact details to Fortrade Canada, I agree to receive telephone calls from Customer Service Representatives regarding Fortrade Canada, its products, services, promotions, and offers. I can opt out of phone contact anytime by informing a Customer Service Representative or unsubscribing via notification settings.";
+     public static String textForIiroc = "By proceeding, I agree to the Privacy Policy and the Terms and Conditions . By providing my contact details to Fortrade Canada, I agree to receive telephone calls from Customer Service Representatives regarding Fortrade Canada, its products, services, promotions, and offers. I can opt out of phone contact anytime by informing a Customer Service Representative or unsubscribing via notification settings.";
 
-    public static String textForAsic = "By providing your details to Fortrade Australia you are consenting to be contacted by telephone about offers and invites to trade Contracts for Difference (CFDs).";
+     public static String textForAsic = "By providing your details to Fortrade Australia you are consenting to be contacted by telephone about offers and invites to trade Contracts for Difference (CFDs).";
 
-    public static String percentagesFCA = "74% of retail investor accounts lose money when trading CFDs with this provider.";
+     public static String percentagesFCA = "74%";
 
-    public static String percentagesCysec = "69.54% of retail investor accounts lose money when trading CFDs with this provider.";
+     public static String percentagesCysec = "69.54%";
 
-    public static String riskWarningHeaderDfsaText = "Contracts for difference (CFDs) are complex financial instruments and come with a high risk of losing money rapidly due to leverage. You should ensure you understand how CFDs work and that you can afford to take the high risk of losing your money." /*"العقود مقابل الفروقات أدوات مالية معقّدة وتنطوي على مخاطر عالية قد تؤدي إلى خسارة الأموال بسرعة بسبب الرافعة المالية. ينبغي عليك التأكّد مما إذا كنت تفهم كيفية عمل العقود مقابل الفروقات، وأنك قادر على تحمّل المخاطر العالية المترتّبة على خسارة أموالك."*/;
+     public static String riskWarningHeaderDfsaText = "Contracts for difference (CFDs) are complex financial instruments and come with a high risk of losing money rapidly due to leverage. You should ensure you understand how CFDs work and that you can afford to take the high risk of losing your money." /*"العقود مقابل الفروقات أدوات مالية معقّدة وتنطوي على مخاطر عالية قد تؤدي إلى خسارة الأموال بسرعة بسبب الرافعة المالية. ينبغي عليك التأكّد مما إذا كنت تفهم كيفية عمل العقود مقابل الفروقات، وأنك قادر على تحمّل المخاطر العالية المترتّبة على خسارة أموالك."*/;
 
     public static String blueBorderColor = "";
 
     public static String redBorderColor = "rgb(255, 0, 0)";
-
     public static String headerPrivacyPolicyUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/politika-o-zastiti-privatnosti/";
-
     public static String headerTermsAndConditionsUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/pravila-i-uslovi/";
-
     public static String clickHereUrlKapitalRS = "https://www.fortrade.com/wp-content/uploads/legal/How_to_guides/How_to_unsubscribe.pdf";
-
     public static String alreadyHaveAnAccountUrlKapitalRS = "https://authfe.kapitalrs.com/oauth/account/login";
-
     public static String footerPrivacyPolicyUrlKapitalRS = "https://www.kapitalrs.com/fortrade-ltd/politika-o-zastiti-privatnosti/";
-
     public static String footerRiskWarningKapitalRS = "https://www.fortrade.com/wp-content/uploads/legal/FSC/Fortrade_MA_Risk_Disclosure.pdf";
 
     //public static String privacyPolicyUrl = "https://www.fortrade.com/wp-content/uploads/legal/IIROC/Privacy_Policy.pdf";
@@ -100,7 +94,6 @@ public class TestData {
     public static String dfsaUrl = "https://www.dfsa.ae/public-register/firms/fortrade-difc-limited";
 
     public static String contactUsUrl = "mailto:support@fortrade.com?subject";
-
     public static String contactUsUrlKapitalRS = "mailto:podrska@kapitalrs.com?subject";
 
     public static String supportUrl = "mailto:support@fortrade.com";
@@ -113,5 +106,5 @@ public class TestData {
 
     // Formula for IPLValue:
     // FTD_CRM / initial_ls_CRM @ LTV (ili: N/L@R) ---> ovo izvlacis iz Moshikovog Google Sheet fajla
-    public static String resultOfAnIPLValue = "0.0911@1500";
+    public static String resultOfAnIPLValue = "0.0952@1500";
 }
