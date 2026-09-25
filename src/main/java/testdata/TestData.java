@@ -106,5 +106,5 @@ public class TestData {
 
     // Formula for IPLValue:
     // FTD_CRM / initial_ls_CRM @ LTV (ili: N/L@R) ---> ovo izvlacis iz Moshikovog Google Sheet fajla
-    public static String resultOfAnIPLValue = "0.0952@1500";
+    public static String resultOfAnIPLValue = "0.0907@1500";
 }
