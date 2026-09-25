@@ -13,9 +13,14 @@
     <test name="Test cases - Pro dark en - Broker Views - FSC regulation">
         <parameter name="regulation" value="fsc"/>
         <parameter name="countryCode" value="381"/>
-        <parameter name="tag" value="?regulation=fsc&amp;regtest=true"/>
+        <parameter name="tag" value="&amp;regulation=fsc&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsBrokerViews.BrokerViewsBr1Es"/>
+            <class name="tests.TestsBrokerViews.BrokerViewsBr1EsBgCyan">
+                <methods>
+                    <include name="emailIsReceived"/>
+                    <include name="checkNumberIplValue"/>
+                </methods>
+            </class>
         </classes>
     </test>
 
