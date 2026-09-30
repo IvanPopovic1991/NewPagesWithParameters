@@ -68,7 +68,8 @@ public class KapitalRSPage extends BasePage {
     @FindBy(xpath = "//label[@for='EmailAddress']/following-sibling::span[@class='errorMessage'][1]")
     public WebElement emailErrorMsg;
 
-    @FindBy(xpath = "//div[@class='formPair error-wrapper']/following-sibling::span[@class='errorMessage'][1]")
+    //Nekad se koristi klasa sa "phone-pair" na kraju, a nekad bez
+    @FindBy(xpath = "//div[@class='formPair error-wrapper phone-pair']/following-sibling::span[@class='errorMessage'][1]")
     public WebElement phoneErrorMsg;
 
     @FindBy(xpath = "//label[@for='FirstName']/following-sibling::span[@class='errorMessage'][1]")
