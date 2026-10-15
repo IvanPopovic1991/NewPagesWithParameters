@@ -585,7 +585,7 @@ public class FortradePage extends BasePage {
 
     public void assertText(WebElement element, String text){
         WaitUtil.waitForVisible(element);
-        Assert.assertTrue(ElementActions.getText(element, "text under form for iiroc").contains(text));
+        Assert.assertTrue(ElementActions.getText(element, " risk warning percentage ").contains(text));
     }
 
     public void assertBorderColor(WebElement element, String propertyName, String expectedValue) {
