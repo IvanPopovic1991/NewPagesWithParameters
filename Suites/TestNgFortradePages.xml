@@ -10,23 +10,23 @@
         <listener class-name="core.listeners.RegulationMethodInterceptor"/>
     </listeners>
 
-<!--    <test name="Test cases - Spacex Ipo En - Fortrade - FSC regulation">
+    <test name="Test cases - Spacex Ipo En - Fortrade - FSC regulation">
         <parameter name="regulation" value="fsc"/>
         <parameter name="countryCode" value="389"/>
         <parameter name="tag" value="?regulation=fsc&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsFortrade.SpacexIpoEn"/>
+            <class name="tests.TestsFortrade.AnthropicIpoFscEs"/>
         </classes>
-    </test>-->
+    </test>
 
-    <test name="Test cases - Antropic Ipo Ephone Uk En - Fortrade - FCA regulation">
+    <!--<test name="Test cases - Antropic Ipo Ephone Uk En - Fortrade - FCA regulation">
         <parameter name="regulation" value="fca"/>
         <parameter name="countryCode" value="44"/>
         <parameter name="tag" value="?regulation=fca&amp;regtest=true"/>
         <classes>
             <class name="tests.TestsFortrade.AntropicIpoEphoneUkEn"/>
         </classes>
-    </test>
+    </test>-->
 
 <!--    <test name="Test cases - Antropic ipo ephone ca en - Fortrade - IIROC regulation">
         <parameter name="regulation" value="iiroc"/>
