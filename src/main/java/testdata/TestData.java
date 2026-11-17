@@ -55,9 +55,9 @@ public class TestData {
 
      public static String textForAsic = "By providing your details to Fortrade Australia you are consenting to be contacted by telephone about offers and invites to trade Contracts for Difference (CFDs).";
 
-     public static String percentagesFCA = "74%";
+     public static String percentagesFCA = "80%";
 
-     public static String percentagesCysec = "69.54%";
+     public static String percentagesCysec = "72.56%";
 
      public static String riskWarningHeaderDfsaText = "Contracts for difference (CFDs) are complex financial instruments and come with a high risk of losing money rapidly due to leverage. You should ensure you understand how CFDs work and that you can afford to take the high risk of losing your money." /*"العقود مقابل الفروقات أدوات مالية معقّدة وتنطوي على مخاطر عالية قد تؤدي إلى خسارة الأموال بسرعة بسبب الرافعة المالية. ينبغي عليك التأكّد مما إذا كنت تفهم كيفية عمل العقود مقابل الفروقات، وأنك قادر على تحمّل المخاطر العالية المترتّبة على خسارة أموالك."*/;
 
@@ -106,5 +106,5 @@ public class TestData {
 
     // Formula for IPLValue:
     // FTD_CRM / initial_ls_CRM @ LTV (ili: N/L@R) ---> ovo izvlacis iz Moshikovog Google Sheet fajla
-    public static String resultOfAnIPLValue = "0.0903@1500";
+    public static String resultOfAnIPLValue = "0.0917@1500";
 }

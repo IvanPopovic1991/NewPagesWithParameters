@@ -92,8 +92,7 @@ public class CysecHr extends BaseTest {
     public void checkCysecPercentagesTest(String regulation){
         ScreenshotUtil.setCustomName("Cysec percentages are displayed correctly " + regulation);
         Allure.step("Checked for Cysec percentages");
-        //Veljko should change locator
-        //fortradePage.assertText(fortradePage.dynamicCysecPercentages, TestData.percentagesCysec);
+        fortradePage.assertText(fortradePage.dynamicCysecPercentages, TestData.percentagesCysec);
         fortradePage.assertText(fortradePage.staticCysecPercentages, TestData.percentagesCysec);
     }
 
@@ -572,7 +571,7 @@ public class CysecHr extends BaseTest {
         openUrl(baseUrl + "&fts=sms-age-annual-saving-knowledge-plang:all");
         fortradePage.fillTheFormOnTheSecondStepWithWrongSmsCode(TestData.firstName,TestData.lastName,email,countryCode,fortradePage.selectPhoneNumber(regulation),
                 "25_34_age", "15000_50000_annual", "50000_100000_savings", "knowledge_of_trading_all_the_above","lang_EN",
-                "1", "1", "1", "1");
+                "1111");
         fortradePage.assertErrorMessageForWrongSmsCode();
     }
 

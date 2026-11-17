@@ -3,8 +3,12 @@ package core.base;
 import core.driver.DriverManager;
 import core.localization.MessageProvider;
 import core.localization.UrlProvider;
+import core.utils.LoggerUtil;
 import core.utils.ScreenshotUtil;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -12,6 +16,9 @@ import org.testng.annotations.Parameters;
 import core.utils.AllureEnvironmentWriter;
 
 public class BaseTest {
+
+    private static final Logger log =
+            LoggerUtil.getLogger(BaseTest.class);
 
     @BeforeMethod(alwaysRun = true)
     @Parameters({"env", "browser"})
@@ -86,30 +93,44 @@ public class BaseTest {
         String status;
 
         switch (result.getStatus()) {
-
             case ITestResult.FAILURE:
                 status = "FAILED";
                 break;
-
             case ITestResult.SUCCESS:
                 status = "PASSED";
                 break;
-
             case ITestResult.SKIP:
                 status = "SKIPPED";
                 break;
-
             default:
                 status = "UNKNOWN";
         }
 
-        String path = ScreenshotUtil.captureScreenshot(
-                result.getName() + "_" + status,
-                status
-        );
+        WebDriver driver = DriverManager.getDriver();
 
-        result.setAttribute("screenshotPath", path);
+        if (driver == null) {
+            return;
+        }
 
-        DriverManager.quitDriver();
+        try {
+            if (!driver.getWindowHandles().isEmpty()) {
+
+                String path = ScreenshotUtil.captureScreenshot(
+                        result.getName() + "_" + status, status);
+
+                if (path != null && !path.isBlank()) {
+                    result.setAttribute("screenshotPath", path);
+                }
+            }
+
+        } catch (WebDriverException e) {
+            log.warn("Could not capture screenshot: " + e.getMessage());
+
+        } catch (Exception e) {
+            log.error("Unexpected error during screenshot capture", e);
+
+        } finally {
+            DriverManager.quitDriver();
+        }
     }
 }

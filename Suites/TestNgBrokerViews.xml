@@ -16,12 +16,7 @@
         <!--Dodat je "&amp;" u tag-u jer URL vec sadrzi "?"-->
         <parameter name="tag" value="&amp;regulation=fsc&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsBrokerViews.Br1EnIce">
-                <methods>
-                    <include name="verifyErrorMessageForFirstNameTest"/>
-                    <include name="nonValidParameterInTheUrlTest"/>
-                </methods>
-            </class>
+            <class name="tests.TestsBrokerViews.BrokerViewsBr1EsBgCyan"/>
         </classes>
     </test>
 
