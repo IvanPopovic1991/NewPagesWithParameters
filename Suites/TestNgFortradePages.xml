@@ -10,14 +10,14 @@
         <listener class-name="core.listeners.RegulationMethodInterceptor"/>
     </listeners>
 
-    <test name="Test cases - Spacex Ipo En - Fortrade - FSC regulation">
+    <!--<test name="Test cases - Spacex Ipo En - Fortrade - FSC regulation">
         <parameter name="regulation" value="fsc"/>
         <parameter name="countryCode" value="389"/>
         <parameter name="tag" value="?regulation=fsc&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsFortrade.AnthropicIpoFscEs"/>
+            <class name="tests.TestsFortrade.AntropicIpoEphoneUkEn"/>
         </classes>
-    </test>
+    </test>-->
 
     <!--<test name="Test cases - Antropic Ipo Ephone Uk En - Fortrade - FCA regulation">
         <parameter name="regulation" value="fca"/>
@@ -28,16 +28,19 @@
         </classes>
     </test>-->
 
-<!--    <test name="Test cases - Antropic ipo ephone ca en - Fortrade - IIROC regulation">
+<!--
+    <test name="Test cases - Antropic ipo ephone ca en - Fortrade - IIROC regulation">
         <parameter name="regulation" value="iiroc"/>
         <parameter name="countryCode" value="1"/>
         <parameter name="tag" value="?regulation=iiroc&amp;regtest=true"/>
         <classes>
             <class name="tests.TestsFortrade.AntropicIpoEphoneCaEn"/>
         </classes>
-    </test>-->
+    </test>
+-->
 
-    <!--<test name="Test cases - Spacex Ipo En - Fortrade - ASIC regulation">
+<!--
+    <test name="Test cases - Spacex Ipo En - Fortrade - ASIC regulation">
         <parameter name="regulation" value="asic"/>
         <parameter name="countryCode" value="61"/>
         <parameter name="tag" value="?regulation=asic&amp;regtest=true"/>
@@ -45,16 +48,22 @@
             <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
     </test>
+-->
 
     <test name="Test cases - Spacex Ipo En - Fortrade - CYSEC regulation">
         <parameter name="regulation" value="cysec"/>
         <parameter name="countryCode" value="357"/>
         <parameter name="tag" value="?regulation=cysec&amp;regtest=true"/>
         <classes>
-            <class name="tests.TestsFortrade.SpacexIpoEn"/>
+            <class name="tests.TestsFortrade.CysecHr">
+                <methods>
+                    <include name="checkCysecPercentagesTest"/>
+                </methods>
+            </class>
         </classes>
     </test>
 
+<!--
     <test name="Test cases - Gold Trading Dfsa - Fortrade - DFSA regulation">
         <parameter name="regulation" value="dfsa"/>
         <parameter name="countryCode" value="971"/>
@@ -62,6 +71,7 @@
         <classes>
             <class name="tests.TestsFortrade.SpacexIpoEn"/>
         </classes>
-    </test>-->
+    </test>
+-->
 
 </suite>

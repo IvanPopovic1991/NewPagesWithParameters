@@ -49,19 +49,22 @@ public class DriverManager {
     }*/
 
     public static void quitDriver() {
+
         WebDriver webDriver = getDriver();
 
-        if (webDriver == null) {
-            log.warn("Attempted to quit WebDriver but driver was null");
-            return;
-        }
-
         try {
+            if (webDriver == null) {
+                log.warn("Attempted to quit WebDriver but driver was null");
+                return;
+            }
+
             log.info("Closing WebDriver");
             webDriver.quit();
             log.info("WebDriver closed successfully");
+
         } catch (Exception e) {
             log.error("Error while closing WebDriver", e);
+
         } finally {
             driver.remove();
         }

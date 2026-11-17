@@ -371,7 +371,7 @@ public class AntropicIpoFscEn extends BaseTest {
         openUrl(baseUrl + "&fts=sms-age-annual-saving-knowledge-plang:all");
         fortradeRPage.fillTheFormOnTheSecondStepWithWrongSmsCode(TestData.firstName,TestData.lastName,email,countryCode,fortradeRPage.selectPhoneNumber(regulation),
                 "25_34_age", "15000_50000_annual", "50000_100000_savings", "knowledge_of_trading_all_the_above","lang_EN",
-                "1", "1", "1", "1");
+                "1111");
         fortradeRPage.assertErrorMessageForWrongSmsCode();
     }
 

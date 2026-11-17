@@ -69,7 +69,7 @@ public class KapitalRSPage extends BasePage {
     public WebElement emailErrorMsg;
 
     //Nekad se koristi klasa sa "phone-pair" na kraju, a nekad bez
-    @FindBy(xpath = "//div[@class='formPair error-wrapper phone-pair']/following-sibling::span[@class='errorMessage'][1]")
+    @FindBy(xpath = /*"//div[@class='formPair error-wrapper phone-pair']/following-sibling::span[@class='errorMessage'][1]"*/ "//div[contains(@class, 'formPair') and contains(@class, 'error-wrapper')]/following-sibling::span[@class='errorMessage'][1]")
     public WebElement phoneErrorMsg;
 
     @FindBy(xpath = "//label[@for='FirstName']/following-sibling::span[@class='errorMessage'][1]")
@@ -186,16 +186,19 @@ public class KapitalRSPage extends BasePage {
     @FindBy(xpath = "//label[@name='SentAgainLabel']")
     public WebElement weSentYouTheCodeAgain;
 
-    @FindBy(xpath = "//div/input[@name='Token0']")
+    @FindBy(id = "Token")
+    public WebElement smsTokenField;
+
+    @FindBy(xpath = /*"//div/input[@name='Token0']"*/ "(//div[@class='tokenDigits']/span)[1]")
     public WebElement firstSmsTokenField;
 
-    @FindBy(xpath = "//div/input[@name='Token1']")
+    @FindBy(xpath = /*"//div/input[@name='Token1']"*/ "(//div[@class='tokenDigits']/span)[2]")
     public WebElement secondSmsTokenField;
 
-    @FindBy(xpath = "//div/input[@name='Token2']")
+    @FindBy(xpath = /*"//div/input[@name='Token2']"*/ "(//div[@class='tokenDigits']/span)[3]")
     public WebElement thirdSmsTokenField;
 
-    @FindBy(xpath = "//div/input[@name='Token3']")
+    @FindBy(xpath = /*"//div/input[@name='Token3']"*/ "(//div[@class='tokenDigits']/span)[4]")
     public WebElement fourthSmsTokenField;
 
     @FindBy(xpath = "//div/span[@class='smsErrorMessage']")
@@ -426,7 +429,7 @@ public class KapitalRSPage extends BasePage {
         clickGetStartedBtn();
     }
 
-    public void fillTheFormOnTheSecondStepWithWrongSmsCode(String firstNameData, String lastNameData, String emailAddress,
+    /*public void fillTheFormOnTheSecondStepWithWrongSmsCode(String firstNameData, String lastNameData, String emailAddress,
                                                            String countryCodeData, String phoneNumberData, String ageData,
                                                            String annualData, String savingData, String knowledgeData,
                                                            String languageData, String token0, String token1, String token2, String token3) {
@@ -438,13 +441,32 @@ public class KapitalRSPage extends BasePage {
         selectLanguage(languageData);
         enterTheSmsToken(token0, token1, token2, token3);
         clickGetStartedBtn();
+    }*/
+
+    public void fillTheFormOnTheSecondStepWithWrongSmsCode(String firstNameData, String lastNameData, String emailAddress,
+                                                           String countryCodeData, String phoneNumberData, String ageData,
+                                                           String annualData, String savingData, String knowledgeData,
+                                                           String languageData, String smsToken) {
+        goToSecondStep(firstNameData, lastNameData, emailAddress, countryCodeData, phoneNumberData);
+        selectAge(ageData);
+        selectAnnualIncome(annualData);
+        selectSaving(savingData);
+        selectKnowledge(knowledgeData);
+        selectLanguage(languageData);
+        enterTheSmsToken(smsToken);
+        clickGetStartedBtn();
     }
 
-    public void enterTheSmsToken(String token0, String token1, String token2, String token3) {
+
+    /*public void enterTheSmsToken(String token0, String token1, String token2, String token3) {
         ElementActions.type(firstSmsTokenField, token0, "first sms token field");
         ElementActions.type(secondSmsTokenField, token1, "second sms token field");
         ElementActions.type(thirdSmsTokenField, token2, "third sms token field");
         ElementActions.type(fourthSmsTokenField, token3, "fourth sms token field");
+    }*/
+
+    public void enterTheSmsToken(String smsToken) {
+        ElementActions.type(smsTokenField, smsToken, "sms token field");
     }
 
     public void assertErrMsgForAlreadyRegisteredAccount() {
